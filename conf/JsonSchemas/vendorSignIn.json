@@ -1,0 +1,43 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "signIn",
+    "type": "object",
+    "properties": {
+        "phoneNo": {
+            "type": "string",
+            "maxLength": 25,
+            "minLength": 2,
+            "description": "PhoneNo"
+        },
+        "email": {
+            "type": "string",
+            "format": "email",
+            "maxLength": 100
+        },
+        "password": {
+			"description": "password",
+			"type": "string",
+			"maxLength": 100
+		},
+        "deviceToken": {
+            "type": "string",
+            "maxLength": 256,
+            "description": "deviceToken for push notification"
+        },
+        "deviceId": {
+            "type": "string",
+            "description": "Device vendor specific id"
+        },
+        "deviceType": {
+            "type": "integer",
+            "description": "Device type id for device OS identification"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+		"password",
+		"deviceId",
+		"deviceType"
+    ]
+}
+

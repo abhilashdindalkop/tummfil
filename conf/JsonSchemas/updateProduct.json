@@ -1,0 +1,48 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"title": "UpdateProduct",
+	"type": "object",
+	"properties": {
+		"productId": {
+			"type": "string"
+		},
+		"name": {
+			"type": "string",
+			"maxLength": 100,
+			"minLength": 2
+		},
+		"price": {
+			"type": "number",
+			"minimum": 0
+		},
+		"categoryId": {
+			"type": "integer"
+		},
+		"description": {
+			"type": "string",
+			"minLength": 3,
+			"maxLength": 300
+		},
+		"unitType": {
+			"type": "integer",
+			"minimum": 1
+		},
+		"units": {
+			"type": "number",
+			"minimum": 0
+		},
+		"status": {
+			"type": "integer"
+		},
+		"productType": {
+			"type": "integer"
+		},
+		"isDeleted": {
+			"type": "boolean"
+		}
+	},
+	"additionalProperties": false,
+	"required": [
+		"productId"
+	]
+}

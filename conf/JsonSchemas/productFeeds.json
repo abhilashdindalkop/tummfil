@@ -1,0 +1,53 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"title": "product feeds",
+	"type": "object",
+	"properties": {
+		"page": {
+			"type": "integer",
+			"minimum": 0
+		},
+		"limit": {
+			"type": "integer",
+			"minimum": 0
+		},
+		"filters": {
+			"id": "filters",
+			"type": "object",
+			"properties": {
+				"isFeatured": {
+					"id": "isFeatured",
+					"type": "boolean"
+				},
+				"searchText": {
+					"id": "searchText",
+					"type": "string"
+				},
+				"categoryId": {
+					"id": "categoryId",
+					"type": "integer"
+				},
+				"productType": {
+					"id": "productType",
+					"type": "integer"
+				},
+				"minPrice": {
+					"id": "minPrice",
+					"type": "number",
+					"minimum": 0
+				},
+				"maxPrice": {
+					"id": "maxPrice",
+					"type": "number",
+					"minimum": 0
+				},
+				"vendorId": {
+					"id": "vendorId",
+					"type": "string"
+				}
+			},
+			"additionalProperties": false
+		}
+	},
+	"additionalProperties": false
+}

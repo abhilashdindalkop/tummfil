@@ -1,0 +1,47 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"title": "Update Vendor",
+	"type": "object",
+	"properties": {
+		"name": {
+			"type": "string",
+			"maxLength": 45,
+			"minLength": 2,
+			"description": "name"
+		},
+		"vendorName": {
+			"type": "string",
+			"maxLength": 45,
+			"minLength": 2,
+			"description": "name"
+		},
+		"vendorAddress": {
+			"type": "string",
+			"maxLength": 256,
+			"minLength": 2,
+			"description": "name"
+		},
+		"cityId": {
+			"type": "integer"
+		},
+		"description": {
+			"type": "string",
+			"maxLength": 300,
+			"minLength": 2,
+			"description": "name"
+		},
+		"latitude": {
+			"type": "number",
+			"description": "Location latitude"
+		},
+		"longitude": {
+			"type": "number",
+			"description": "Location longitude"
+		},
+		"shippingDistance": {
+			"type": "integer",
+			"description": "Distance in Meters"
+		}
+	},
+	"additionalProperties": false
+}

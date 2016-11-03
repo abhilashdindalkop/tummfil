@@ -1,0 +1,33 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"title": "updateUser",
+	"type": "object",
+	"properties": {
+		"name": {
+			"type": "string",
+			"maxLength": 45,
+			"minLength": 2,
+			"description": "name"
+		},
+		"address": {
+			"type": "string",
+			"maxLength": 256
+		},
+		"pincode": {
+			"type": "string",
+			"maxLength": 20,
+			"minLength": 2,
+			"description": "pincode"
+		},
+		"cityId": {
+			"type": "integer"
+		},
+		"email": {
+			"description": "emailId",
+			"type": "string",
+			"format": "email",
+			"maxLength": 100
+ 		}
+	},
+	"additionalProperties": false
+}

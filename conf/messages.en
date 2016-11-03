@@ -1,0 +1,75 @@
+title = WASH HOUSE
+
+##################################### API SUCCESS MESSAGES #####################################
+vendor.update.success = Vendor updated successful
+product.update.success = Product updated successful
+##################################### API FAILURE MESSAGES #####################################
+unsupported.file.type = Unsupported file type
+file.Content.type.not.supported = File Content type not supported
+user.not.exists = User does not exists
+user.already.exists = User already exists
+invalid.json = Invalid JSON
+bad.request = Bad request
+invalid.api.call = Invalid API call
+invalid.input = Invalid input
+invalid.name = Invalid first name
+invalid.device.type = Invalid device type ID
+invalid.email = Invalid email
+invalid.user = Invalid User
+invalid.profile.type = Invalid Profile type
+json.parse.error =  Error while parsing JSON
+json.mapper.error = Error while mapping JSON 
+technical.error = Oops! Something went wrong
+session.creation.failed = Session creation failed
+session.invalid = Session is invalid
+db.error = Database Error
+email.already.exists = Email already exists
+phone.no.already.exists = Phone number already exists
+city.doesnt.exist = City doesn't exist
+vendor.not.verified = Vendor is not verified. Please contact main branch to get verified
+###	Product Failure messages ###
+product.doesnt.exist = Product doesn't exist
+category.doesnt.exist = Category doesn't exist
+vendor.doesnt.exist = Vendor doesn't exist
+vendor.not.owner.of.product = Vendor is not the owner of product
+invalid.product.status = Invalid product status
+invalid.product.type = Invalid product type
+invalid.search.operation = Invalid search operation
+search.text.min.length.two = Search text minimum length two
+values.cant.be.negative = Values can't be negative
+send.valid.order.status = Send valid order status
+order.doesnt.exist = Order doesn't exist
+order.doesnt.belong.to.vendor = Order doesn't belong to vendor
+order.id.not.found = Order id not found
+order.status.not.found = Order status not found
+already.confirmed = Already confirmed
+already.declined = Already declined
+already.cancelled = Already cancelled
+already.out.for.delivery = Already out for delivery
+already.under.progress = Already under progress
+already.delivered = Already delivered
+order.status.update.success = Order status update successful
+######################################################################################################
+################################################ USER ############################################
+
+##################################### API SUCCESS MESSAGES #####################################
+user.update.success = User updated successful
+product.added.to.cart.success = Product added to cart success
+##################################### API FAILURE MESSAGES #####################################
+email.phone.not.found = Email or Phone Number not found
+workshop.not.found = Workshop not found 
+incorrect.password = Incorrect Password
+phone.already.registered = User already registered with this Phone No.
+email.already.registered = User already registered with this Email ID
+city.id.doesnt.exist = City id doesn't exist
+incorrect.email.phone = Incorrect Email or Phone No.
+cloth.type.doesnt.exist = Cloth type doesn't exist
+wash.type.doesnt.exist = Wash type doesn't exist
+user.doesnt.exist = User doesn't exist
+unique.device.id.token = Send unique device id and device token
+product.not.added.to.cart = Product not added to cart
+invalid.access = Invalid access
+product.deleted.from.cart.success = Product deleted from cart successfully
+cart.product.update.success = Updated product in the cart
+cart.empty = Cart is empty. Please, add some products to the cart.
+invalid.order.type = Invalid order type

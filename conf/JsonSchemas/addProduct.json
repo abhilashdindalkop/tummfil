@@ -1,0 +1,51 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"title": "AddProduct",
+	"type": "object",
+	"properties": {
+		"name": {
+			"type": "string",
+			"maxLength": 100,
+			"minLength": 2
+		},
+		"price": {
+			"type": "number",
+			"minimum": 0
+		},
+		"categoryId": {
+			"type": "integer"
+		},
+		"description": {
+			"type": "string",
+			"minLength": 3,
+			"maxLength": 300
+		},
+		"unitType": {
+			"type": "integer",
+			"minimum": 1
+		},
+		"units": {
+			"type": "number",
+			"minimum": 0
+		},
+		"productType": {
+			"type": "integer"
+		},
+		"latitude": {
+			"type": "number",
+			"description": "Location latitude"
+		},
+		longitude": {
+			"type": "number",
+			"description": "Location longitude"
+		}
+	},
+	"additionalProperties": false,
+	"required": [
+		"name",
+		"price",
+		"categoryId",
+		"availableUnits",
+		"unit"
+	]
+}

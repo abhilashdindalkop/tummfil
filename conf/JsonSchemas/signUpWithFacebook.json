@@ -1,0 +1,45 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "SignUp With Facebook",
+    "type": "object",
+    "properties": {
+        "facebookId": {
+            "type": "string"
+        },
+        "fbToken": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string",
+            "maxLength": 45,
+            "description": "firstName"
+        },
+        "email": {
+            "type": "string",
+            "maxLength": 100
+        },
+		"phoneNo": {
+            "type": "string",
+            "maxLength": 20
+        },
+        "deviceId": {
+            "type": "string",
+            "maxLength": 100
+        },
+        "deviceToken": {
+            "type": "string",
+            "maxLength": 100
+        },
+        "deviceTypeId": {
+            "type": "integer",
+            "description": "Device type id for device os identification"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+   		"name",
+        "facebookId",
+        "fbToken",
+        "deviceTypeId"
+    ]
+}

@@ -1,0 +1,45 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"title": "Vendor feeds",
+	"type": "object",
+	"properties": {
+		"page": {
+			"type": "integer"
+		},
+		"limit": {
+			"type": "integer"
+		},
+		"filters": {
+			"id": "filters",
+			"type": "object",
+			"properties": {
+				"vendorId": {
+					"id": "vendorId",
+					"type": "string"
+				},
+				"cityId": {
+					"id": "cityId",
+					"type": "integer"
+				},
+				"localityId": {
+					"id": "cityId",
+					"type": "integer"
+				},
+				"searchText": {
+					"id": "searchText",
+					"type": "string"
+				},
+				"latitude": {
+					"type": "number",
+					"description": "Location latitude"
+				},
+				longitude": {
+					"type": "number",
+					"description": "Location longitude"
+				}
+			},
+			"additionalProperties": false
+		}
+	},
+	"additionalProperties": false
+}
