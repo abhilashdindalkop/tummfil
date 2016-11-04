@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ecommerce.models.sql.Vendors;
+import com.avaje.ebean.Query;
 import com.ecommerce.models.sql.Products;
 import com.ecommerce.models.sql.Promotions;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -13,6 +14,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import play.libs.Json;
 import utils.MyConstants;
 import utils.MyConstants.APIRequestKeys;
+import utils.MyConstants.APIResponseKeys;
 import utils.MyException;
 
 public class FeedService {
@@ -83,6 +85,21 @@ public class FeedService {
 
 		ObjectNode resultNode = Json.newObject();
 		resultNode.set(APIRequestKeys.PROMOTIONS, Json.toJson(promoJsonList));
+
+		return resultNode;
+	}
+
+	public ObjectNode findFeaturedProductsList(int page, int limit) throws MyException, IOException {
+		// TODO calculate featured products
+		// Calculate most ordered products
+		Query<Products> productQuery = Products.getFeaturedProductsQuery();
+
+		long totalCount = productQuery.findRowCount();
+		List<Products> products = productQuery.findPagedList(page, limit).getList();
+
+		ObjectNode resultNode = Json.newObject();
+		resultNode.set(APIResponseKeys.PRODUCTS, Json.toJson(CreateResponseJson.getProductsListJson(products)));
+		resultNode.put(APIResponseKeys.TOTAL_COUNT, totalCount);
 
 		return resultNode;
 	}

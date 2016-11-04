@@ -86,7 +86,7 @@ public class DeliveryBoyController extends ParentController {
 	public Result deliveryBoyLogout() {
 		try {
 
-			deliveryBoyService.userLogout();
+			deliveryBoyService.deliveryBoyLogout();
 
 			response = new MySuccessResponse(SuccessMessages.LOGOUT_SUCCESS);
 		} catch (PersistenceException e) {

@@ -121,7 +121,7 @@ public class DeliveryBoyService {
 	//
 	// }
 
-	public void userLogout() throws IOException {
+	public void deliveryBoyLogout() throws IOException {
 		deliveryBoySessionDAO.deleteSession(deliveryBoySessionDAO.findByContext());
 	}
 

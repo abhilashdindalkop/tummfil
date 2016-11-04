@@ -2,9 +2,11 @@ package controllers;
 
 import javax.inject.Inject;
 
+import com.ecommerce.models.sql.Products;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Result;
 import services.FeedService;
@@ -55,6 +57,19 @@ public class FeedsController extends ParentController {
 	public Result getPromotions() {
 		try {
 			ObjectNode resultNode = feedService.getPromotions();
+			response = new MySuccessResponse(resultNode);
+		} catch (Exception e) {
+			response = createFailureResponse(e);
+		}
+		return response.getResult();
+	}
+
+	public Result getFeaturedProducts(int page, int limit) {
+		try {
+			ObjectNode resultNode = Json.newObject();
+
+			resultNode = feedService.findFeaturedProductsList(page, limit);
+			// send 5 most ordered products of each category
 			response = new MySuccessResponse(resultNode);
 		} catch (Exception e) {
 			response = createFailureResponse(e);

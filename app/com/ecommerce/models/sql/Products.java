@@ -220,7 +220,7 @@ public class Products extends Model {
 	}
 
 	public static List<Category> getVendorCategories(Vendors vendor) throws MyException {
-		Set<Products> listProducts = basicQuery().where().eq("vendor", vendor).select("category_id").setDistinct(true)
+		Set<Products> listProducts = basicQuery().where().eq("vendor", vendor).select("category").setDistinct(true)
 				.findSet();
 		List<Category> categoryList = new ArrayList<Category>();
 		for (Products product : listProducts) {
@@ -445,4 +445,14 @@ public class Products extends Model {
 		this.update();
 	}
 
+	public static Query<Products> getFeaturedProductsQuery() throws MyException, IOException {
+		// TODO calculate featured products
+		// Calculate most ordered products
+		Query<Products> productQuery = basicQuery();
+
+		productQuery.where().ne("image_url", null);
+		productQuery.where().eq("isFeatured", true);
+
+		return productQuery;
+	}
 }

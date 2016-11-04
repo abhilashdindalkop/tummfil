@@ -50,6 +50,7 @@ public class VendorLocationDAO {
 		newVendorLoc.setLocation(Arrays.asList(longitude, latitude));
 		newVendorLoc.setCreatedTime(new Date());
 		newVendorLoc.setShippingDistance(shippingDistance);
+		ds.save(newVendorLoc);
 		return newVendorLoc;
 	}
 
