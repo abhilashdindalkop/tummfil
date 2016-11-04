@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.avaje.ebean.Query;
+import com.avaje.ebean.SqlRow;
 import com.ecommerce.models.sql.Category;
 import com.ecommerce.models.sql.VendorSession;
 import com.ecommerce.models.sql.Vendors;
@@ -36,6 +37,13 @@ public class ProductService {
 			int productType = inputJson.findValue(APIRequestKeys.PRODUCT_TYPE).asInt();
 			if (!MyConstants.productTypeList.contains(productType)) {
 				throw new MyException(FailureMessages.INVALID_PRODUCT_TYPE);
+			}
+		}
+
+		if (inputJson.has(APIRequestKeys.UNIT_TYPE)) {
+			int unitType = inputJson.findValue(APIRequestKeys.UNIT_TYPE).asInt();
+			if (!MyConstants.unitTypeList.contains(unitType)) {
+				throw new MyException(FailureMessages.INVALID_UNIT_TYPE);
 			}
 		}
 
@@ -93,7 +101,9 @@ public class ProductService {
 		}
 		Vendors vendor = VendorSession.findByContext().getVendor();
 
-		List<HashMap<String, Object>> productsList = Products.searchVendorProductsByText(vendor, searchText);
+		List<SqlRow> productList = Products.searchMyProductsByTextQuery(vendor, searchText);
+
+		List<HashMap<String, Object>> productsList = CreateResponseJson.getProductsListJsonRaw(productList);
 
 		ObjectNode resultNode = Json.newObject();
 		resultNode.set(APIResponseKeys.PRODUCTS, Json.toJson(productsList));

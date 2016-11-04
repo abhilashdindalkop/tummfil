@@ -25,6 +25,7 @@ import utils.MyConstants.APIResponseKeys;
 import utils.MyConstants.FailureMessages;
 import utils.MyConstants.OrderType;
 import utils.MyConstants.ProductType;
+import utils.MyConstants.UnitType;
 import utils.MyException;
 
 public class VendorService {
@@ -36,8 +37,7 @@ public class VendorService {
 		this.vendorLocationDAO = vendorLocationDAO;
 	}
 
-	public ObjectNode signUpUsingPhoneNo(JsonNode inputJson)
-			throws MyException, NoSuchAlgorithmException, IOException {
+	public ObjectNode signUpUsingPhoneNo(JsonNode inputJson) throws MyException, NoSuchAlgorithmException, IOException {
 
 		/* Check if user already exists */
 		String phoneNo = inputJson.findValue(APIRequestKeys.PHONE_NO).asText();
@@ -168,12 +168,18 @@ public class VendorService {
 		productTypeHM.put(ProductType.NON_VEG_STR, ProductType.NON_VEG);
 
 		HashMap<String, Integer> orderTypeHM = new HashMap<String, Integer>();
-		orderTypeHM.put(OrderType.DELIVER_STR, OrderType.DELIVER);
-		orderTypeHM.put(OrderType.HAVE_HERE_STR, OrderType.HAVE_HERE);
-		orderTypeHM.put(OrderType.TAKE_AWAY_STR, OrderType.TAKE_AWAY);
+		orderTypeHM.put(OrderType.NORMAL_STR, OrderType.NORMAL);
+		orderTypeHM.put(OrderType.GIFT_WRAP_STR, OrderType.GIFT_WRAP);
+		orderTypeHM.put(OrderType.PRE_ORDER_STR, OrderType.PRE_ORDER);
+
+		HashMap<String, Integer> unitTypesHM = new HashMap<String, Integer>();
+		unitTypesHM.put(UnitType.KG_STR, UnitType.KG);
+		unitTypesHM.put(UnitType.LITRE_STR, UnitType.LITRE);
+		unitTypesHM.put(UnitType.NONE_STR, UnitType.NONE);
 
 		resultNode.set(APIResponseKeys.PRODUCT_TYPES, Json.toJson(productTypeHM));
 		resultNode.set(APIResponseKeys.ORDER_TYPES, Json.toJson(orderTypeHM));
+		resultNode.set(APIResponseKeys.UNIT_TYPES, Json.toJson(unitTypesHM));
 
 		Date updatedDate = new Date(updatedTime);
 		boolean isUpdate = false;

@@ -67,7 +67,7 @@ public class Products extends Model {
 
 	private int productType = 0;
 
-	private int unitType;
+	private int unitType = 0;
 
 	private double units = 1;
 
@@ -392,39 +392,9 @@ public class Products extends Model {
 			products = productQuery.findPagedList(page, limit).getList();
 		}
 
-		resultNode.set("productList", Products.getProductsFeedListJson(products));
+		resultNode.set("productList", CreateResponseJson.getProductsFeedListJson(products));
 		resultNode.put(APIResponseKeys.TOTAL_COUNT, totalCount);
 		return resultNode;
-	}
-
-	public static ObjectNode getProductsFeedListJson(List<Products> productList) throws IOException {
-		long prevId = 0;
-		String prevType = null;
-		Category curCat;
-		ObjectNode productCategoryNode = Json.newObject();
-
-		List<HashMap<String, Object>> categoryProductList = new ArrayList<HashMap<String, Object>>();
-		for (Products product : productList) {
-			curCat = product.getCategory();
-			if (curCat.getId() != prevId && prevId != 0) {
-				productCategoryNode.set(prevType, Json.toJson(categoryProductList));
-				categoryProductList = new ArrayList<HashMap<String, Object>>();
-			}
-			HashMap<String, Object> productHM = CreateResponseJson.getProductJson(product);
-			categoryProductList.add(productHM);
-			prevId = curCat.getId();
-			prevType = curCat.getType();
-		}
-		if (prevId != 0) {
-			productCategoryNode.set(prevType, Json.toJson(categoryProductList));
-		}
-		return productCategoryNode;
-	}
-
-	public static List<HashMap<String, Object>> searchVendorProductsByText(Vendors vendor, String searchText)
-			throws IOException {
-		List<SqlRow> productList = searchMyProductsByTextQuery(vendor, searchText);
-		return CreateResponseJson.getProductsListJsonRaw(productList);
 	}
 
 	public static List<SqlRow> searchMyProductsByTextQuery(Vendors vendor, String searchText) {

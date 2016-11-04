@@ -61,6 +61,7 @@ public class MyConstants {
 		public static final String PAYMENT_TYPE = "paymentType";
 		public static final String PAYMENT_STATUS = "paymentStatus";
 		public static final String ORDER_TYPES = "orderTypes";
+		public static final String UNIT_TYPES = "unitTypes";
 
 		public static final String TOTAL_COUNT = "totalCount";
 		public static final String ORDERS = "orders";
@@ -250,6 +251,7 @@ public class MyConstants {
 		public static final String VENDOR_NOT_OWNER_OF_PRODUCT = "vendor.not.owner.of.product";
 		public static final String INVALID_PRODUCT_STATUS = "invalid.product.status";
 		public static final String INVALID_PRODUCT_TYPE = "invalid.product.type";
+		public static final String INVALID_UNIT_TYPE = "invalid.unit.type";
 		public static final String INVALID_SEARCH_OPERATION = "invalid.search.operation";
 		public static final String SEARCH_TEXT_MIN_LENGTH_TWO = "search.text.min.length.two";
 		public static final String SEND_VALID_ORDER_STATUS = "send.valid.order.status";
@@ -299,6 +301,7 @@ public class MyConstants {
 		public static final String TRANSACTION_ALREADY_DONE = "transaction.already.done";
 		public static final String INVALID_TRANSACTION = "invalid.transaction";
 		public static final String TRANSACTION_FAILED = "transaction.failed";
+		public static final String VENDOR_NOT_AVAILABLE = "vendor.not.available";
 
 	}
 
@@ -354,8 +357,8 @@ public class MyConstants {
 			ProductStatus.INCOMPLETE);
 	public static List<Integer> productTypeList = Arrays.asList(ProductType.NONE, ProductType.VEG, ProductType.NON_VEG);
 
-	public static List<Integer> orderTypeList = Arrays.asList(OrderType.DELIVER, OrderType.TAKE_AWAY,
-			OrderType.HAVE_HERE);
+	public static List<Integer> orderTypeList = Arrays.asList(OrderType.NORMAL, OrderType.PRE_ORDER,
+			OrderType.GIFT_WRAP);
 	public static List<Integer> orderStatusList = Arrays.asList(OrderStatus.CONFIRMED, OrderStatus.UNDER_PROGRESS,
 			OrderStatus.OUT_FOR_DELIVERY, OrderStatus.DECLINED, OrderStatus.CANCELLED, OrderStatus.DELIVERED);
 
@@ -389,13 +392,13 @@ public class MyConstants {
 	}
 
 	public class OrderType {
-		public static final int DELIVER = 1;
-		public static final int TAKE_AWAY = 2;
-		public static final int HAVE_HERE = 3;
+		public static final int NORMAL = 1;
+		public static final int GIFT_WRAP = 2;
+		public static final int PRE_ORDER = 3;
 
-		public static final String DELIVER_STR = "Deliver";
-		public static final String TAKE_AWAY_STR = "TakeAway";
-		public static final String HAVE_HERE_STR = "HaveHere";
+		public static final String NORMAL_STR = "Normal";
+		public static final String GIFT_WRAP_STR = "GiftWrap";
+		public static final String PRE_ORDER_STR = "PreOrder";
 	}
 
 	public class PaymentType {
@@ -425,6 +428,10 @@ public class MyConstants {
 		public static final int NONE = 0;
 		public static final int KG = 1;
 		public static final int LITRE = 2;
+	
+		public static final String NONE_STR = "None";
+		public static final String KG_STR = "KG";
+		public static final String LITRE_STR = "Litre";
 	}
 
 	public class ImageResizeType {

@@ -24,12 +24,11 @@
 			"maxLength": 300
 		},
 		"unitType": {
-			"type": "integer",
-			"minimum": 1
+			"type": "integer"
 		},
 		"units": {
 			"type": "number",
-			"minimum": 0
+			"minimum": 1
 		},
 		"status": {
 			"type": "integer"

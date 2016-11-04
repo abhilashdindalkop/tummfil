@@ -288,6 +288,11 @@ public class Orders extends Model {
 			OrderedProductsRequestDTO firstOrderProdReq = requestDTO.orderedProducts.get(0);
 
 			Vendors vendor = Products.findById(firstOrderProdReq.productId).getVendor();
+
+			if (!(vendor.getIsVendorVerified() && vendor.getIsVendorAvailable())) {
+				throw new MyException(FailureMessages.VENDOR_NOT_AVAILABLE);
+			}
+
 			double price;
 			List<OrderedProducts> listOrderedProducts = new ArrayList<OrderedProducts>();
 

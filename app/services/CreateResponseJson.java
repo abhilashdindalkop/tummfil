@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.avaje.ebean.SqlRow;
 import com.ecommerce.models.sql.Vendors;
+import com.ecommerce.models.sql.Category;
 import com.ecommerce.models.sql.OrderedProducts;
 import com.ecommerce.models.sql.Orders;
 import com.ecommerce.models.sql.Products;
@@ -23,6 +24,31 @@ public class CreateResponseJson {
 	/*
 	 * Construct Products Json
 	 */
+
+	/* Json for Product feeds - Based on category */
+	public static ObjectNode getProductsFeedListJson(List<Products> productList) throws IOException {
+		long prevId = 0;
+		String prevType = null;
+		Category curCat;
+		ObjectNode productCategoryNode = Json.newObject();
+
+		List<HashMap<String, Object>> categoryProductList = new ArrayList<HashMap<String, Object>>();
+		for (Products product : productList) {
+			curCat = product.getCategory();
+			if (curCat.getId() != prevId && prevId != 0) {
+				productCategoryNode.set(prevType, Json.toJson(categoryProductList));
+				categoryProductList = new ArrayList<HashMap<String, Object>>();
+			}
+			HashMap<String, Object> productHM = CreateResponseJson.getProductJson(product);
+			categoryProductList.add(productHM);
+			prevId = curCat.getId();
+			prevType = curCat.getType();
+		}
+		if (prevId != 0) {
+			productCategoryNode.set(prevType, Json.toJson(categoryProductList));
+		}
+		return productCategoryNode;
+	}
 
 	public static List<HashMap<String, Object>> getProductsListJsonRaw(List<SqlRow> productRowList) throws IOException {
 		List<HashMap<String, Object>> productList = new ArrayList<HashMap<String, Object>>();
@@ -106,8 +132,8 @@ public class CreateResponseJson {
 		vendorNode.put(APIResponseKeys.LONGITUDE, vendor.getLongitude());
 		vendorNode.set(APIResponseKeys.CITY, Json.toJson(vendor.getCity()));
 		if (vendor.getImageUrl() != null) {
-			vendorNode.put(APIResponseKeys.VENDOR_IMAGE_URL, ImageUtilities.getVendorImageUrl(vendor.getEncryptedVendorId(),
-					vendor.getImageUrl(), ImageResizeType.STANDARD));
+			vendorNode.put(APIResponseKeys.VENDOR_IMAGE_URL, ImageUtilities
+					.getVendorImageUrl(vendor.getEncryptedVendorId(), vendor.getImageUrl(), ImageResizeType.STANDARD));
 			vendorNode.put(APIResponseKeys.VENDOR_THUMBNAIL_IMAGE_URL, ImageUtilities.getVendorImageUrl(
 					vendor.getEncryptedVendorId(), vendor.getImageUrl(), ImageResizeType.THUMBNAIL_SIZE));
 		}

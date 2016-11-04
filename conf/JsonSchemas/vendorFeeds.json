@@ -33,7 +33,7 @@
 					"type": "number",
 					"description": "Location latitude"
 				},
-				longitude": {
+				"longitude": {
 					"type": "number",
 					"description": "Location longitude"
 				}

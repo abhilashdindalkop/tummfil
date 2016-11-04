@@ -21,31 +21,20 @@
 			"maxLength": 300
 		},
 		"unitType": {
-			"type": "integer",
-			"minimum": 1
+			"type": "integer"
 		},
 		"units": {
 			"type": "number",
-			"minimum": 0
+			"minimum": 1
 		},
 		"productType": {
 			"type": "integer"
-		},
-		"latitude": {
-			"type": "number",
-			"description": "Location latitude"
-		},
-		longitude": {
-			"type": "number",
-			"description": "Location longitude"
 		}
 	},
 	"additionalProperties": false,
 	"required": [
 		"name",
 		"price",
-		"categoryId",
-		"availableUnits",
-		"unit"
+		"categoryId"
 	]
 }
