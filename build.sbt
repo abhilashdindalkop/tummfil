@@ -16,7 +16,8 @@ libraryDependencies ++= Seq(
   "com.amazonaws" % "aws-java-sdk" % "1.10.35",
   "com.mashape.unirest" % "unirest-java" % "1.4.5",
   "org.mongodb" % "mongo-java-driver" % "3.3.0",
-  "org.mongodb.morphia" % "morphia" % "1.2.1"
+  "org.mongodb.morphia" % "morphia" % "1.2.1",
+  filters
 )
 
 // Play provides two styles of routers, one expects its actions to be injected, the

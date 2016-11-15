@@ -12,6 +12,7 @@ import play.mvc.BodyParser;
 import play.mvc.Result;
 import play.mvc.Security;
 import services.UserService;
+import utils.CorsComposition;
 import utils.MyConstants.FailureMessages;
 import utils.MyConstants.JsonSchemaFilePath;
 import utils.MyConstants.SuccessMessages;
@@ -25,11 +26,11 @@ public class UserController extends ParentController {
 
 	@Inject
 	public UserController(UserService userService) {
-
 		this.userService = userService;
 	}
 
 	/* To Sign Up a new user */
+	@CorsComposition.Cors
 	@BodyParser.Of(BodyParser.Json.class)
 	@ValidateJson(JsonSchemaFilePath.USER_SIGN_UP)
 	public Result signUpUsingPhoneNo() {
@@ -46,6 +47,7 @@ public class UserController extends ParentController {
 		return response.getResult();
 	}
 
+	@CorsComposition.Cors
 	@BodyParser.Of(BodyParser.Json.class)
 	@ValidateJson(JsonSchemaFilePath.USER_SIGN_IN)
 	public Result userSignIn() {
@@ -62,6 +64,7 @@ public class UserController extends ParentController {
 		return response.getResult();
 	}
 
+	@CorsComposition.Cors
 	@Security.Authenticated(UserAuthenticator.class)
 	public Result userSync() {
 		try {
@@ -77,6 +80,7 @@ public class UserController extends ParentController {
 		return response.getResult();
 	}
 
+	@CorsComposition.Cors
 	@BodyParser.Of(BodyParser.Json.class)
 	@ValidateJson(JsonSchemaFilePath.UPDATE_USER)
 	@Security.Authenticated(UserAuthenticator.class)
@@ -109,7 +113,8 @@ public class UserController extends ParentController {
 
 		return response.getResult();
 	}
-
+	
+	@CorsComposition.Cors
 	@BodyParser.Of(BodyParser.Json.class)
 	@ValidateJson(JsonSchemaFilePath.USER_FB_SIGN_IN)
 	public Result signInUsingFacebook() {
@@ -128,6 +133,7 @@ public class UserController extends ParentController {
 		return response.getResult();
 	}
 
+	@CorsComposition.Cors
 	@BodyParser.Of(BodyParser.Json.class)
 	@Security.Authenticated(UserAuthenticator.class)
 	public Result addUserAddress() {
@@ -144,6 +150,7 @@ public class UserController extends ParentController {
 		return response.getResult();
 	}
 
+	@CorsComposition.Cors
 	@Security.Authenticated(UserAuthenticator.class)
 	public Result deleteUserAddress(int addressId) {
 		try {
@@ -158,6 +165,7 @@ public class UserController extends ParentController {
 		return response.getResult();
 	}
 
+	@CorsComposition.Cors
 	@Security.Authenticated(UserAuthenticator.class)
 	public Result getUserAddress() {
 		try {
@@ -172,6 +180,7 @@ public class UserController extends ParentController {
 		return response.getResult();
 	}
 
+	@CorsComposition.Cors
 	@Security.Authenticated(UserAuthenticator.class)
 	public Result userLogout() {
 		try {

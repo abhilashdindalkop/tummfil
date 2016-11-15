@@ -2,7 +2,6 @@ package controllers;
 
 import javax.inject.Inject;
 
-import com.ecommerce.models.sql.Products;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -10,6 +9,7 @@ import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Result;
 import services.FeedService;
+import utils.CorsComposition;
 import utils.MyConstants.JsonSchemaFilePath;
 import utils.MySuccessResponse;
 import utils.ValidateJsonSchema.ValidateJson;
@@ -23,6 +23,7 @@ public class FeedsController extends ParentController {
 		this.feedService = feedService;
 	}
 
+	@CorsComposition.Cors
 	@BodyParser.Of(BodyParser.Json.class)
 	@ValidateJson(JsonSchemaFilePath.VENDOR_FEEDS)
 	public Result vendorFeeds() {
@@ -38,6 +39,7 @@ public class FeedsController extends ParentController {
 		return response.getResult();
 	}
 
+	@CorsComposition.Cors
 	@BodyParser.Of(BodyParser.Json.class)
 	@ValidateJson(JsonSchemaFilePath.PRODUCT_FEEDS)
 	public Result productFeeds() {
@@ -54,6 +56,7 @@ public class FeedsController extends ParentController {
 		return response.getResult();
 	}
 
+	@CorsComposition.Cors
 	public Result getPromotions() {
 		try {
 			ObjectNode resultNode = feedService.getPromotions();
@@ -64,6 +67,7 @@ public class FeedsController extends ParentController {
 		return response.getResult();
 	}
 
+	@CorsComposition.Cors
 	public Result getFeaturedProducts(int page, int limit) {
 		try {
 			ObjectNode resultNode = Json.newObject();

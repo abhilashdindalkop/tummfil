@@ -27,7 +27,7 @@ public class ImageUtilities {
 		case ImageResizeType.STANDARD:
 
 			imageUrl = imageUrl + getProductImageFilePath(productId, prodImageUrl, ImageResizeType.STANDARD);
-
+			break;
 		case ImageResizeType.THUMBNAIL_SIZE:
 
 			imageUrl = imageUrl + getProductImageFilePath(productId, prodImageUrl, ImageResizeType.THUMBNAIL_SIZE);
@@ -73,7 +73,7 @@ public class ImageUtilities {
 		case ImageResizeType.STANDARD:
 
 			imageUrl = imageUrl + MessageReaderFactory.getPropertyValue("IMAGE_EXTENSION");
-
+			break;
 		case ImageResizeType.THUMBNAIL_SIZE:
 
 			imageUrl = imageUrl + MessageReaderFactory.getPropertyValue("THUMB_NAIL_IMAGE")
@@ -122,7 +122,7 @@ public class ImageUtilities {
 		case ImageResizeType.STANDARD:
 
 			imageUrl = imageUrl + MessageReaderFactory.getPropertyValue("IMAGE_EXTENSION");
-
+			break;
 		case ImageResizeType.THUMBNAIL_SIZE:
 
 			imageUrl = imageUrl + MessageReaderFactory.getPropertyValue("THUMB_NAIL_IMAGE")
@@ -154,7 +154,7 @@ public class ImageUtilities {
 		case ImageResizeType.STANDARD:
 
 			imageUrl = imageUrl + getProductImageFilePath(vendorId, vendorImageUrl, ImageResizeType.STANDARD);
-
+			break;
 		case ImageResizeType.THUMBNAIL_SIZE:
 
 			imageUrl = imageUrl + getProductImageFilePath(vendorId, vendorImageUrl, ImageResizeType.THUMBNAIL_SIZE);

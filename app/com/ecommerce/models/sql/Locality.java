@@ -35,6 +35,8 @@ public class Locality extends Model {
 
 	private double longitude;
 
+	private int pincode;
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(nullable = false)
 	private Cities city;
@@ -81,6 +83,14 @@ public class Locality extends Model {
 
 	public void setCity(Cities city) {
 		this.city = city;
+	}
+
+	public int getPincode() {
+		return pincode;
+	}
+
+	public void setPincode(int pincode) {
+		this.pincode = pincode;
 	}
 
 	public Date getCreatedTime() {

@@ -440,6 +440,12 @@ public class MyConstants {
 		public static final int ANDROID_SIZE = 2;
 		public static final int WEB_SIZE = 3;
 	}
+	
+	public class ReferralStatus {
+		public static final int NOT_CREDITED = 1;
+		public static final int CREDITED = 2;
+		public static final int WALLET_OVERFLOW = 3;
+	}
 
 	public static final int DEFAULT_PAGINATION_LIMIT = 10;
 	public static final int SHIPPING_DISTANCE = 20000; // Distance in meters

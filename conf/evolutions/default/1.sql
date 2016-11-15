@@ -66,6 +66,7 @@ create table locality (
   address                   varchar(255),
   latitude                  double,
   longitude                 double,
+  pincode                   integer,
   city_id                   bigint not null,
   created_time              TIMESTAMP,
   constraint pk_locality primary key (id))
@@ -136,6 +137,14 @@ create table promotions (
   image_url                 varchar(255),
   created_time              TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   constraint pk_promotions primary key (id))
+;
+
+create table referral (
+  id                        bigint auto_increment not null,
+  credit                    float not null,
+  status                    integer not null,
+  created_time              TIMESTAMP DEFAULT CURRENT_TIMESTAMP not null,
+  constraint pk_referral primary key (id))
 ;
 
 create table tags (
@@ -342,6 +351,8 @@ drop table orders;
 drop table products;
 
 drop table promotions;
+
+drop table referral;
 
 drop table tags;
 

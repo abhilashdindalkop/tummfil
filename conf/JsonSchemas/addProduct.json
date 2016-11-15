@@ -10,7 +10,7 @@
 		},
 		"price": {
 			"type": "number",
-			"minimum": 0
+			"minimum": 1
 		},
 		"categoryId": {
 			"type": "integer"
