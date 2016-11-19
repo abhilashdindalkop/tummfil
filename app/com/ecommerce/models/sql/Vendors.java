@@ -280,8 +280,7 @@ public class Vendors extends Model {
 	}
 
 	public static ObjectNode createVendorUsingPhoneNo(Vendors newVendor, String deviceToken, String deviceId,
-			int deviceTypeId, String password, long cityId)
-					throws NoSuchAlgorithmException, IOException, MyException {
+			int deviceTypeId, String password, long cityId) throws NoSuchAlgorithmException, IOException, MyException {
 		try {
 			Ebean.beginTransaction();
 			/* Create Vendor */
@@ -320,8 +319,7 @@ public class Vendors extends Model {
 		this.save();
 	}
 
-	public static ObjectNode getVendorFeeds(JsonNode filterNode, int page, int limit)
-			throws MyException, IOException {
+	public static ObjectNode getVendorFeeds(JsonNode filterNode, int page, int limit) throws MyException, IOException {
 		/*
 		 * Get All Vendors with image. Filters : searchText, city
 		 */

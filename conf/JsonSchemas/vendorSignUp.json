@@ -48,6 +48,11 @@
 			"maxLength": 100,
 			"minLength": 6
 		},
+		"referralCode": {
+			"description": "ReferralCode",
+			"type": "string",
+			"maxLength": 30
+		},
 		"deviceToken": {
 			"type": "string",
 			"maxLength": 256,

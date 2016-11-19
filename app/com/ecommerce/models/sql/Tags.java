@@ -57,7 +57,7 @@ public class Tags extends Model {
 		this.createdTime = createdTime;
 	}
 
-	public static Tags findById(String tagId) throws MyException {
+	public static Tags findById(long tagId) throws MyException {
 		Tags tag = Ebean.find(Tags.class).where().eq("id", tagId).findUnique();
 		if (tag == null) {
 			throw new MyException(FailureMessages.TAG_DOESNT_EXIST);

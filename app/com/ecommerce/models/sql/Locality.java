@@ -104,7 +104,7 @@ public class Locality extends Model {
 	public static Locality findById(Long locId) throws MyException {
 		Locality loc = Ebean.find(Locality.class).where().eq("id", locId).findUnique();
 		if (loc == null) {
-			throw new MyException(FailureMessages.TAG_DOESNT_EXIST);
+			throw new MyException(FailureMessages.LOCALITY_DOESNT_EXIST);
 		}
 		return loc;
 	}

@@ -248,6 +248,7 @@ public class MyConstants {
 		public static final String CATEGORY_DOESNT_EXIST = "category.doesnt.exist";
 		public static final String VENDOR_DOESNT_EXIST = "vendor.doesnt.exist";
 		public static final String TAG_DOESNT_EXIST = "tag.doesnt.exist";
+		public static final String LOCALITY_DOESNT_EXIST = "locality.doesnt.exist";
 		public static final String VENDOR_NOT_OWNER_OF_PRODUCT = "vendor.not.owner.of.product";
 		public static final String INVALID_PRODUCT_STATUS = "invalid.product.status";
 		public static final String INVALID_PRODUCT_TYPE = "invalid.product.type";

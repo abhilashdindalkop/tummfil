@@ -153,17 +153,17 @@ public class ImageUtilities {
 		switch (imageSizeType) {
 		case ImageResizeType.STANDARD:
 
-			imageUrl = imageUrl + getProductImageFilePath(vendorId, vendorImageUrl, ImageResizeType.STANDARD);
+			imageUrl = imageUrl + getVendorImageFilePath(vendorId, vendorImageUrl, ImageResizeType.STANDARD);
 			break;
 		case ImageResizeType.THUMBNAIL_SIZE:
 
-			imageUrl = imageUrl + getProductImageFilePath(vendorId, vendorImageUrl, ImageResizeType.THUMBNAIL_SIZE);
+			imageUrl = imageUrl + getVendorImageFilePath(vendorId, vendorImageUrl, ImageResizeType.THUMBNAIL_SIZE);
 			break;
 		case ImageResizeType.ANDROID_SIZE:
-			imageUrl = imageUrl + getProductImageFilePath(vendorId, vendorImageUrl, ImageResizeType.ANDROID_SIZE);
+			imageUrl = imageUrl + getVendorImageFilePath(vendorId, vendorImageUrl, ImageResizeType.ANDROID_SIZE);
 			break;
 		case ImageResizeType.WEB_SIZE:
-			imageUrl = imageUrl + getProductImageFilePath(vendorId, vendorImageUrl, ImageResizeType.WEB_SIZE);
+			imageUrl = imageUrl + getVendorImageFilePath(vendorId, vendorImageUrl, ImageResizeType.WEB_SIZE);
 			break;
 		}
 		return imageUrl;
