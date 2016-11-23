@@ -69,4 +69,23 @@ public class OrderService {
 		return resultNode;
 	}
 
+	public ObjectNode getUserOrders(int page, int limit) throws MyException, IOException {
+
+		String userId = UserSession.getUserEncryptedIdByContext();
+		Users user = Users.findById(userId);
+
+		HashMap<String, Object> orderMap = Orders.findUserOrders(user, page, limit);
+
+		@SuppressWarnings("unchecked")
+		List<Orders> orderList = (List<Orders>) orderMap.get("result");
+		int totalCount = (int) orderMap.get("totalCount");
+
+		List<ObjectNode> orderJsonList = CreateResponseJson.getVendorOrdersJsonResult(orderList);
+
+		ObjectNode resultNode = Json.newObject();
+		resultNode.set(APIResponseKeys.ORDERS, Json.toJson(orderJsonList));
+		resultNode.put(APIResponseKeys.TOTAL_COUNT, totalCount);
+		return resultNode;
+	}
+
 }

@@ -98,6 +98,8 @@ public class UserController extends ParentController {
 		return response.getResult();
 	}
 
+
+	@CorsComposition.Cors
 	@BodyParser.Of(BodyParser.Json.class)
 	@ValidateJson(JsonSchemaFilePath.USER_FB_SIGN_UP)
 	public Result signUpUsingFacebook() {

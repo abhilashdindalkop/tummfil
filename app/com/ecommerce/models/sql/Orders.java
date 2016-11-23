@@ -432,4 +432,17 @@ public class Orders extends Model {
 		this.update();
 	}
 
+	public static HashMap<String, Object> findUserOrders(Users user, int page, int limit)
+			throws MyException {
+		Query<Orders> query = Ebean.find(Orders.class).where().eq("user", user).order().desc("created_time");
+
+		HashMap<String, Object> orderMap = new HashMap<String, Object>();
+		orderMap.put("totalCount", query.findRowCount());
+
+		List<Orders> orderList = query.findPagedList(page, limit).getList();
+		orderMap.put("result", orderList);
+
+		return orderMap;
+	}
+
 }

@@ -17,6 +17,7 @@ import services.OrderService;
 import utils.MyConstants.APIRequestKeys;
 import utils.MyConstants.FailureMessages;
 import utils.MyConstants.SuccessMessages;
+import utils.CorsComposition;
 import utils.MyException;
 import utils.MySuccessResponse;
 
@@ -68,6 +69,7 @@ public class OrderController extends ParentController {
 		return response.getResult();
 	}
 
+	@CorsComposition.Cors
 	@BodyParser.Of(BodyParser.Json.class)
 	@Security.Authenticated(UserAuthenticator.class)
 	public Result createOrder() {
@@ -76,6 +78,19 @@ public class OrderController extends ParentController {
 
 			ObjectNode resultNode = orderService.createOrder(inputJson);
 			response = new MySuccessResponse(resultNode);
+		} catch (Exception e) {
+			response = createFailureResponse(e);
+		}
+		return response.getResult();
+	}
+
+	@Security.Authenticated(UserAuthenticator.class)
+	public Result getUserOrders(int page, int limit) {
+		try {
+
+			ObjectNode resultNode = orderService.getUserOrders(page, limit);
+			response = new MySuccessResponse(resultNode);
+
 		} catch (Exception e) {
 			response = createFailureResponse(e);
 		}

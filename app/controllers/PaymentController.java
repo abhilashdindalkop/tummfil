@@ -15,6 +15,7 @@ import play.mvc.Result;
 import play.mvc.Security;
 import services.PaymentService;
 import utils.MyConstants.APIResponseKeys;
+import utils.CorsComposition;
 import utils.MySuccessResponse;
 import utils.ObjectMapperUtil;
 
@@ -27,6 +28,7 @@ public class PaymentController extends ParentController {
 		this.paymentService = paymentService;
 	}
 
+	@CorsComposition.Cors
 	@BodyParser.Of(BodyParser.Json.class)
 	@Security.Authenticated(UserAuthenticator.class)
 	public Result createTransaction() {

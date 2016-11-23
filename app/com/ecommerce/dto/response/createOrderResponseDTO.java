@@ -12,8 +12,6 @@ public class createOrderResponseDTO {
 
 	public String orderId;
 
-	public String vendorOrderId;
-
 	@JsonProperty("orderStatus")
 	public Integer status;
 

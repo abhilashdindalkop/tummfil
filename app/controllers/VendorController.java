@@ -14,6 +14,7 @@ import services.VendorService;
 import utils.MyConstants.FailureMessages;
 import utils.MyConstants.JsonSchemaFilePath;
 import utils.MyConstants.SuccessMessages;
+import utils.CorsComposition;
 import utils.MyFailureResponse;
 import utils.MySuccessResponse;
 import utils.ValidateJsonSchema.ValidateJson;
@@ -79,6 +80,8 @@ public class VendorController extends ParentController {
 		return response.getResult();
 	}
 
+
+	@CorsComposition.Cors
 	public Result getVendorPrerequisites(long updatedTime) {
 		try {
 
