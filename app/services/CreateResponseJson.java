@@ -71,6 +71,7 @@ public class CreateResponseJson {
 			newHM.put(APIResponseKeys.UNITS, product.getDouble("units"));
 			newHM.put(APIResponseKeys.UNIT_TYPE, product.getDouble("unit_type"));
 			newHM.put(APIResponseKeys.PRICE, product.getDouble("price"));
+			newHM.put(APIResponseKeys.IS_FEATURED, product.getBoolean("is_featured"));
 			productList.add(newHM);
 		}
 		return productList;
@@ -103,6 +104,7 @@ public class CreateResponseJson {
 		newHM.put(APIResponseKeys.UNITS, product.getUnits());
 		newHM.put(APIResponseKeys.UNIT_TYPE, product.getUnitType());
 		newHM.put(APIResponseKeys.PRICE, product.getPrice());
+		newHM.put(APIResponseKeys.IS_FEATURED, product.getIsFeatured());
 		return newHM;
 	}
 

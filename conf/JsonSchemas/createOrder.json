@@ -44,7 +44,7 @@
 			"id": "filters",
 			"type": "array",
 			"properties": {
-				"vendorId": {
+				"productId": {
 					"id": "productId",
 					"type": "string"
 				},
@@ -53,7 +53,6 @@
 					"minimum": 1
 				}
 			},
-			"additionalProperties": false,
 			"required": [
 				"vendorId",
 				"quantity"
@@ -64,9 +63,9 @@
 	"required": [
 		"name",
 		"cityId",
-		"orderType",
 		"pincode",
 		"phoneNo",
-		"address"
+		"address",
+		orderedProducts
 	]
 }

@@ -101,6 +101,7 @@ public class MyConstants {
 		public static final String CURRENCY = "currency";
 		public static final String AMOUNT = "amount";
 		public static final String CREATED_TIME = "createdTime";
+		public static final String IS_FEATURED = "isFeatured";
 
 	}
 

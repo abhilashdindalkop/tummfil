@@ -80,12 +80,24 @@ public class ProductController extends ParentController {
 		}
 		return response.getResult();
 	}
-
+	
 	/* Search products for Users */
 	public Result searchProducts(String searchText, int page, int limit) {
 		try {
 
 			ObjectNode resultNode = productService.searchProducts(searchText, page, limit);
+
+			response = new MySuccessResponse(resultNode);
+		} catch (Exception e) {
+			response = createFailureResponse(e);
+		}
+		return response.getResult();
+	}
+	
+	@Security.Authenticated(VendorAuthenticator.class)
+	public Result searchCategory(String searchText) {
+		try {
+			ObjectNode resultNode = productService.searchCategory(searchText);
 
 			response = new MySuccessResponse(resultNode);
 		} catch (Exception e) {

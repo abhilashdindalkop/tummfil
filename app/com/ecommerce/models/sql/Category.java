@@ -11,6 +11,8 @@ import javax.persistence.Id;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
+import com.avaje.ebean.SqlQuery;
+import com.avaje.ebean.SqlRow;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import utils.MyConstants.FailureMessages;
@@ -81,6 +83,21 @@ public class Category extends Model {
 	public static List<Category> findAllCategories() {
 		List<Category> categoryList = Ebean.find(Category.class).findList();
 		return categoryList;
+	}
+
+	public static List<SqlRow> searchByText(String searchText) {
+
+		searchText = searchText.replace(" ", "").toLowerCase();
+		String searchCategoryQuery;
+		SqlQuery rawSqlQuery;
+
+		/* Search category */
+		searchCategoryQuery = "SELECT id, type FROM category WHERE REPLACE(LOWER(type), ' ', '') LIKE '%" + searchText
+				+ "%'";
+		rawSqlQuery = Ebean.createSqlQuery(searchCategoryQuery);
+
+		List<SqlRow> rowList = rawSqlQuery.findList();
+		return rowList;
 	}
 
 }

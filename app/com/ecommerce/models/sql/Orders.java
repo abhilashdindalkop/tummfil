@@ -293,7 +293,7 @@ public class Orders extends Model {
 				throw new MyException(FailureMessages.VENDOR_NOT_AVAILABLE);
 			}
 
-			double price;
+			double price = 0;
 			List<OrderedProducts> listOrderedProducts = new ArrayList<OrderedProducts>();
 
 			List<ObjectNode> orderedProdJsonList = new ArrayList<ObjectNode>();
@@ -314,11 +314,12 @@ public class Orders extends Model {
 
 				listOrderedProducts.add(orderedProduct);
 
-				totalProductsPrice = +price;
+				totalProductsPrice += price;
 
 				// Construct response json
 				ObjectNode prodJson = Json.newObject();
 				prodJson.put(APIResponseKeys.PRODUCT_ID, product.getProductId());
+				prodJson.put(APIResponseKeys.PRODUCT_NAME, product.getName());
 				prodJson.put(APIResponseKeys.QUANTITY, orderedProduct.getQuantity());
 				// TODO get tags
 				prodJson.put(APIResponseKeys.PRICE, orderedProduct.getPrice());
@@ -347,7 +348,8 @@ public class Orders extends Model {
 			/* Create response */
 			ObjectMapper mapper = ObjectMapperUtil.getInstance();
 			orderResponse = mapper.convertValue(newOrder, createOrderResponseDTO.class);
-			orderResponse.vendorTotalPrice = totalPrice;
+			orderResponse.extraFee = extraFee;
+			orderResponse.totalPrice = totalPrice;
 			orderResponse.productList = orderedProdJsonList;
 
 			return Json.toJson(orderResponse);
@@ -432,8 +434,7 @@ public class Orders extends Model {
 		this.update();
 	}
 
-	public static HashMap<String, Object> findUserOrders(Users user, int page, int limit)
-			throws MyException {
+	public static HashMap<String, Object> findUserOrders(Users user, int page, int limit) throws MyException {
 		Query<Orders> query = Ebean.find(Orders.class).where().eq("user", user).order().desc("created_time");
 
 		HashMap<String, Object> orderMap = new HashMap<String, Object>();
