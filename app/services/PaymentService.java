@@ -8,8 +8,10 @@ import com.ecommerce.models.sql.Orders;
 import com.ecommerce.models.sql.Transactions;
 import com.ecommerce.models.sql.UserSession;
 
+import play.libs.Json;
 import utils.MyConstants.CurrencyType;
 import utils.MyConstants.FailureMessages;
+import utils.MyConstants.OrderStatus;
 import utils.MyConstants.PaymentStatus;
 import utils.MyConstants.PaymentType;
 import utils.MyConstants.TransactionStatus;
@@ -42,8 +44,14 @@ public class PaymentService {
 		switch (requestDTO.paymentType) {
 
 		case PaymentType.COD:
-			newTransaction = transactionsDAO.create(order, PaymentType.COD, CurrencyType.INR, order.getTotalPrice());
+			System.out.println("----------------------- " + Json.toJson(transactionsDAO.findByOrderId(order, TransactionStatus.SUCCESS)));
+			/* Exception case for COD - because Payment Status : PENDING */
+			if(transactionsDAO.findByOrderId(order, TransactionStatus.SUCCESS) != null){
+				throw new MyException(FailureMessages.TRANSACTION_ALREADY_DONE);
+			}
+			newTransaction = transactionsDAO.create(order, PaymentType.COD, CurrencyType.INR);
 			if (newTransaction.getStatus() == TransactionStatus.PENDING) {
+				order.setStatus(OrderStatus.CONFIRMED);
 				order.updatePaymentTypeAndStatus(PaymentType.COD, PaymentStatus.PENDING);
 			}
 			break;
@@ -55,9 +63,7 @@ public class PaymentService {
 			throw new MyException(FailureMessages.INVALID_PAYMENT_TYPE);
 		}
 
-		if (newTransaction == null) {
-			throw new MyException(FailureMessages.TRANSACTION_FAILED);
-		}
+	
 		return newTransaction;
 	}
 }

@@ -27,6 +27,7 @@ public class MyConstants {
 		public static final String EMAIL = "email";
 		public static final String PHONE_NO = "phoneNo";
 		public static final String CITY = "city";
+		public static final String EXTRA_FEE = "extraFee";
 
 		public static final String IS_NEW_USER = "isNewUser";
 		public static final String CITY_ID = "cityId";

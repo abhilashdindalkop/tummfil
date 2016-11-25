@@ -12,8 +12,7 @@ public class createOrderResponseDTO {
 
 	public String orderId;
 
-	@JsonProperty("orderStatus")
-	public Integer status;
+	public Integer orderStatus;
 
 	public List<ObjectNode> productList = new ArrayList<ObjectNode>();
 

@@ -348,6 +348,7 @@ public class Orders extends Model {
 			/* Create response */
 			ObjectMapper mapper = ObjectMapperUtil.getInstance();
 			orderResponse = mapper.convertValue(newOrder, createOrderResponseDTO.class);
+			orderResponse.orderStatus = newOrder.getStatus();
 			orderResponse.extraFee = extraFee;
 			orderResponse.totalPrice = totalPrice;
 			orderResponse.productList = orderedProdJsonList;
@@ -377,7 +378,7 @@ public class Orders extends Model {
 		this.setCompanyFee(companyFee);
 		this.setExtraFee(extraFee);
 		this.setTotalPrice(totalPrice);
-		this.setStatus(OrderStatus.CONFIRMED);
+		this.setStatus(OrderStatus.PENDING);
 		if (!MyConstants.orderTypeList.contains(requestDTO.orderType)) {
 			throw new MyException(FailureMessages.INVALID_ORDER_TYPE);
 		}

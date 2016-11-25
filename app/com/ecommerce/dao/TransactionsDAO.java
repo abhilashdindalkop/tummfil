@@ -18,14 +18,20 @@ public class TransactionsDAO {
 		Transactions transaction = Ebean.find(Transactions.class).where().eq("trasaction_id", transactionId)
 				.findUnique();
 		if (transaction == null) {
-			throw new MyException(FailureMessages.DELIVERY_BOY_DOESNT_EXIST);
+			throw new MyException(FailureMessages.TRANSACTION_DOESNT_EXIST);
 		}
 		return transaction;
 	}
 
-	public Transactions create(Orders order, int paymentType, int currency, double amount) throws MyException {
+	public Transactions findByOrderId(Orders order, int transactionStatus) throws MyException {
+		Transactions transaction = Ebean.find(Transactions.class).where().eq("order", order)
+				.eq("status", transactionStatus).findUnique();
+		return transaction;
+	}
 
-		if (amount > 0) {
+	public Transactions create(Orders order, int paymentType, int currency) throws MyException {
+
+		if (order.getTotalPrice() <= 0) {
 			throw new MyException(FailureMessages.INVALID_TRANSACTION);
 		}
 		Transactions newTransaction = new Transactions();
@@ -34,10 +40,10 @@ public class TransactionsDAO {
 		newTransaction.setTransactionId(GenericUtils.generateTransactionId());
 		newTransaction.setOrder(order);
 		newTransaction.setPaymentType(paymentType);
-		newTransaction.setStatus(TransactionStatus.PENDING);
+		newTransaction.setStatus(TransactionStatus.SUCCESS);
 		newTransaction.setCurrency(currency);
 		newTransaction.setCreatedTime(new Date());
-		newTransaction.setAmount(amount);
+		newTransaction.setAmount(order.getTotalPrice());
 		newTransaction.save();
 		return newTransaction;
 	}

@@ -17,6 +17,7 @@ import play.libs.Json;
 import utils.MyConstants.APIResponseKeys;
 import utils.MyConstants.ImageResizeType;
 import utils.MyException;
+import utils.GenericUtils;
 import utils.ImageUtilities;
 
 public class CreateResponseJson {
@@ -133,6 +134,8 @@ public class CreateResponseJson {
 		vendorNode.put(APIResponseKeys.LATITUDE, vendor.getLatitude());
 		vendorNode.put(APIResponseKeys.LONGITUDE, vendor.getLongitude());
 		vendorNode.set(APIResponseKeys.CITY, Json.toJson(vendor.getCity()));
+		double extraFee = GenericUtils.computeExtraFee();
+		vendorNode.put(APIResponseKeys.EXTRA_FEE, extraFee);
 		if (vendor.getImageUrl() != null) {
 			vendorNode.put(APIResponseKeys.VENDOR_IMAGE_URL, ImageUtilities
 					.getVendorImageUrl(vendor.getEncryptedVendorId(), vendor.getImageUrl(), ImageResizeType.STANDARD));
@@ -143,7 +146,7 @@ public class CreateResponseJson {
 	}
 
 	/*
-	 * Construct Vendor Json
+	 * Construct Vendor Order Json
 	 */
 	public static List<ObjectNode> getVendorOrdersJsonResult(List<Orders> orderList) throws MyException, IOException {
 		List<ObjectNode> orderJsonList = new ArrayList<ObjectNode>();
