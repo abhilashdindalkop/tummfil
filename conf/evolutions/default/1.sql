@@ -258,6 +258,7 @@ create table vendors (
   encrypted_vendor_id       varchar(255) not null,
   name                      varchar(255),
   vendor_name               varchar(255),
+  vendor_type               integer,
   vendor_address            TEXT,
   city_id                   bigint not null,
   latitude                  double,

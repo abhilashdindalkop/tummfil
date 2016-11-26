@@ -32,6 +32,7 @@ import utils.MyConstants;
 import utils.MyConstants.APIRequestKeys;
 import utils.MyConstants.APIResponseKeys;
 import utils.MyConstants.FailureMessages;
+import utils.MyConstants.VendorType;
 import utils.MyException;
 
 @Entity
@@ -48,6 +49,8 @@ public class Vendors extends Model {
 	private String name;
 
 	private String vendorName;
+
+	private int vendorType = VendorType.NORMAL;
 
 	@Column(columnDefinition = "TEXT")
 	private String vendorAddress;
@@ -224,6 +227,14 @@ public class Vendors extends Model {
 		this.vendorName = vendorName;
 	}
 
+	public int getVendorType() {
+		return vendorType;
+	}
+
+	public void setVendorType(int vendorType) {
+		this.vendorType = vendorType;
+	}
+
 	public String getVendorAddress() {
 		return vendorAddress;
 	}
@@ -323,6 +334,8 @@ public class Vendors extends Model {
 		/*
 		 * Get All Vendors with image. Filters : searchText, city
 		 */
+		boolean isEmpty = false;
+
 		ObjectNode resultNode = Json.newObject();
 		Query<Vendors> vendorQuery = basicQuery();
 
@@ -341,18 +354,8 @@ public class Vendors extends Model {
 			List<String> searchedVendorIds = searchVendorByText(searchText);
 			if (!searchedVendorIds.isEmpty()) {
 				vendorQuery.where().in("encrypted_vendor_id", searchedVendorIds);
-			}
-		}
-
-		if (filterNode.has(APIRequestKeys.LOCALITY_ID)) {
-			Locality locality = Locality.findById(filterNode.findValue(APIRequestKeys.LOCALITY_ID).asLong());
-			double distance = MyConstants.SHIPPING_DISTANCE;
-
-			VendorLocationDAO vendorLocationDAO = new VendorLocationDAO();
-			List<Long> vendorIdList = vendorLocationDAO.findNearbyVendorIds(locality.getLatitude(),
-					locality.getLongitude(), distance, page, limit);
-			if (!vendorIdList.isEmpty()) {
-				vendorQuery.where().in("id", vendorIdList);
+			} else {
+				isEmpty = true;
 			}
 		}
 
@@ -366,14 +369,20 @@ public class Vendors extends Model {
 			List<Long> vendorIdList = vendorLocationDAO.findNearbyVendorIds(latitude, longitude, distance, page, limit);
 			if (!vendorIdList.isEmpty()) {
 				vendorQuery.where().in("id", vendorIdList);
+			} else {
+				isEmpty = true;
 			}
 		}
 
-		resultNode.put(APIResponseKeys.TOTAL_COUNT, vendorQuery.findRowCount());
+		List<Vendors> vendorsList = new ArrayList<Vendors>();
+		int totalCount = 0;
+		if (!isEmpty) {
+			totalCount = vendorQuery.findRowCount();
+			vendorsList = vendorQuery.findPagedList(page, limit).getList();
+		}
 
-		List<Vendors> vendorsList = vendorQuery.findPagedList(page, limit).getList();
+		resultNode.put(APIResponseKeys.TOTAL_COUNT, totalCount);
 		resultNode.set(APIResponseKeys.VENDOR_LIST, Json.toJson(CreateResponseJson.getVendorsJsonList(vendorsList)));
-
 		return resultNode;
 	}
 

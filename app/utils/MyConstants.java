@@ -389,9 +389,8 @@ public class MyConstants {
 	}
 
 	public class TransactionStatus {
-		public static final int PENDING = 1;
-		public static final int SUCCESS = 2;
-		public static final int FAILURE = 3;
+		public static final int SUCCESS = 1;
+		public static final int FAILURE = 2;
 	}
 
 	public class OrderType {
@@ -436,6 +435,12 @@ public class MyConstants {
 		public static final String KG_STR = "KG";
 		public static final String LITRE_STR = "Litre";
 	}
+	
+	public class VendorType {
+		public static final int NORMAL = 1;
+		public static final int EXECUTIVE = 2;
+		public static final int PREMIUM = 3;
+	}
 
 	public class ImageResizeType {
 		public static final int STANDARD = 0;
@@ -451,7 +456,8 @@ public class MyConstants {
 	}
 
 	public static final int DEFAULT_PAGINATION_LIMIT = 10;
-	public static final int SHIPPING_DISTANCE = 20000; // Distance in meters
+	
+	public static final int SHIPPING_DISTANCE = 20000; // In meters
 
 	// In milliseconds (24*60*60*1000)
 	public static final int EXPIRY_TIME = 86400000;

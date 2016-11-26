@@ -95,13 +95,17 @@ public class DeliveryBoyService {
 		resultNode.put(APIResponseKeys.NAME, boy.getName());
 		resultNode.put(APIResponseKeys.PHONE_NO, boy.getPhoneNo());
 		resultNode.put(APIResponseKeys.ADDRESS, boy.getAddress());
-		resultNode.put(APIResponseKeys.VENDOR_NAME, boy.getVendor().getVendorName());
+		Vendors vendor = boy.getVendor() ;
+		if(vendor!= null){
+			resultNode.put(APIResponseKeys.VENDOR_NAME, vendor.getVendorName());	
+		}
 		resultNode.set(APIResponseKeys.CITY, Json.toJson(boy.getCity()));
 		resultNode.put(APIResponseKeys.TOKEN, session.getToken());
 		return resultNode;
 	}
 
-	// public void updateDeliveryBoy(JsonNode inputJson) throws VendorException {
+	// public void updateDeliveryBoy(JsonNode inputJson) throws VendorException
+	// {
 	//
 	// String encryptedUserId = deliveryBoySessionDAO.getEncryptedIdByContext();
 	// DeliveryBoys boy = deliveryBoysDAO.findById(encryptedUserId);

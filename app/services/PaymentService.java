@@ -44,13 +44,12 @@ public class PaymentService {
 		switch (requestDTO.paymentType) {
 
 		case PaymentType.COD:
-			System.out.println("----------------------- " + Json.toJson(transactionsDAO.findByOrderId(order, TransactionStatus.SUCCESS)));
 			/* Exception case for COD - because Payment Status : PENDING */
 			if(transactionsDAO.findByOrderId(order, TransactionStatus.SUCCESS) != null){
 				throw new MyException(FailureMessages.TRANSACTION_ALREADY_DONE);
 			}
 			newTransaction = transactionsDAO.create(order, PaymentType.COD, CurrencyType.INR);
-			if (newTransaction.getStatus() == TransactionStatus.PENDING) {
+			if (newTransaction.getStatus() == TransactionStatus.SUCCESS) {
 				order.setStatus(OrderStatus.CONFIRMED);
 				order.updatePaymentTypeAndStatus(PaymentType.COD, PaymentStatus.PENDING);
 			}
