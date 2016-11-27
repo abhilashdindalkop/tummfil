@@ -4,8 +4,9 @@ import java.io.IOException;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
-import com.ecommerce.models.sql.Vendors;
+import com.ecommerce.models.sql.Category;
 import com.ecommerce.models.sql.Products;
+import com.ecommerce.models.sql.Vendors;
 
 import utils.MyConstants.ImageResizeType;
 import utils.MyConstants.NetworkConstants;
@@ -142,7 +143,8 @@ public class ImageUtilities {
 	}
 
 	/* To construct the image url */
-	public static String getVendorImageUrl(String vendorId, String vendorImageUrl, int imageSizeType) throws IOException {
+	public static String getVendorImageUrl(String vendorId, String vendorImageUrl, int imageSizeType)
+			throws IOException {
 		if (vendorImageUrl == null) {
 			return null;
 		}
@@ -167,6 +169,13 @@ public class ImageUtilities {
 			break;
 		}
 		return imageUrl;
+	}
+
+	/* Construct Category Image url */
+	public static String constructCategoryImageUrl(Category category) {
+		String imageUrl = MyConstants.CATEGORY_IMAGE_BASE_PATH + category.getType() + ".png";
+		return imageUrl;
+
 	}
 
 }

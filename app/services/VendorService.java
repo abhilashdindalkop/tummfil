@@ -210,8 +210,11 @@ public class VendorService {
 		String vendorId = VendorSession.getVendorEncryptedIdByContext();
 		Vendors vendor = Vendors.findById(vendorId);
 
+		List<HashMap<String, Object>> categoryList = CreateResponseJson
+				.constructCategoriesResponse(Products.getVendorCategories(vendor));
+
 		ObjectNode categoriesNode = Json.newObject();
-		categoriesNode.set(APIResponseKeys.CATEGORY_LIST, Json.toJson(Products.getVendorCategories(vendor)));
+		categoriesNode.set(APIResponseKeys.CATEGORY_LIST, Json.toJson(categoryList));
 
 		return categoriesNode;
 	}

@@ -31,7 +31,9 @@ public class MyConstants {
 
 		public static final String IS_NEW_USER = "isNewUser";
 		public static final String CITY_ID = "cityId";
-
+		public static final String ID = "id";
+		public static final String TYPE = "type";
+		
 		public static final String VENDOR_ID = "vendorId";
 		public static final String VENDOR_NAME = "vendorName";
 		public static final String VENDOR_ADDRESS = "vendorAddress";
@@ -471,5 +473,8 @@ public class MyConstants {
 	public static final float DELIVERY_FEE = 20;
 
 	public static final String IMAGE_UPLOAD_KEY = "image";
+	
+
+	public static final String CATEGORY_IMAGE_BASE_PATH = "https://s3-us-west-2.amazonaws.com/cake-house/categories/";
 
 }
