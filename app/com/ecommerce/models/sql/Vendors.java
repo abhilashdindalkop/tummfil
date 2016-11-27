@@ -253,7 +253,7 @@ public class Vendors extends Model {
 
 	public static Query<Vendors> basicQuery() {
 		Query<Vendors> query = Ebean.createQuery(Vendors.class);
-		query.where().eq("is_deleted", false).eq("is_vendor_verified", true).eq("is_vendor_available", true);
+		query.where().eq("is_deleted", false).eq("is_vendor_verified", true);
 		return query;
 	}
 
@@ -389,7 +389,7 @@ public class Vendors extends Model {
 	public static List<String> searchVendorByText(String searchText) {
 
 		searchText = searchText.replace(" ", "").toLowerCase();
-		String searchVendorQuery = "SELECT encrypted_vendor_id FROM vendors WHERE is_vendor_available=true AND is_vendor_verified=true AND REPLACE(LOWER(vendor_name), ' ', '') LIKE '%"
+		String searchVendorQuery = "SELECT encrypted_vendor_id FROM vendors WHERE is_deleted=false AND is_vendor_verified=true AND REPLACE(LOWER(vendor_name), ' ', '') LIKE '%"
 				+ searchText + "%'";
 		List<String> vendorIds = new ArrayList<String>();
 		SqlQuery rawSqlQuery = Ebean.createSqlQuery(searchVendorQuery);

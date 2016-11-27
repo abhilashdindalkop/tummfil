@@ -133,6 +133,7 @@ public class CreateResponseJson {
 		vendorNode.put(APIResponseKeys.VENDOR_ID, vendor.getEncryptedVendorId());
 		vendorNode.put(APIResponseKeys.LATITUDE, vendor.getLatitude());
 		vendorNode.put(APIResponseKeys.LONGITUDE, vendor.getLongitude());
+		vendorNode.put(APIResponseKeys.IS_AVAILABLE, vendor.getIsVendorAvailable());
 		vendorNode.set(APIResponseKeys.CITY, Json.toJson(vendor.getCity()));
 		double extraFee = GenericUtils.computeExtraFee();
 		vendorNode.put(APIResponseKeys.EXTRA_FEE, extraFee);

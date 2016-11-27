@@ -41,6 +41,10 @@
 		"shippingDistance": {
 			"type": "integer",
 			"description": "Distance in Meters"
+		},
+		"isAvailable": {
+			"type": "boolean",
+			"description": "Vendor Availability"
 		}
 	},
 	"additionalProperties": false

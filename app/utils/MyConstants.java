@@ -74,6 +74,7 @@ public class MyConstants {
 		public static final String ORDER_ID = "orderId";
 		public static final String ADDRESS = "address";
 		public static final String PINCODE = "pincode";
+		public static final String IS_AVAILABLE = "isAvailable";
 
 		public static final String LATITUDE = "latitude";
 		public static final String LONGITUDE = "longitude";
@@ -123,6 +124,7 @@ public class MyConstants {
 		public static final String PASSWORD = "password";
 		public static final String ADDRESS = "address";
 		public static final String ADDRESS_TYPE = "addressType";
+		public static final String IS_AVAILABLE = "isAvailable";
 
 		public static final String CITY_ID = "cityId";
 		public static final String PINCODE = "pincode";

@@ -131,6 +131,10 @@ public class VendorService {
 			Cities city = Cities.findById(cityId);
 			vendor.setCity(city);
 		}
+		if (inputJson.has(APIRequestKeys.IS_AVAILABLE)) {
+			boolean isAvailable = inputJson.findValue(APIRequestKeys.IS_AVAILABLE).asBoolean();
+			vendor.setIsVendorAvailable(isAvailable);
+		}
 		if (inputJson.has(APIRequestKeys.DESCRIPTION)) {
 			vendor.setDescription(inputJson.findValue(APIRequestKeys.DESCRIPTION).asText());
 		}
@@ -156,11 +160,9 @@ public class VendorService {
 		// throw new CakeException(FailureMessages.INVALID_API_CALL);
 		// }
 
-		List<Category> categoryList = Category.findAllCategories();
 		List<Cities> cityList = Cities.findAllCities();
 
 		ObjectNode resultNode = Json.newObject();
-		resultNode.set(APIResponseKeys.CATEGORY_LIST, Json.toJson(categoryList));
 		resultNode.set(APIResponseKeys.CITY_LIST, Json.toJson(cityList));
 
 		HashMap<String, Integer> productTypeHM = new HashMap<String, Integer>();
