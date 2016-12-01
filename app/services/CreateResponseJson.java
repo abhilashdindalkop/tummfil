@@ -176,6 +176,7 @@ public class CreateResponseJson {
 		orderNode.put(APIResponseKeys.ORDER_STATUS, order.getStatus());
 		orderNode.put(APIResponseKeys.PAYMENT_TYPE, order.getPaymentType());
 		orderNode.put(APIResponseKeys.PAYMENT_STATUS, order.getPaymentStatus());
+		orderNode.put(APIResponseKeys.TOTAL_PRICE, order.getTotalPrice());
 
 		if (order.getDeliveryTime() != null) {
 			orderNode.put(APIResponseKeys.DELIVERY_TIME, order.getDeliveryTime().getTime());

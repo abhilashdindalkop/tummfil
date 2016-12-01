@@ -65,6 +65,7 @@ public class MyConstants {
 		public static final String PAYMENT_STATUS = "paymentStatus";
 		public static final String ORDER_TYPES = "orderTypes";
 		public static final String UNIT_TYPES = "unitTypes";
+		public static final String TOTAL_PRICE = "totalPrice";
 
 		public static final String TOTAL_COUNT = "totalCount";
 		public static final String ORDERS = "orders";
