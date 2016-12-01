@@ -8,7 +8,6 @@ import com.ecommerce.models.sql.Orders;
 import com.ecommerce.models.sql.Transactions;
 import com.ecommerce.models.sql.UserSession;
 
-import play.libs.Json;
 import utils.MyConstants.CurrencyType;
 import utils.MyConstants.FailureMessages;
 import utils.MyConstants.OrderStatus;

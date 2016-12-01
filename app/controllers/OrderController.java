@@ -124,6 +124,19 @@ public class OrderController extends ParentController {
 		return response.getResult();
 	}
 
+	@Security.Authenticated(UserAuthenticator.class)
+	public Result getUserOrderById(String orderId) {
+		try {
+
+			ObjectNode resultNode = orderService.getByOrderId(orderId);
+			response = new MySuccessResponse(resultNode);
+
+		} catch (Exception e) {
+			response = createFailureResponse(e);
+		}
+		return response.getResult();
+	}
+
 }
 
 // {

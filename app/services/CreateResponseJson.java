@@ -6,19 +6,20 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.avaje.ebean.SqlRow;
-import com.ecommerce.models.sql.Vendors;
 import com.ecommerce.models.sql.Category;
 import com.ecommerce.models.sql.OrderedProducts;
 import com.ecommerce.models.sql.Orders;
 import com.ecommerce.models.sql.Products;
+import com.ecommerce.models.sql.Transactions;
+import com.ecommerce.models.sql.Vendors;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import play.libs.Json;
+import utils.GenericUtils;
+import utils.ImageUtilities;
 import utils.MyConstants.APIResponseKeys;
 import utils.MyConstants.ImageResizeType;
 import utils.MyException;
-import utils.GenericUtils;
-import utils.ImageUtilities;
 
 public class CreateResponseJson {
 
@@ -149,52 +150,80 @@ public class CreateResponseJson {
 	/*
 	 * Construct Vendor Order Json
 	 */
-	public static List<ObjectNode> getVendorOrdersJsonResult(List<Orders> orderList) throws MyException, IOException {
+	public static List<ObjectNode> getOrdersJsonResult(List<Orders> orderList, boolean isUser)
+			throws MyException, IOException {
 		List<ObjectNode> orderJsonList = new ArrayList<ObjectNode>();
 		for (Orders order : orderList) {
-			ObjectNode orderNode = Json.newObject();
-			orderNode.put(APIResponseKeys.ORDER_ID, order.getOrderId());
-			orderNode.put(APIResponseKeys.ADDRESS, order.getAddress());
-			orderNode.put(APIResponseKeys.DESCRIPTION, order.getDescription());
-			orderNode.put(APIResponseKeys.LATITUDE, order.getLatitude());
-			orderNode.put(APIResponseKeys.LONGITUDE, order.getLongitude());
-			orderNode.put(APIResponseKeys.CUSTOMER_NAME, order.getName());
-			orderNode.put(APIResponseKeys.ORDER_TYPE, order.getOrderType());
-			orderNode.put(APIResponseKeys.PHONE_NO, order.getPhoneNo());
-			orderNode.put(APIResponseKeys.ORDER_STATUS, order.getStatus());
-			orderNode.put(APIResponseKeys.PAYMENT_TYPE, order.getPaymentType());
-			orderNode.put(APIResponseKeys.PAYMENT_STATUS, order.getPaymentStatus());
-
-			if (order.getDeliveryTime() != null) {
-				orderNode.put(APIResponseKeys.DELIVERY_TIME, order.getDeliveryTime().getTime());
-			}
-			if (order.getCreatedTime() != null) {
-				orderNode.put(APIResponseKeys.ORDERED_TIME, order.getCreatedTime().getTime());
-			}
-
-			List<ObjectNode> productJsonList = new ArrayList<ObjectNode>();
-			List<OrderedProducts> productList = OrderedProducts.findProductsForOrder(order);
-			for (OrderedProducts orderedProduct : productList) {
-				ObjectNode productNode = Json.newObject();
-				Products myProduct = orderedProduct.getProduct();
-				productNode.put(APIResponseKeys.PRODUCT_ID, myProduct.getProductId());
-				productNode.put(APIResponseKeys.PRODUCT_NAME, myProduct.getName());
-				if (myProduct.getImageUrl() != null) {
-					productNode.put(APIResponseKeys.PRODUCT_THUMBNAIL_IMAGE_URL, ImageUtilities.getProductImageUrl(
-							myProduct.getProductId(), myProduct.getImageUrl(), ImageResizeType.THUMBNAIL_SIZE));
-				}
-				productNode.put(APIResponseKeys.CATEGORY_ID, myProduct.getCategory().getId());
-				productNode.put(APIResponseKeys.PRODUCT_TYPE, myProduct.getProductType());
-				productNode.put(APIResponseKeys.PRICE, orderedProduct.getPrice());
-				productNode.put(APIResponseKeys.QUANTITY, orderedProduct.getQuantity());
-				// TODO get tags
-				productJsonList.add(productNode);
-			}
-			orderNode.set(APIResponseKeys.PRODUCTS, Json.toJson(productJsonList));
+			ObjectNode orderNode = getOrderJson(order, isUser);
 			orderJsonList.add(orderNode);
 		}
 		return orderJsonList;
 	}
+
+	public static ObjectNode getOrderJson(Orders order, boolean isUser) throws MyException, IOException {
+		ObjectNode orderNode = Json.newObject();
+		orderNode.put(APIResponseKeys.ORDER_ID, order.getOrderId());
+		orderNode.put(APIResponseKeys.ADDRESS, order.getAddress());
+		orderNode.put(APIResponseKeys.DESCRIPTION, order.getDescription());
+		orderNode.put(APIResponseKeys.LATITUDE, order.getLatitude());
+		orderNode.put(APIResponseKeys.LONGITUDE, order.getLongitude());
+		if (isUser) {
+			orderNode.set(APIResponseKeys.VENDOR_DETAILS, Json.toJson(order.getVendor()));
+		}
+		orderNode.put(APIResponseKeys.CUSTOMER_NAME, order.getName());
+		orderNode.put(APIResponseKeys.ORDER_TYPE, order.getOrderType());
+		orderNode.put(APIResponseKeys.PHONE_NO, order.getPhoneNo());
+		orderNode.put(APIResponseKeys.ORDER_STATUS, order.getStatus());
+		orderNode.put(APIResponseKeys.PAYMENT_TYPE, order.getPaymentType());
+		orderNode.put(APIResponseKeys.PAYMENT_STATUS, order.getPaymentStatus());
+
+		if (order.getDeliveryTime() != null) {
+			orderNode.put(APIResponseKeys.DELIVERY_TIME, order.getDeliveryTime().getTime());
+		}
+		if (order.getCreatedTime() != null) {
+			orderNode.put(APIResponseKeys.ORDERED_TIME, order.getCreatedTime().getTime());
+		}
+
+		List<ObjectNode> productJsonList = new ArrayList<ObjectNode>();
+		List<OrderedProducts> productList = OrderedProducts.findProductsForOrder(order);
+		for (OrderedProducts orderedProduct : productList) {
+			ObjectNode productNode = Json.newObject();
+			Products myProduct = orderedProduct.getProduct();
+			productNode.put(APIResponseKeys.PRODUCT_ID, myProduct.getProductId());
+			productNode.put(APIResponseKeys.PRODUCT_NAME, myProduct.getName());
+			if (myProduct.getImageUrl() != null) {
+				productNode.put(APIResponseKeys.PRODUCT_THUMBNAIL_IMAGE_URL, ImageUtilities.getProductImageUrl(
+						myProduct.getProductId(), myProduct.getImageUrl(), ImageResizeType.THUMBNAIL_SIZE));
+			}
+			productNode.put(APIResponseKeys.CATEGORY_ID, myProduct.getCategory().getId());
+			productNode.put(APIResponseKeys.PRODUCT_TYPE, myProduct.getProductType());
+			productNode.put(APIResponseKeys.PRICE, orderedProduct.getPrice());
+			productNode.put(APIResponseKeys.QUANTITY, orderedProduct.getQuantity());
+			// TODO get tags
+			productJsonList.add(productNode);
+		}
+		orderNode.set(APIResponseKeys.PRODUCTS, Json.toJson(productJsonList));
+		return orderNode;
+	}
+
+	public static ObjectNode constructTransactionResponse(Transactions transaction, Orders myOrder) {
+
+		ObjectNode resultNode = Json.newObject();
+		resultNode.put(APIResponseKeys.TRANSACTION_ID, transaction.getTransactionId());
+		resultNode.put(APIResponseKeys.PAYMENT_TYPE, transaction.getPaymentType());
+		resultNode.put(APIResponseKeys.TRANSACTION_STATUS, transaction.getStatus());
+		resultNode.put(APIResponseKeys.CURRENCY, transaction.getCurrency());
+		resultNode.put(APIResponseKeys.ORDER_ID, myOrder.getOrderId());
+		resultNode.put(APIResponseKeys.ORDER_STATUS, myOrder.getStatus());
+		resultNode.put(APIResponseKeys.PAYMENT_STATUS, myOrder.getPaymentStatus());
+		resultNode.put(APIResponseKeys.AMOUNT, transaction.getAmount());
+		resultNode.put(APIResponseKeys.CREATED_TIME, transaction.getCreatedTime().getTime());
+		return resultNode;
+	}
+
+	/*
+	 * Construct Category Json
+	 */
 
 	public static List<HashMap<String, Object>> constructCategoriesResponse(List<Category> categoryList)
 			throws IOException {

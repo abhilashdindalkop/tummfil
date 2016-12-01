@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import com.ecommerce.models.sql.Cities;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class createOrderResponseDTO {
@@ -14,7 +13,7 @@ public class createOrderResponseDTO {
 
 	public Integer orderStatus;
 
-	public List<ObjectNode> productList = new ArrayList<ObjectNode>();
+	public List<ObjectNode> products = new ArrayList<ObjectNode>();
 
 	public Double extraFee;
 	

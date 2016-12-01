@@ -6,7 +6,7 @@
 		"productId": {
 			"type": "string"
 		},
-		"name": {
+		"productName": {
 			"type": "string",
 			"maxLength": 100,
 			"minLength": 2

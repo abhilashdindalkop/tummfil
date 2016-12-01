@@ -351,7 +351,7 @@ public class Orders extends Model {
 			orderResponse.orderStatus = newOrder.getStatus();
 			orderResponse.extraFee = extraFee;
 			orderResponse.totalPrice = totalPrice;
-			orderResponse.productList = orderedProdJsonList;
+			orderResponse.products = orderedProdJsonList;
 
 			return Json.toJson(orderResponse);
 		} catch (

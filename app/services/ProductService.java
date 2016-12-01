@@ -50,6 +50,7 @@ public class ProductService {
 		ObjectMapper mapper = ObjectMapperUtil.getInstance();
 		Products newProduct = mapper.convertValue(inputJson, Products.class);
 
+		newProduct.setName(inputJson.findValue(APIRequestKeys.PRODUCT_NAME).asText());
 		newProduct.add(vendor, category);
 
 		ObjectNode resultNode = Json.newObject();

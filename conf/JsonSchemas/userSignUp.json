@@ -52,6 +52,12 @@
 		"deviceType": {
 			"type": "integer",
 			"description": "Device type id for device OS identification"
+		},
+		"referralCode": {
+			"type": "string",
+			"maxLength": 25,
+			"minLength": 2,
+			"description": "referralCode"
 		}
 	},
 	"additionalProperties": false,

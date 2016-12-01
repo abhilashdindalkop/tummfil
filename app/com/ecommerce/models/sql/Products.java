@@ -248,8 +248,8 @@ public class Products extends Model {
 	}
 
 	public static void updateProduct(JsonNode inputJson, Products product) throws MyException, IOException {
-		if (inputJson.has(APIRequestKeys.NAME)) {
-			product.setName(inputJson.findValue(APIRequestKeys.NAME).asText());
+		if (inputJson.has(APIRequestKeys.PRODUCT_NAME)) {
+			product.setName(inputJson.findValue(APIRequestKeys.PRODUCT_NAME).asText());
 		}
 		if (inputJson.has(APIRequestKeys.DESCRIPTION)) {
 			product.setDescription(inputJson.findValue(APIRequestKeys.DESCRIPTION).asText());

@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import com.ecommerce.dao.TransactionsDAO;
 import com.ecommerce.dto.request.CreateOrderRequestDTO;
 import com.ecommerce.models.sql.VendorSession;
 import com.ecommerce.models.sql.Vendors;
@@ -19,10 +22,18 @@ import utils.MyConstants;
 import utils.MyConstants.APIRequestKeys;
 import utils.MyConstants.APIResponseKeys;
 import utils.MyConstants.FailureMessages;
+import utils.MyConstants.TransactionStatus;
 import utils.MyException;
 import utils.ObjectMapperUtil;
 
 public class OrderService {
+	
+	TransactionsDAO transactionsDAO;
+	
+	@Inject
+	public OrderService(TransactionsDAO transactionsDAO) {
+		this.transactionsDAO = transactionsDAO;
+	}
 
 	public ObjectNode getVendorOrders(int status, int page, int limit) throws MyException, IOException {
 
@@ -38,7 +49,7 @@ public class OrderService {
 		List<Orders> orderList = (List<Orders>) orderMap.get("result");
 		int totalCount = (int) orderMap.get("totalCount");
 
-		List<ObjectNode> orderJsonList = CreateResponseJson.getVendorOrdersJsonResult(orderList);
+		List<ObjectNode> orderJsonList = CreateResponseJson.getOrdersJsonResult(orderList, false);
 
 		ObjectNode resultNode = Json.newObject();
 		resultNode.set(APIResponseKeys.ORDERS, Json.toJson(orderJsonList));
@@ -80,12 +91,29 @@ public class OrderService {
 		List<Orders> orderList = (List<Orders>) orderMap.get("result");
 		int totalCount = (int) orderMap.get("totalCount");
 
-		List<ObjectNode> orderJsonList = CreateResponseJson.getVendorOrdersJsonResult(orderList);
+		List<ObjectNode> orderJsonList = CreateResponseJson.getOrdersJsonResult(orderList, true);
 
 		ObjectNode resultNode = Json.newObject();
 		resultNode.set(APIResponseKeys.ORDERS, Json.toJson(orderJsonList));
 		resultNode.put(APIResponseKeys.TOTAL_COUNT, totalCount);
 		return resultNode;
+	}
+
+	public ObjectNode getByOrderId(String orderId) throws MyException, IOException {
+
+		String userId = UserSession.getUserEncryptedIdByContext();
+		Users user = Users.findById(userId);
+
+		Orders curOrder = Orders.findById(orderId);
+
+		if (!user.getId().equals(curOrder.getUser().getId())) {
+			throw new MyException(FailureMessages.ORDER_DOESNT_BELONG_TO_USER);
+		}
+
+		ObjectNode orderJson = CreateResponseJson.getOrderJson(curOrder, true);
+		transactionsDAO.findByOrderId(curOrder, TransactionStatus.SUCCESS);
+
+		return orderJson;
 	}
 
 }

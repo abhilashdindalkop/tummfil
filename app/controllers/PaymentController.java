@@ -14,6 +14,7 @@ import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Result;
 import play.mvc.Security;
+import services.CreateResponseJson;
 import services.PaymentService;
 import utils.CorsComposition;
 import utils.MyConstants.APIResponseKeys;
@@ -43,16 +44,7 @@ public class PaymentController extends ParentController {
 			Transactions transaction = paymentService.createTransaction(requestDTO);
 
 			Orders myOrder = transaction.getOrder();
-			ObjectNode resultNode = Json.newObject();
-			resultNode.put(APIResponseKeys.TRANSACTION_ID, transaction.getTransactionId());
-			resultNode.put(APIResponseKeys.PAYMENT_TYPE, transaction.getPaymentType());
-			resultNode.put(APIResponseKeys.TRANSACTION_STATUS, transaction.getStatus());
-			resultNode.put(APIResponseKeys.CURRENCY, transaction.getCurrency());
-			resultNode.put(APIResponseKeys.ORDER_ID, myOrder.getOrderId());
-			resultNode.put(APIResponseKeys.ORDER_STATUS, myOrder.getStatus());
-			resultNode.put(APIResponseKeys.PAYMENT_STATUS, myOrder.getPaymentStatus());
-			resultNode.put(APIResponseKeys.AMOUNT, transaction.getAmount());
-			resultNode.put(APIResponseKeys.CREATED_TIME, transaction.getCreatedTime().getTime());
+			ObjectNode resultNode = CreateResponseJson.constructTransactionResponse(transaction, myOrder);
 
 			response = new MySuccessResponse(resultNode);
 		} catch (Exception e) {

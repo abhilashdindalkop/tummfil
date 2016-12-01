@@ -3,7 +3,7 @@
 	"title": "AddProduct",
 	"type": "object",
 	"properties": {
-		"name": {
+		"productName": {
 			"type": "string",
 			"maxLength": 100,
 			"minLength": 2
@@ -33,7 +33,7 @@
 	},
 	"additionalProperties": false,
 	"required": [
-		"name",
+		"productName",
 		"price",
 		"categoryId"
 	]

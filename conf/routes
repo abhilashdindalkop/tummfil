@@ -37,7 +37,7 @@ GET		/read/api/v1/product/search					controllers.ProductController.searchProduct
 #=====================================ORDERS=================================================================================
 POST   	/write/api/v1/order/create					controllers.OrderController.createOrder()	
 GET		/read/api/v1/user/orders/get				controllers.OrderController.getUserOrders(page:Integer?=0,  limit:Integer?=10)
-
+GET   	/read/api/v1/user/order						controllers.OrderController.getUserOrderById(orderId: String?=null)
 
 #=====================================PAYMENTS=================================================================================
 POST   	/write/api/v1/transaction/create			controllers.PaymentController.createTransaction()	
