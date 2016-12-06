@@ -40,6 +40,8 @@ public class UserAddress extends Model {
 
 	private String landmark;
 
+	private long pincode;
+
 	@Column(nullable = false)
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(nullable = false)
@@ -69,6 +71,14 @@ public class UserAddress extends Model {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public long getPincode() {
+		return pincode;
+	}
+
+	public void setPincode(long pincode) {
+		this.pincode = pincode;
 	}
 
 	public double getLatitude() {

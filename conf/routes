@@ -58,6 +58,8 @@ POST   	/write/api/v1/product/update					controllers.ProductController.updatePro
 GET		/read/api/v1/product/my-list					controllers.ProductController.getVendorProducts(categoryId:Integer?=0, page:Integer?=0,  limit:Integer?=10)
 GET		/read/api/v1/product/search-my-list				controllers.ProductController.searchVendorProducts(searchText: String?=null)
 GET		/read/api/v1/category/search					controllers.ProductController.searchCategory(searchText: String?=null)
+DELETE  /write/api/v1/product/delete					controllers.ProductController.deleteProductByIds()
+POST   	/write/api/v1/product/availability				controllers.ProductController.setProductAvailability()	
 
 #=====================================ORDERS=================================================================================
 GET		/read/api/v1/vendor/orders/get					controllers.OrderController.getVendorOrders(status:Integer?=0, page:Integer?=0,  limit:Integer?=10)

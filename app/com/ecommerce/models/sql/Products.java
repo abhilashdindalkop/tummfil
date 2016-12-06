@@ -17,11 +17,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
 import com.avaje.ebean.Query;
 import com.avaje.ebean.SqlQuery;
 import com.avaje.ebean.SqlRow;
+import com.avaje.ebean.SqlUpdate;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -213,14 +216,20 @@ public class Products extends Model {
 		this.imageUrl = imageUrl;
 	}
 
-	public static Query<Products> basicQuery() throws MyException {
+	public static Query<Products> basicQueryVendor() throws MyException {
 		Query<Products> query = Ebean.createQuery(Products.class);
 		query.where().eq("isDeleted", false);
 		return query;
 	}
+	
+	public static Query<Products> basicQuery() throws MyException {
+		Query<Products> query = Ebean.createQuery(Products.class);
+		query.where().eq("isDeleted", false).eq("status", ProductStatus.AVAILABLE);
+		return query;
+	}
 
 	public static List<Category> getVendorCategories(Vendors vendor) throws MyException {
-		Set<Products> listProducts = basicQuery().where().eq("vendor", vendor).select("category").setDistinct(true)
+		Set<Products> listProducts = basicQueryVendor().where().eq("vendor", vendor).select("category").setDistinct(true)
 				.findSet();
 		List<Category> categoryList = new ArrayList<Category>();
 		for (Products product : listProducts) {
@@ -294,32 +303,36 @@ public class Products extends Model {
 		product.update();
 	}
 
+	public static void deleteProduct(Products product) throws MyException, IOException {
+		// TODO check if any active orders with this product
+		// Do not allow to delete
+		product.setIsDeleted(true);
+		product.update();
+	}
+
+	public static void setAvailability(List<String> productIds, boolean isAvailable) throws MyException, IOException {
+		int status;
+		if (isAvailable) {
+			status = ProductStatus.AVAILABLE;
+		} else {
+			status = ProductStatus.UNAVAILABLE;
+		}
+		String ids = StringUtils.join(productIds, "\",\"");
+		String sql = "update products set status=:status where product_id IN (\"" + ids + "\")";
+		SqlUpdate update = Ebean.createSqlUpdate(sql).setParameter("status", status);
+		if (update.execute() == 0) {
+			throw new MyException(FailureMessages.UPDATE_AVAILABILITY_FAILED);
+		}
+	}
+
 	public static Query<Products> findVendorProductsQuery(Vendors vendor, Category category) throws MyException {
-		Query<Products> query = basicQuery();
+		Query<Products> query = basicQueryVendor();
 		query.where().eq("vendor", vendor);
 		if (category != null) {
 			query.where().eq("category", category);
 		}
 		query.order().desc("created_time");
 		return query;
-	}
-
-	public static ObjectNode findFeaturedVendorList(int page, int limit) throws MyException, IOException {
-		// TODO calculate featured products
-		// Calculate most ordered products
-		Query<Products> productQuery = basicQuery();
-
-		productQuery.where().ne("image_url", null);
-		productQuery.where().eq("isFeatured", true);
-
-		long totalCount = productQuery.findRowCount();
-		List<Products> products = productQuery.findPagedList(page, limit).getList();
-
-		ObjectNode resultNode = Json.newObject();
-		resultNode.set(APIResponseKeys.PRODUCTS, Json.toJson(CreateResponseJson.getProductsListJson(products)));
-		resultNode.put(APIResponseKeys.TOTAL_COUNT, totalCount);
-
-		return resultNode;
 	}
 
 	public static ObjectNode findProductsList(JsonNode filterNode, int page, int limit)

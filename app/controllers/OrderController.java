@@ -84,6 +84,7 @@ public class OrderController extends ParentController {
 		return response.getResult();
 	}
 
+	@CorsComposition.Cors
 	@Security.Authenticated(UserAuthenticator.class)
 	public Result getUserOrders(int page, int limit) {
 		try {
@@ -124,6 +125,7 @@ public class OrderController extends ParentController {
 		return response.getResult();
 	}
 
+	@CorsComposition.Cors
 	@Security.Authenticated(UserAuthenticator.class)
 	public Result getUserOrderById(String orderId) {
 		try {

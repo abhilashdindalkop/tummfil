@@ -168,7 +168,12 @@ public class CreateResponseJson {
 		orderNode.put(APIResponseKeys.LATITUDE, order.getLatitude());
 		orderNode.put(APIResponseKeys.LONGITUDE, order.getLongitude());
 		if (isUser) {
-			orderNode.set(APIResponseKeys.VENDOR_DETAILS, Json.toJson(order.getVendor()));
+			Vendors vendor = order.getVendor();
+			ObjectNode vendorNode = Json.newObject();
+			vendorNode.put(APIResponseKeys.VENDOR_NAME, vendor.getVendorName());
+			vendorNode.put(APIResponseKeys.VENDOR_ADDRESS, vendor.getVendorAddress());
+			vendorNode.set(APIResponseKeys.CITY, Json.toJson(vendor.getCity()));
+			orderNode.set(APIResponseKeys.VENDOR_DETAILS, vendorNode);
 		}
 		orderNode.put(APIResponseKeys.CUSTOMER_NAME, order.getName());
 		orderNode.put(APIResponseKeys.ORDER_TYPE, order.getOrderType());
@@ -177,6 +182,9 @@ public class CreateResponseJson {
 		orderNode.put(APIResponseKeys.PAYMENT_TYPE, order.getPaymentType());
 		orderNode.put(APIResponseKeys.PAYMENT_STATUS, order.getPaymentStatus());
 		orderNode.put(APIResponseKeys.TOTAL_PRICE, order.getTotalPrice());
+
+		orderNode.put(APIResponseKeys.PINCODE, order.getPincode());
+		orderNode.set(APIResponseKeys.CITY, Json.toJson(order.getCity()));
 
 		if (order.getDeliveryTime() != null) {
 			orderNode.put(APIResponseKeys.DELIVERY_TIME, order.getDeliveryTime().getTime());

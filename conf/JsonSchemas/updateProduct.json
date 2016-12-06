@@ -35,9 +35,6 @@
 		},
 		"productType": {
 			"type": "integer"
-		},
-		"isDeleted": {
-			"type": "boolean"
 		}
 	},
 	"additionalProperties": false,

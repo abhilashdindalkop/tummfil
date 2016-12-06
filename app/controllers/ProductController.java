@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -10,6 +12,7 @@ import play.mvc.BodyParser;
 import play.mvc.Result;
 import play.mvc.Security;
 import services.ProductService;
+import utils.MyConstants.APIRequestKeys;
 import utils.MyConstants.JsonSchemaFilePath;
 import utils.MyConstants.SuccessMessages;
 import utils.MySuccessResponse;
@@ -54,6 +57,34 @@ public class ProductController extends ParentController {
 		return response.getResult();
 	}
 
+	@BodyParser.Of(BodyParser.Json.class)
+	@Security.Authenticated(VendorAuthenticator.class)
+	public Result deleteProductByIds() {
+		try {
+			JsonNode inputJson = request().body().asJson();
+			productService.deleteProducts(inputJson);
+
+			response = new MySuccessResponse(SuccessMessages.PRODUCT_DELETE_SUCCESS);
+		} catch (Exception e) {
+			response = createFailureResponse(e);
+		}
+		return response.getResult();
+	}
+
+	@BodyParser.Of(BodyParser.Json.class)
+	@Security.Authenticated(VendorAuthenticator.class)
+	public Result setProductAvailability() {
+		try {
+			JsonNode inputJson = request().body().asJson();
+			productService.setProductAvailability(inputJson);
+
+			response = new MySuccessResponse(SuccessMessages.PRODUCT_UPDATE_AVAILABILITY_SUCCESS);
+		} catch (Exception e) {
+			response = createFailureResponse(e);
+		}
+		return response.getResult();
+	}
+
 	@Security.Authenticated(VendorAuthenticator.class)
 	public Result getVendorProducts(int categoryId, int page, int limit) {
 		try {
@@ -80,7 +111,7 @@ public class ProductController extends ParentController {
 		}
 		return response.getResult();
 	}
-	
+
 	/* Search products for Users */
 	public Result searchProducts(String searchText, int page, int limit) {
 		try {
@@ -93,7 +124,7 @@ public class ProductController extends ParentController {
 		}
 		return response.getResult();
 	}
-	
+
 	@Security.Authenticated(VendorAuthenticator.class)
 	public Result searchCategory(String searchText) {
 		try {

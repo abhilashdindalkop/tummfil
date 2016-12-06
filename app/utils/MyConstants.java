@@ -143,6 +143,7 @@ public class MyConstants {
 		public static final String LONGITUDE = "longitude";
 
 		public static final String PRODUCT_ID = "productId";
+		public static final String PRODUCT_ID_LIST = "productIdList";
 		public static final String PRODUCT_NAME = "productName";
 		public static final String PRICE = "price";
 		public static final String QUANTITY = "quantity";
@@ -152,6 +153,9 @@ public class MyConstants {
 		public static final String UNIT_TYPE = "unitType";
 		public static final String UNITS = "unit";
 		public static final String PRODUCT_TYPE = "productType";
+		
+		public static final String AVAILABLE_PRODUCT_IDS = "availableProductIds";
+		public static final String UNAVAILABLE_PRODUCT_IDS = "unavailableProductIds";
 
 		public static final String PRODUCTS = "products";
 
@@ -211,6 +215,7 @@ public class MyConstants {
 		public static final String USER_UPDATE_SUCCESS = "user.update.success";
 		public static final String VENDOR_UPDATE_SUCCESS = "vendor.update.success";
 		public static final String PRODUCT_UPDATE_SUCCESS = "product.update.success";
+		public static final String PRODUCT_DELETE_SUCCESS = "product.delete.success";
 		public static final String ORDER_STATUS_UPDATE_SUCCESS = "order.status.update.success";
 		public static final String PRODUCT_ADDED_TO_CART_SUCCESS = "product.added.to.cart.success";
 		public static final String PRODUCT_DELETED_FROM_CART_SUCCESS = "product.deleted.from.cart.success";
@@ -218,6 +223,7 @@ public class MyConstants {
 		public static final String ADDRESS_ADD_SUCCESS = "address.added.success";
 		public static final String ADDRESS_DELETE_SUCCESS = "address.delete.success";
 		public static final String LOGOUT_SUCCESS = "logout.success";
+		public static final String PRODUCT_UPDATE_AVAILABILITY_SUCCESS = "product.update.availability.success";
 	}
 
 	public class FailureMessages {
@@ -311,7 +317,9 @@ public class MyConstants {
 		public static final String INVALID_TRANSACTION = "invalid.transaction";
 		public static final String TRANSACTION_FAILED = "transaction.failed";
 		public static final String VENDOR_NOT_AVAILABLE = "vendor.not.available";
-
+		public static final String PINCODE_NOT_FOUND = "pincode.not.found";
+		public static final String UPDATE_AVAILABILITY_FAILED = "update.availability.failed";
+		
 	}
 
 	public class OsType {

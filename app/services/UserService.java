@@ -259,6 +259,10 @@ public class UserService {
 		if (!inputJson.has(APIRequestKeys.CITY_ID)) {
 			throw new MyException(FailureMessages.CITY_ID_DOESNT_EXIST);
 		}
+		
+		if (!inputJson.has(APIRequestKeys.PINCODE)) {
+			throw new MyException(FailureMessages.PINCODE_NOT_FOUND);
+		}
 
 		if (!inputJson.has(APIRequestKeys.ADDRESS_TYPE)) {
 			throw new MyException(FailureMessages.ADDRESS_TYPE_NOT_FOUND);

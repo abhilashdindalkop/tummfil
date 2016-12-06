@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Query;
 import com.avaje.ebean.SqlRow;
 import com.ecommerce.models.sql.Category;
+import com.ecommerce.models.sql.Products;
 import com.ecommerce.models.sql.VendorSession;
 import com.ecommerce.models.sql.Vendors;
-import com.ecommerce.models.sql.Products;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -72,6 +73,61 @@ public class ProductService {
 
 	}
 
+	public void deleteProducts(JsonNode inputJson) throws MyException, IOException {
+
+		String encryptedVendorId = VendorSession.getVendorEncryptedIdByContext();
+		JsonNode productIds = inputJson.findValue(APIRequestKeys.PRODUCT_ID_LIST);
+		for (JsonNode productIdJson : productIds) {
+			String productId = productIdJson.asText();
+			Products product = Products.findById(productId);
+			if (!product.getVendor().getEncryptedVendorId().equals(encryptedVendorId)) {
+				throw new MyException(FailureMessages.VENDOR_NOT_OWNER_OF_PRODUCT);
+			}
+			Products.deleteProduct(product);
+		}
+
+	}
+
+	public void setProductAvailability(JsonNode inputJson) throws MyException, IOException {
+
+		String encryptedVendorId = VendorSession.getVendorEncryptedIdByContext();
+
+		JsonNode availableProductIdsJson = inputJson.findValue(APIRequestKeys.AVAILABLE_PRODUCT_IDS);
+		JsonNode unavailableProductIdsJson = inputJson.findValue(APIRequestKeys.UNAVAILABLE_PRODUCT_IDS);
+
+		List<String> availableProdList = new ArrayList<String>();
+		List<String> unavailableProdList = new ArrayList<String>();
+
+		for (JsonNode productIdJson : availableProductIdsJson) {
+			String productId = productIdJson.asText();
+			Products product = Products.findById(productId);
+			if (!product.getVendor().getEncryptedVendorId().equals(encryptedVendorId)) {
+				throw new MyException(FailureMessages.VENDOR_NOT_OWNER_OF_PRODUCT);
+			}
+			availableProdList.add(productId);
+		}
+		for (JsonNode productIdJson : unavailableProductIdsJson) {
+			String productId = productIdJson.asText();
+			Products product = Products.findById(productId);
+			if (!product.getVendor().getEncryptedVendorId().equals(encryptedVendorId)) {
+				throw new MyException(FailureMessages.VENDOR_NOT_OWNER_OF_PRODUCT);
+			}
+			unavailableProdList.add(productId);
+		}
+
+		try {
+			Ebean.beginTransaction();
+			Products.setAvailability(availableProdList, true);
+			Products.setAvailability(unavailableProdList, false);
+			Ebean.commitTransaction();
+		} catch (Exception e) {
+			if (Ebean.currentTransaction() != null) {
+				Ebean.rollbackTransaction();
+			}
+			throw e;
+		}
+	}
+
 	public ObjectNode getVendorProducts(int categoryId, int page, int limit) throws MyException, IOException {
 		String vendorId = VendorSession.getVendorEncryptedIdByContext();
 		Vendors vendor = Vendors.findById(vendorId);
@@ -110,7 +166,7 @@ public class ProductService {
 		resultNode.set(APIResponseKeys.PRODUCTS, Json.toJson(productsList));
 		return resultNode;
 	}
-	
+
 	/* Search products for Users */
 	public ObjectNode searchProducts(String searchText, int page, int limit) throws MyException, IOException {
 		if (searchText == null) {
@@ -127,7 +183,7 @@ public class ProductService {
 
 		return resultNode;
 	}
-	
+
 	public ObjectNode searchCategory(String searchText) throws MyException, IOException {
 		if (searchText == null) {
 			throw new MyException(FailureMessages.INVALID_SEARCH_OPERATION);

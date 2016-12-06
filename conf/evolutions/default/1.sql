@@ -97,7 +97,7 @@ create table orders (
   payment_type              integer,
   payment_status            integer,
   address                   TEXT,
-  pincode                   integer,
+  pincode                   bigint,
   phone_no                  varchar(255),
   latitude                  double,
   longitude                 double,
@@ -177,6 +177,7 @@ create table user_address (
   latitude                  double,
   longitude                 double,
   landmark                  varchar(255),
+  pincode                   bigint,
   city_id                   bigint not null,
   address_type              integer,
   constraint pk_user_address primary key (id))

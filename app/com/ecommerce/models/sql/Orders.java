@@ -76,7 +76,7 @@ public class Orders extends Model {
 	@Column(columnDefinition = "TEXT")
 	private String address;
 
-	private Integer pincode;
+	private Long pincode;
 
 	private String phoneNo;
 
@@ -136,11 +136,11 @@ public class Orders extends Model {
 		this.name = name;
 	}
 
-	public Integer getPincode() {
+	public Long getPincode() {
 		return pincode;
 	}
 
-	public void setPincode(Integer pincode) {
+	public void setPincode(Long pincode) {
 		this.pincode = pincode;
 	}
 
@@ -354,11 +354,7 @@ public class Orders extends Model {
 			orderResponse.products = orderedProdJsonList;
 
 			return Json.toJson(orderResponse);
-		} catch (
-
-		MyException e)
-
-		{
+		} catch (MyException e) {
 			if (Ebean.currentTransaction() != null) {
 				Ebean.rollbackTransaction();
 			}

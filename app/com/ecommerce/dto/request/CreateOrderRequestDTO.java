@@ -19,7 +19,7 @@ public class CreateOrderRequestDTO {
 	public String address;
 
 	@Required
-	public int pincode;
+	public long pincode;
 
 	@Required
 	public String phoneNo;

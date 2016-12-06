@@ -31,7 +31,7 @@ public class createOrderResponseDTO {
 
 	public String address;
 
-	public Integer pincode;
+	public Long pincode;
 
 	public String phoneNo;
 
