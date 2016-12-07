@@ -15,8 +15,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import play.Logger;
 import play.Play;
-import utils.MyConstants.OsType;
 import utils.MessageReaderFactory;
+import utils.MyConstants.OsType;
 
 public class PushNotificationSender {
 

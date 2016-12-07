@@ -26,6 +26,7 @@ public class DeliveryBoysDAO {
 			throws MyException {
 		newBoy.setEncryptedId(UUID.randomUUID().toString());
 		newBoy.setVendor(vendor);
+		newBoy.setCity(city);
 		newBoy.setPhoneNo(phoneNo);
 		newBoy.setPassword(PasswordEncryptDecrypt.generatePasswordHash(password));
 		newBoy.save();

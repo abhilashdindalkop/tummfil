@@ -33,7 +33,7 @@ public class MyConstants {
 		public static final String CITY_ID = "cityId";
 		public static final String ID = "id";
 		public static final String TYPE = "type";
-		
+
 		public static final String VENDOR_ID = "vendorId";
 		public static final String VENDOR_NAME = "vendorName";
 		public static final String VENDOR_ADDRESS = "vendorAddress";
@@ -153,7 +153,7 @@ public class MyConstants {
 		public static final String UNIT_TYPE = "unitType";
 		public static final String UNITS = "unit";
 		public static final String PRODUCT_TYPE = "productType";
-		
+
 		public static final String AVAILABLE_PRODUCT_IDS = "availableProductIds";
 		public static final String UNAVAILABLE_PRODUCT_IDS = "unavailableProductIds";
 
@@ -162,6 +162,7 @@ public class MyConstants {
 		public static final String ORDER_ID = "orderId";
 		public static final String ORDER_STATUS = "orderStatus";
 		public static final String ORDER_TYPE = "orderType";
+		public static final String DELIVERY_BOY_ID = "deliveryBoyId";
 
 		public static final String FILTERS = "filters";
 		public static final String IS_VENDOR_LIST = "isVendorList";
@@ -217,6 +218,7 @@ public class MyConstants {
 		public static final String PRODUCT_UPDATE_SUCCESS = "product.update.success";
 		public static final String PRODUCT_DELETE_SUCCESS = "product.delete.success";
 		public static final String ORDER_STATUS_UPDATE_SUCCESS = "order.status.update.success";
+		public static final String ORDER_ASSIGN_SUCCESS = "order.assign.success";
 		public static final String PRODUCT_ADDED_TO_CART_SUCCESS = "product.added.to.cart.success";
 		public static final String PRODUCT_DELETED_FROM_CART_SUCCESS = "product.deleted.from.cart.success";
 		public static final String CART_PRODUCT_UPDATE_SUCCESS = "cart.product.update.success";
@@ -281,6 +283,8 @@ public class MyConstants {
 		public static final String ORDER_DOESNT_BELONG_TO_VENDOR = "order.doesnt.belong.to.vendor";
 		public static final String ORDER_DOESNT_BELONG_TO_DELIVERY_BOY = "order.doesnt.belong.to.delivery.boy";
 		public static final String ORDER_ID_NOT_FOUND = "order.id.not.found";
+		public static final String DELIVERY_BOY_ID_NOT_FOUND = "delivery.boy.id.not.found";
+
 		public static final String ORDER_STATUS_NOT_FOUND = "order.status.not.found";
 		public static final String ORDER_DOESNT_BELONG_TO_USER = "order.doesnt.belong.to.user";
 
@@ -319,7 +323,7 @@ public class MyConstants {
 		public static final String VENDOR_NOT_AVAILABLE = "vendor.not.available";
 		public static final String PINCODE_NOT_FOUND = "pincode.not.found";
 		public static final String UPDATE_AVAILABILITY_FAILED = "update.availability.failed";
-		
+
 	}
 
 	public class OsType {
@@ -444,12 +448,12 @@ public class MyConstants {
 		public static final int NONE = 0;
 		public static final int KG = 1;
 		public static final int LITRE = 2;
-	
+
 		public static final String NONE_STR = "None";
 		public static final String KG_STR = "KG";
 		public static final String LITRE_STR = "Litre";
 	}
-	
+
 	public class VendorType {
 		public static final int NORMAL = 1;
 		public static final int EXECUTIVE = 2;
@@ -462,7 +466,7 @@ public class MyConstants {
 		public static final int ANDROID_SIZE = 2;
 		public static final int WEB_SIZE = 3;
 	}
-	
+
 	public class ReferralStatus {
 		public static final int NOT_CREDITED = 1;
 		public static final int CREDITED = 2;
@@ -470,7 +474,7 @@ public class MyConstants {
 	}
 
 	public static final int DEFAULT_PAGINATION_LIMIT = 10;
-	
+
 	public static final int SHIPPING_DISTANCE = 20000; // In meters
 
 	// In milliseconds (24*60*60*1000)
@@ -485,7 +489,6 @@ public class MyConstants {
 	public static final float DELIVERY_FEE = 20;
 
 	public static final String IMAGE_UPLOAD_KEY = "image";
-	
 
 	public static final String CATEGORY_IMAGE_BASE_PATH = "https://s3-us-west-2.amazonaws.com/cake-house/categories/";
 

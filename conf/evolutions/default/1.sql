@@ -3,6 +3,15 @@
 
 # --- !Ups
 
+create table boy_assigned_orders (
+  id                        bigint auto_increment not null,
+  delivery_boy_id           bigint not null,
+  order_id                  bigint not null,
+  order_status              integer,
+  created_time              TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  constraint pk_boy_assigned_orders primary key (id))
+;
+
 create table category (
   id                        bigint auto_increment not null,
   type                      varchar(50) not null,
@@ -281,58 +290,64 @@ create table vendors (
   constraint pk_vendors primary key (id))
 ;
 
-alter table delivery_boy_session add constraint fk_delivery_boy_session_deliveryBoy_1 foreign key (delivery_boy_id) references delivery_boys (id) on delete restrict on update restrict;
-create index ix_delivery_boy_session_deliveryBoy_1 on delivery_boy_session (delivery_boy_id);
-alter table delivery_boy_session add constraint fk_delivery_boy_session_deviceType_2 foreign key (device_type_id) references device_type (id) on delete restrict on update restrict;
-create index ix_delivery_boy_session_deviceType_2 on delivery_boy_session (device_type_id);
-alter table delivery_boys add constraint fk_delivery_boys_vendor_3 foreign key (vendor_id) references vendors (id) on delete restrict on update restrict;
-create index ix_delivery_boys_vendor_3 on delivery_boys (vendor_id);
-alter table delivery_boys add constraint fk_delivery_boys_localityId_4 foreign key (locality_id_id) references locality (id) on delete restrict on update restrict;
-create index ix_delivery_boys_localityId_4 on delivery_boys (locality_id_id);
-alter table delivery_boys add constraint fk_delivery_boys_city_5 foreign key (city_id) references cities (id) on delete restrict on update restrict;
-create index ix_delivery_boys_city_5 on delivery_boys (city_id);
-alter table locality add constraint fk_locality_city_6 foreign key (city_id) references cities (id) on delete restrict on update restrict;
-create index ix_locality_city_6 on locality (city_id);
-alter table ordered_products add constraint fk_ordered_products_order_7 foreign key (order_id) references orders (id) on delete restrict on update restrict;
-create index ix_ordered_products_order_7 on ordered_products (order_id);
-alter table ordered_products add constraint fk_ordered_products_product_8 foreign key (product_id) references products (id) on delete restrict on update restrict;
-create index ix_ordered_products_product_8 on ordered_products (product_id);
-alter table orders add constraint fk_orders_vendor_9 foreign key (vendor_id) references vendors (id) on delete restrict on update restrict;
-create index ix_orders_vendor_9 on orders (vendor_id);
-alter table orders add constraint fk_orders_user_10 foreign key (user_id) references users (id) on delete restrict on update restrict;
-create index ix_orders_user_10 on orders (user_id);
-alter table orders add constraint fk_orders_city_11 foreign key (city_id) references cities (id) on delete restrict on update restrict;
-create index ix_orders_city_11 on orders (city_id);
-alter table products add constraint fk_products_vendor_12 foreign key (vendor_id) references vendors (id) on delete restrict on update restrict;
-create index ix_products_vendor_12 on products (vendor_id);
-alter table products add constraint fk_products_category_13 foreign key (category_id) references category (id) on delete restrict on update restrict;
-create index ix_products_category_13 on products (category_id);
-alter table promotions add constraint fk_promotions_vendor_14 foreign key (vendor_id) references vendors (id) on delete restrict on update restrict;
-create index ix_promotions_vendor_14 on promotions (vendor_id);
-alter table transactions add constraint fk_transactions_order_15 foreign key (order_id) references orders (id) on delete restrict on update restrict;
-create index ix_transactions_order_15 on transactions (order_id);
-alter table user_address add constraint fk_user_address_user_16 foreign key (user_id) references users (id) on delete restrict on update restrict;
-create index ix_user_address_user_16 on user_address (user_id);
-alter table user_address add constraint fk_user_address_city_17 foreign key (city_id) references cities (id) on delete restrict on update restrict;
-create index ix_user_address_city_17 on user_address (city_id);
-alter table user_session add constraint fk_user_session_user_18 foreign key (user_id) references users (id) on delete restrict on update restrict;
-create index ix_user_session_user_18 on user_session (user_id);
-alter table user_session add constraint fk_user_session_deviceType_19 foreign key (device_type_id) references device_type (id) on delete restrict on update restrict;
-create index ix_user_session_deviceType_19 on user_session (device_type_id);
-alter table users add constraint fk_users_city_20 foreign key (city_id) references cities (id) on delete restrict on update restrict;
-create index ix_users_city_20 on users (city_id);
-alter table vendor_session add constraint fk_vendor_session_vendor_21 foreign key (vendor_id) references vendors (id) on delete restrict on update restrict;
-create index ix_vendor_session_vendor_21 on vendor_session (vendor_id);
-alter table vendor_session add constraint fk_vendor_session_deviceType_22 foreign key (device_type_id) references device_type (id) on delete restrict on update restrict;
-create index ix_vendor_session_deviceType_22 on vendor_session (device_type_id);
-alter table vendors add constraint fk_vendors_city_23 foreign key (city_id) references cities (id) on delete restrict on update restrict;
-create index ix_vendors_city_23 on vendors (city_id);
+alter table boy_assigned_orders add constraint fk_boy_assigned_orders_deliveryBoy_1 foreign key (delivery_boy_id) references delivery_boys (id) on delete restrict on update restrict;
+create index ix_boy_assigned_orders_deliveryBoy_1 on boy_assigned_orders (delivery_boy_id);
+alter table boy_assigned_orders add constraint fk_boy_assigned_orders_order_2 foreign key (order_id) references orders (id) on delete restrict on update restrict;
+create index ix_boy_assigned_orders_order_2 on boy_assigned_orders (order_id);
+alter table delivery_boy_session add constraint fk_delivery_boy_session_deliveryBoy_3 foreign key (delivery_boy_id) references delivery_boys (id) on delete restrict on update restrict;
+create index ix_delivery_boy_session_deliveryBoy_3 on delivery_boy_session (delivery_boy_id);
+alter table delivery_boy_session add constraint fk_delivery_boy_session_deviceType_4 foreign key (device_type_id) references device_type (id) on delete restrict on update restrict;
+create index ix_delivery_boy_session_deviceType_4 on delivery_boy_session (device_type_id);
+alter table delivery_boys add constraint fk_delivery_boys_vendor_5 foreign key (vendor_id) references vendors (id) on delete restrict on update restrict;
+create index ix_delivery_boys_vendor_5 on delivery_boys (vendor_id);
+alter table delivery_boys add constraint fk_delivery_boys_localityId_6 foreign key (locality_id_id) references locality (id) on delete restrict on update restrict;
+create index ix_delivery_boys_localityId_6 on delivery_boys (locality_id_id);
+alter table delivery_boys add constraint fk_delivery_boys_city_7 foreign key (city_id) references cities (id) on delete restrict on update restrict;
+create index ix_delivery_boys_city_7 on delivery_boys (city_id);
+alter table locality add constraint fk_locality_city_8 foreign key (city_id) references cities (id) on delete restrict on update restrict;
+create index ix_locality_city_8 on locality (city_id);
+alter table ordered_products add constraint fk_ordered_products_order_9 foreign key (order_id) references orders (id) on delete restrict on update restrict;
+create index ix_ordered_products_order_9 on ordered_products (order_id);
+alter table ordered_products add constraint fk_ordered_products_product_10 foreign key (product_id) references products (id) on delete restrict on update restrict;
+create index ix_ordered_products_product_10 on ordered_products (product_id);
+alter table orders add constraint fk_orders_vendor_11 foreign key (vendor_id) references vendors (id) on delete restrict on update restrict;
+create index ix_orders_vendor_11 on orders (vendor_id);
+alter table orders add constraint fk_orders_user_12 foreign key (user_id) references users (id) on delete restrict on update restrict;
+create index ix_orders_user_12 on orders (user_id);
+alter table orders add constraint fk_orders_city_13 foreign key (city_id) references cities (id) on delete restrict on update restrict;
+create index ix_orders_city_13 on orders (city_id);
+alter table products add constraint fk_products_vendor_14 foreign key (vendor_id) references vendors (id) on delete restrict on update restrict;
+create index ix_products_vendor_14 on products (vendor_id);
+alter table products add constraint fk_products_category_15 foreign key (category_id) references category (id) on delete restrict on update restrict;
+create index ix_products_category_15 on products (category_id);
+alter table promotions add constraint fk_promotions_vendor_16 foreign key (vendor_id) references vendors (id) on delete restrict on update restrict;
+create index ix_promotions_vendor_16 on promotions (vendor_id);
+alter table transactions add constraint fk_transactions_order_17 foreign key (order_id) references orders (id) on delete restrict on update restrict;
+create index ix_transactions_order_17 on transactions (order_id);
+alter table user_address add constraint fk_user_address_user_18 foreign key (user_id) references users (id) on delete restrict on update restrict;
+create index ix_user_address_user_18 on user_address (user_id);
+alter table user_address add constraint fk_user_address_city_19 foreign key (city_id) references cities (id) on delete restrict on update restrict;
+create index ix_user_address_city_19 on user_address (city_id);
+alter table user_session add constraint fk_user_session_user_20 foreign key (user_id) references users (id) on delete restrict on update restrict;
+create index ix_user_session_user_20 on user_session (user_id);
+alter table user_session add constraint fk_user_session_deviceType_21 foreign key (device_type_id) references device_type (id) on delete restrict on update restrict;
+create index ix_user_session_deviceType_21 on user_session (device_type_id);
+alter table users add constraint fk_users_city_22 foreign key (city_id) references cities (id) on delete restrict on update restrict;
+create index ix_users_city_22 on users (city_id);
+alter table vendor_session add constraint fk_vendor_session_vendor_23 foreign key (vendor_id) references vendors (id) on delete restrict on update restrict;
+create index ix_vendor_session_vendor_23 on vendor_session (vendor_id);
+alter table vendor_session add constraint fk_vendor_session_deviceType_24 foreign key (device_type_id) references device_type (id) on delete restrict on update restrict;
+create index ix_vendor_session_deviceType_24 on vendor_session (device_type_id);
+alter table vendors add constraint fk_vendors_city_25 foreign key (city_id) references cities (id) on delete restrict on update restrict;
+create index ix_vendors_city_25 on vendors (city_id);
 
 
 
 # --- !Downs
 
 SET FOREIGN_KEY_CHECKS=0;
+
+drop table boy_assigned_orders;
 
 drop table category;
 

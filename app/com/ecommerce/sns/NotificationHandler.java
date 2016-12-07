@@ -3,11 +3,11 @@ package com.ecommerce.sns;
 import java.util.List;
 import java.util.Map;
 
-import com.ecommerce.models.sql.VendorSession;
-import com.ecommerce.models.sql.Vendors;
 import com.ecommerce.models.sql.UserPushNotifications;
 import com.ecommerce.models.sql.UserSession;
 import com.ecommerce.models.sql.Users;
+import com.ecommerce.models.sql.VendorSession;
+import com.ecommerce.models.sql.Vendors;
 
 import play.Logger;
 import play.i18n.Messages;

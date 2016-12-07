@@ -24,7 +24,7 @@ public class DeliveryBoySessionDAO {
 		boySession.update();
 	}
 
-	public static DeliveryBoySession findByDeviceToken(String deviceToken) {
+	public DeliveryBoySession findByDeviceToken(String deviceToken) {
 		if (deviceToken == null) {
 			return null;
 		}

@@ -6,13 +6,15 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import com.avaje.ebean.Ebean;
+import com.ecommerce.dao.BoyAssignedOrdersDAO;
 import com.ecommerce.dao.TransactionsDAO;
 import com.ecommerce.dto.request.CreateOrderRequestDTO;
-import com.ecommerce.models.sql.VendorSession;
-import com.ecommerce.models.sql.Vendors;
 import com.ecommerce.models.sql.Orders;
 import com.ecommerce.models.sql.UserSession;
 import com.ecommerce.models.sql.Users;
+import com.ecommerce.models.sql.VendorSession;
+import com.ecommerce.models.sql.Vendors;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -22,17 +24,20 @@ import utils.MyConstants;
 import utils.MyConstants.APIRequestKeys;
 import utils.MyConstants.APIResponseKeys;
 import utils.MyConstants.FailureMessages;
+import utils.MyConstants.OrderStatus;
 import utils.MyConstants.TransactionStatus;
 import utils.MyException;
 import utils.ObjectMapperUtil;
 
 public class OrderService {
-	
+
 	TransactionsDAO transactionsDAO;
-	
+	BoyAssignedOrdersDAO boyAssignedOrdersDAO;
+
 	@Inject
-	public OrderService(TransactionsDAO transactionsDAO) {
+	public OrderService(TransactionsDAO transactionsDAO, BoyAssignedOrdersDAO boyAssignedOrdersDAO) {
 		this.transactionsDAO = transactionsDAO;
+		this.boyAssignedOrdersDAO = boyAssignedOrdersDAO;
 	}
 
 	public ObjectNode getVendorOrders(int status, int page, int limit) throws MyException, IOException {
@@ -55,15 +60,6 @@ public class OrderService {
 		resultNode.set(APIResponseKeys.ORDERS, Json.toJson(orderJsonList));
 		resultNode.put(APIResponseKeys.TOTAL_COUNT, totalCount);
 		return resultNode;
-	}
-
-	public void updateOrderStatus(JsonNode inputJson, Orders order) throws MyException {
-		if (!inputJson.has(APIRequestKeys.ORDER_STATUS)) {
-			throw new MyException(FailureMessages.ORDER_STATUS_NOT_FOUND);
-		}
-		int orderStatus = inputJson.findValue(APIRequestKeys.ORDER_STATUS).asInt();
-
-		order.updateStatus(orderStatus);
 	}
 
 	public ObjectNode createOrder(JsonNode inputJson) throws MyException {
@@ -114,6 +110,26 @@ public class OrderService {
 		transactionsDAO.findByOrderId(curOrder, TransactionStatus.SUCCESS);
 
 		return orderJson;
+	}
+
+	public void updateOrderStatus(JsonNode inputJson, Orders order) throws MyException {
+		if (!inputJson.has(APIRequestKeys.ORDER_STATUS)) {
+			throw new MyException(FailureMessages.ORDER_STATUS_NOT_FOUND);
+		}
+		int orderStatus = inputJson.findValue(APIRequestKeys.ORDER_STATUS).asInt();
+
+		try {
+			Ebean.beginTransaction();
+			order.updateStatus(orderStatus);
+			if (orderStatus == OrderStatus.DELIVERED) {
+				boyAssignedOrdersDAO.updateOrderStatus(order, OrderStatus.DELIVERED);
+			}
+			Ebean.commitTransaction();
+		} finally {
+			if (Ebean.currentTransaction() != null) {
+				Ebean.currentTransaction().rollback();
+			}
+		}
 	}
 
 }

@@ -2,14 +2,21 @@ package services;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
+import com.avaje.ebean.Ebean;
+import com.ecommerce.dao.BoyAssignedOrdersDAO;
 import com.ecommerce.dao.DeliveryBoySessionDAO;
 import com.ecommerce.dao.DeliveryBoysDAO;
+import com.ecommerce.models.sql.BoyAssignedOrders;
 import com.ecommerce.models.sql.Cities;
 import com.ecommerce.models.sql.DeliveryBoySession;
 import com.ecommerce.models.sql.DeliveryBoys;
+import com.ecommerce.models.sql.Orders;
+import com.ecommerce.models.sql.VendorSession;
 import com.ecommerce.models.sql.Vendors;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -18,21 +25,28 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import authentication.PasswordEncryptDecrypt;
 import play.libs.Json;
+import utils.MyConstants;
 import utils.MyConstants.APIRequestKeys;
 import utils.MyConstants.APIResponseKeys;
 import utils.MyConstants.FailureMessages;
+import utils.MyConstants.OrderStatus;
 import utils.MyException;
 
 public class DeliveryBoyService {
 
 	DeliveryBoysDAO deliveryBoysDAO;
+	BoyAssignedOrdersDAO boyAssignedOrdersDAO;
 	DeliveryBoySessionDAO deliveryBoySessionDAO;
+	OrderService orderService;
 
 	@Inject
-	public DeliveryBoyService(DeliveryBoysDAO deliveryBoysDAO, DeliveryBoySessionDAO deliveryBoySessionDAO) {
+	public DeliveryBoyService(DeliveryBoysDAO deliveryBoysDAO, BoyAssignedOrdersDAO boyAssignedOrdersDAO,
+			DeliveryBoySessionDAO deliveryBoySessionDAO, OrderService orderService) {
 
 		this.deliveryBoysDAO = deliveryBoysDAO;
 		this.deliveryBoySessionDAO = deliveryBoySessionDAO;
+		this.boyAssignedOrdersDAO = boyAssignedOrdersDAO;
+		this.orderService = orderService;
 	}
 
 	public ObjectNode addDeliveryBoy(Vendors vendor, JsonNode inputJson) throws MyException {
@@ -95,9 +109,9 @@ public class DeliveryBoyService {
 		resultNode.put(APIResponseKeys.NAME, boy.getName());
 		resultNode.put(APIResponseKeys.PHONE_NO, boy.getPhoneNo());
 		resultNode.put(APIResponseKeys.ADDRESS, boy.getAddress());
-		Vendors vendor = boy.getVendor() ;
-		if(vendor!= null){
-			resultNode.put(APIResponseKeys.VENDOR_NAME, vendor.getVendorName());	
+		Vendors vendor = boy.getVendor();
+		if (vendor != null) {
+			resultNode.put(APIResponseKeys.VENDOR_NAME, vendor.getVendorName());
 		}
 		resultNode.set(APIResponseKeys.CITY, Json.toJson(boy.getCity()));
 		resultNode.put(APIResponseKeys.TOKEN, session.getToken());
@@ -129,4 +143,69 @@ public class DeliveryBoyService {
 		deliveryBoySessionDAO.deleteSession(deliveryBoySessionDAO.findByContext());
 	}
 
+	public void updateBoyOrderStatus(JsonNode inputJson, Orders order) throws MyException {
+
+		/* Query for assigned orderId */
+		String deliveryBoyId = deliveryBoySessionDAO.getEncryptedIdByContext();
+		BoyAssignedOrders assignedOrder = boyAssignedOrdersDAO.findByOrderId(order);
+		if (!assignedOrder.getDeliveryBoy().getEncryptedId().equals(deliveryBoyId)) {
+			throw new MyException(FailureMessages.ORDER_DOESNT_BELONG_TO_DELIVERY_BOY);
+		}
+
+		orderService.updateOrderStatus(inputJson, order);
+	}
+
+	public ObjectNode getBoyOrders(int status, int page, int limit) throws MyException, IOException {
+
+		if (!MyConstants.orderStatusList.contains(status)) {
+			throw new MyException(FailureMessages.SEND_VALID_ORDER_STATUS);
+		}
+		String deliveryBoyId = deliveryBoySessionDAO.getEncryptedIdByContext();
+		DeliveryBoys deliveryBoy = deliveryBoysDAO.findById(deliveryBoyId);
+
+		List<BoyAssignedOrders> assignedOrders = boyAssignedOrdersDAO.getAssignedOrders(deliveryBoy, status);
+
+		List<Orders> orderList = new ArrayList<Orders>();
+		for (BoyAssignedOrders assignedOrder : assignedOrders) {
+			orderList.add(assignedOrder.getOrder());
+		}
+
+		List<ObjectNode> orderJsonList = CreateResponseJson.getOrdersJsonResult(orderList, true);
+
+		ObjectNode resultNode = Json.newObject();
+		resultNode.set(APIResponseKeys.ORDERS, Json.toJson(orderJsonList));
+		resultNode.put(APIResponseKeys.TOTAL_COUNT, assignedOrders.size());
+		return resultNode;
+	}
+
+	public void assignOrderToBoy(JsonNode inputJson) throws MyException, IOException {
+
+		if (!inputJson.has(APIRequestKeys.ORDER_ID)) {
+			throw new MyException(FailureMessages.ORDER_ID_NOT_FOUND);
+		}
+		if (!inputJson.has(APIRequestKeys.DELIVERY_BOY_ID)) {
+			throw new MyException(FailureMessages.DELIVERY_BOY_ID_NOT_FOUND);
+		}
+		String orderId = inputJson.findValue(APIRequestKeys.ORDER_ID).asText();
+		String deliveryBoyId = inputJson.findValue(APIRequestKeys.DELIVERY_BOY_ID).asText();
+
+		Orders order = Orders.findById(orderId);
+
+		String vendorId = VendorSession.getVendorEncryptedIdByContext();
+		if (!order.getVendor().getEncryptedVendorId().equals(vendorId)) {
+			throw new MyException(FailureMessages.ORDER_DOESNT_BELONG_TO_VENDOR);
+		}
+		DeliveryBoys deliveryBoy = deliveryBoysDAO.findById(deliveryBoyId);
+		try {
+			Ebean.beginTransaction();
+			order.updateStatus(OrderStatus.OUT_FOR_DELIVERY);
+
+			boyAssignedOrdersDAO.add(deliveryBoy, order);
+			Ebean.commitTransaction();
+		} finally {
+			if (Ebean.currentTransaction() != null) {
+				Ebean.currentTransaction().rollback();
+			}
+		}
+	}
 }
