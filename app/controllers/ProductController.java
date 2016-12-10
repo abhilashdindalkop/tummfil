@@ -1,7 +1,5 @@
 package controllers;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -12,7 +10,6 @@ import play.mvc.BodyParser;
 import play.mvc.Result;
 import play.mvc.Security;
 import services.ProductService;
-import utils.MyConstants.APIRequestKeys;
 import utils.MyConstants.JsonSchemaFilePath;
 import utils.MyConstants.SuccessMessages;
 import utils.MySuccessResponse;

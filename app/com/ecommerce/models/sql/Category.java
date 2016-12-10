@@ -87,13 +87,18 @@ public class Category extends Model {
 
 	public static List<SqlRow> searchByText(String searchText) {
 
-		searchText = searchText.replace(" ", "").toLowerCase();
 		String searchCategoryQuery;
 		SqlQuery rawSqlQuery;
 
+		if (searchText == null) {
+			searchCategoryQuery = "SELECT id, type FROM category";
+		} else {
+			searchText = searchText.replace(" ", "").toLowerCase();
+			searchCategoryQuery = "SELECT id, type FROM category WHERE REPLACE(LOWER(type), ' ', '') LIKE '%"
+					+ searchText + "%'";
+		}
+
 		/* Search category */
-		searchCategoryQuery = "SELECT id, type FROM category WHERE REPLACE(LOWER(type), ' ', '') LIKE '%" + searchText
-				+ "%'";
 		rawSqlQuery = Ebean.createSqlQuery(searchCategoryQuery);
 
 		List<SqlRow> rowList = rawSqlQuery.findList();

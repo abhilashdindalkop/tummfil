@@ -185,10 +185,7 @@ public class ProductService {
 	}
 
 	public ObjectNode searchCategory(String searchText) throws MyException, IOException {
-		if (searchText == null) {
-			throw new MyException(FailureMessages.INVALID_SEARCH_OPERATION);
-		}
-
+	
 		List<SqlRow> categoryList = Category.searchByText(searchText);
 
 		ObjectNode resultNode = Json.newObject();
