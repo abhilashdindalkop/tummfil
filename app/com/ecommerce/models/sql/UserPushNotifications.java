@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PersistenceException;
 
-import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
 
 @Entity
@@ -19,20 +18,18 @@ public class UserPushNotifications extends Model {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	private String senderProfileId;
-
 	@Column(nullable = false)
-	private String receiverProfileId;
+	private String receiverId;
 
 	@Column(columnDefinition = "TEXT")
 	public String message;
+
+	public int platform;
 
 	public String deviceToken;
 
 	@Column(nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	public Date timestamp;
-
-	public int notificationType;
 
 	public int accountType;
 
@@ -49,20 +46,12 @@ public class UserPushNotifications extends Model {
 		this.id = id;
 	}
 
-	public String getSenderProfileId() {
-		return senderProfileId;
+	public String getReceiverId() {
+		return receiverId;
 	}
 
-	public void setSenderProfileId(String senderProfileId) {
-		this.senderProfileId = senderProfileId;
-	}
-
-	public String getReceiverProfileId() {
-		return receiverProfileId;
-	}
-
-	public void setReceiverProfileId(String receiverProfileId) {
-		this.receiverProfileId = receiverProfileId;
+	public void setReceiverId(String receiverId) {
+		this.receiverId = receiverId;
 	}
 
 	public String getMessage() {
@@ -89,14 +78,6 @@ public class UserPushNotifications extends Model {
 		this.timestamp = timestamp;
 	}
 
-	public int getNotificationType() {
-		return notificationType;
-	}
-
-	public void setNotificationType(int notificationType) {
-		this.notificationType = notificationType;
-	}
-
 	public int getAccountType() {
 		return accountType;
 	}
@@ -117,22 +98,28 @@ public class UserPushNotifications extends Model {
 		this.isSent = isSent;
 	}
 
-	public Long create(String senderProfileId, String receiverProfileId, String message, String deviceToken,
-			int notificationType, int accountType) throws PersistenceException {
-		this.senderProfileId = senderProfileId;
-		this.receiverProfileId = receiverProfileId;
+	public int getPlatform() {
+		return platform;
+	}
+
+	public void setPlatform(int platform) {
+		this.platform = platform;
+	}
+
+	public Long create(String receiverId, String message, String deviceToken, int accountType, int platform)
+			throws PersistenceException {
+		this.receiverId = receiverId;
 		this.message = message;
 		this.deviceToken = deviceToken;
 		this.timestamp = new Date();
-		this.notificationType = notificationType;
 		this.accountType = accountType;
+		this.platform = platform;
 		this.save();
 		return this.id;
 	}
 
-	public void updateNotificationStatus(Long id) {
-		UserPushNotifications userNotificationMessages = find.byId(id);
-		userNotificationMessages.isSent = true;
-		Ebean.update(userNotificationMessages);
+	public void updateNotificationStatus() {
+		this.isSent = true;
+		this.update();
 	}
 }

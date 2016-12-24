@@ -226,6 +226,8 @@ public class MyConstants {
 		public static final String ADDRESS_DELETE_SUCCESS = "address.delete.success";
 		public static final String LOGOUT_SUCCESS = "logout.success";
 		public static final String PRODUCT_UPDATE_AVAILABILITY_SUCCESS = "product.update.availability.success";
+		public static final String FCM_REGISTER_SUCCESS = "fcm.register.success";
+		
 	}
 
 	public class FailureMessages {
@@ -323,7 +325,12 @@ public class MyConstants {
 		public static final String VENDOR_NOT_AVAILABLE = "vendor.not.available";
 		public static final String PINCODE_NOT_FOUND = "pincode.not.found";
 		public static final String UPDATE_AVAILABILITY_FAILED = "update.availability.failed";
-
+		public static final String DEVICE_TOKEN_NOT_FOUND = "device.token.not.found";
+		public static final String DEVICE_TYPE_NOT_FOUND = "device.type.not.found";
+		public static final String IMAGE_NOT_FOUND = "image.not.found";
+		
+		public static final String PRODUCT_ALREADY_DELETED = "product.already.deleted";
+		
 	}
 
 	public class OsType {

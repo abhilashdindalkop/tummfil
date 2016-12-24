@@ -65,6 +65,9 @@ public class ImageController extends ParentController {
 				}
 				imageService.uploadProductImage(multipartFormData, product);
 
+				if (product.getImageUrl() == null) {
+					throw new MyException(FailureMessages.IMAGE_NOT_FOUND);
+				}
 				standard = ImageUtilities.getProductImageUrl(productId, product.getImageUrl(),
 						ImageResizeType.STANDARD);
 				thumbnail = ImageUtilities.getProductImageUrl(productId, product.getImageUrl(),
@@ -81,6 +84,9 @@ public class ImageController extends ParentController {
 				// upload vendor image
 				imageService.uploadVendorImage(multipartFormData, vendor);
 
+				if (vendor.getImageUrl() == null) {
+					throw new MyException(FailureMessages.IMAGE_NOT_FOUND);
+				}
 				standard = ImageUtilities.getVendorImageUrl(vendor.getEncryptedVendorId(), vendor.getImageUrl(),
 						ImageResizeType.STANDARD);
 				thumbnail = ImageUtilities.getVendorImageUrl(vendor.getEncryptedVendorId(), vendor.getImageUrl(),

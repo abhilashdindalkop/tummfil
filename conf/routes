@@ -19,6 +19,7 @@ POST   	/write/api/v1/user/facebook/sign-in			controllers.UserController.signInU
 GET   	/read/api/v1/user/sync						controllers.UserController.userSync()	
 POST   	/write/api/v1/user/update					controllers.UserController.updateUser()	
 DELETE  /write/api/v1/user/logout					controllers.UserController.userLogout()	
+POST   	/write/api/v1/user/fcm/register				controllers.UserController.registerFCMToken()	
 
 #=====================================ADDRESS=================================================================================
 POST   	/write/api/v1/user/address					controllers.UserController.addUserAddress()	
@@ -50,7 +51,8 @@ POST   	/write/api/v1/vendor/update					controllers.VendorController.updateVendo
 GET   	/read/api/v1/vendor/pre-requisites			controllers.VendorController.getVendorPrerequisites(updatedTime:Long?=0)	
 GET   	/read/api/v1/vendor/details					controllers.VendorController.getVendorDetails()	
 DELETE  /write/api/v1/vendor/logout					controllers.VendorController.vendorLogout()	
-GET   	/read/api/v1/vendor/categories				controllers.VendorController.getVendorCategories()	
+GET   	/read/api/v1/vendor/categories				controllers.VendorController.getVendorCategories()
+POST   	/write/api/v1/vendor/fcm/register				controllers.VendorController.registerFCMToken()	
 
 #=====================================PRODUCTS=================================================================================
 POST   	/write/api/v1/product/add						controllers.ProductController.addProduct()	

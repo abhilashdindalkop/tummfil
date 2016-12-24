@@ -157,6 +157,11 @@ public class UserSession extends Model {
 		this.badgeCount = badgeCount;
 	}
 
+	public void updateDeviceToken(String deviceToken) {
+		this.setDeviceToken(deviceToken);
+		this.update();
+	}
+
 	public static UserSession findByDeviceToken(String deviceToken) {
 		if (deviceToken == null) {
 			return null;
@@ -205,6 +210,7 @@ public class UserSession extends Model {
 			}
 
 			// registering device with push notification server (apns, gcm)
+			userSession.setDeviceToken(deviceToken);
 
 			Ebean.save(userSession);
 			user.updateLastLogin();

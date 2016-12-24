@@ -4,6 +4,7 @@ package controllers;
 import javax.inject.Inject;
 import javax.persistence.PersistenceException;
 
+import com.ecommerce.models.sql.UserSession;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -13,9 +14,11 @@ import play.mvc.Result;
 import play.mvc.Security;
 import services.UserService;
 import utils.CorsComposition;
+import utils.MyConstants.APIRequestKeys;
 import utils.MyConstants.FailureMessages;
 import utils.MyConstants.JsonSchemaFilePath;
 import utils.MyConstants.SuccessMessages;
+import utils.MyException;
 import utils.MyFailureResponse;
 import utils.MySuccessResponse;
 import utils.ValidateJsonSchema.ValidateJson;
@@ -98,7 +101,6 @@ public class UserController extends ParentController {
 		return response.getResult();
 	}
 
-
 	@CorsComposition.Cors
 	@BodyParser.Of(BodyParser.Json.class)
 	@ValidateJson(JsonSchemaFilePath.USER_FB_SIGN_UP)
@@ -115,7 +117,7 @@ public class UserController extends ParentController {
 
 		return response.getResult();
 	}
-	
+
 	@CorsComposition.Cors
 	@BodyParser.Of(BodyParser.Json.class)
 	@ValidateJson(JsonSchemaFilePath.USER_FB_SIGN_IN)
@@ -190,6 +192,30 @@ public class UserController extends ParentController {
 			userService.userLogout();
 
 			response = new MySuccessResponse(SuccessMessages.LOGOUT_SUCCESS);
+		} catch (PersistenceException e) {
+			response = new MyFailureResponse(FailureMessages.UNIQUE_DEVICE_ID_TOKEN);
+		} catch (Exception e) {
+			response = createFailureResponse(e);
+		}
+		return response.getResult();
+	}
+
+	@CorsComposition.Cors
+	@BodyParser.Of(BodyParser.Json.class)
+	@Security.Authenticated(UserAuthenticator.class)
+	public Result registerFCMToken() {
+		try {
+			JsonNode inputJson = request().body().asJson();
+			if (!inputJson.has(APIRequestKeys.DEVICE_TOKEN)) {
+				throw new MyException(FailureMessages.DEVICE_TOKEN_NOT_FOUND);
+			}
+			String deviceToken = inputJson.findValue(APIRequestKeys.DEVICE_TOKEN).asText();
+
+			UserSession session = UserSession.findByContext();
+
+			userService.registerUserFCM(session, deviceToken);
+
+			response = new MySuccessResponse(SuccessMessages.FCM_REGISTER_SUCCESS);
 		} catch (PersistenceException e) {
 			response = new MyFailureResponse(FailureMessages.UNIQUE_DEVICE_ID_TOKEN);
 		} catch (Exception e) {

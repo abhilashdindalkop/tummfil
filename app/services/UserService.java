@@ -9,6 +9,7 @@ import com.ecommerce.models.sql.Cities;
 import com.ecommerce.models.sql.UserAddress;
 import com.ecommerce.models.sql.UserSession;
 import com.ecommerce.models.sql.Users;
+import com.ecommerce.models.sql.VendorSession;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -24,8 +25,7 @@ import utils.ObjectMapperUtil;
 public class UserService {
 
 	/* To Sign Up a new user */
-	public ObjectNode signUpUsingPhoneNo(JsonNode inputJson)
-			throws MyException, NoSuchAlgorithmException, IOException {
+	public ObjectNode signUpUsingPhoneNo(JsonNode inputJson) throws MyException, NoSuchAlgorithmException, IOException {
 
 		/* Check if user already exists */
 		String phoneNo = inputJson.findValue(APIRequestKeys.PHONE_NO).asText();
@@ -259,7 +259,7 @@ public class UserService {
 		if (!inputJson.has(APIRequestKeys.CITY_ID)) {
 			throw new MyException(FailureMessages.CITY_ID_DOESNT_EXIST);
 		}
-		
+
 		if (!inputJson.has(APIRequestKeys.PINCODE)) {
 			throw new MyException(FailureMessages.PINCODE_NOT_FOUND);
 		}
@@ -291,9 +291,6 @@ public class UserService {
 		String encryptedUserId = UserSession.getUserEncryptedIdByContext();
 
 		Users user = Users.findById(encryptedUserId);
-		if (user == null) {
-			throw new MyException(FailureMessages.USER_DOESNT_EXIST);
-		}
 
 		UserAddress.deleteById(addressId);
 
@@ -320,6 +317,10 @@ public class UserService {
 
 		UserSession.deleteSession(UserSession.findByContext());
 
+	}
+
+	public void registerUserFCM(UserSession session, String deviceToken) throws IOException {
+		session.updateDeviceToken(deviceToken);
 	}
 
 }

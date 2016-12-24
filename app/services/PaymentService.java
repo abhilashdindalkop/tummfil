@@ -8,6 +8,7 @@ import com.ecommerce.models.sql.Orders;
 import com.ecommerce.models.sql.Transactions;
 import com.ecommerce.models.sql.UserSession;
 
+import integrations.fcm.TownNotificationMessages;
 import utils.MyConstants.CurrencyType;
 import utils.MyConstants.FailureMessages;
 import utils.MyConstants.OrderStatus;
@@ -19,10 +20,12 @@ import utils.MyException;
 public class PaymentService {
 
 	TransactionsDAO transactionsDAO;
+	TownNotificationMessages townNotificationMessages;
 
 	@Inject
-	public PaymentService(TransactionsDAO transactionsDAO) {
+	public PaymentService(TransactionsDAO transactionsDAO, TownNotificationMessages townNotificationMessages) {
 		this.transactionsDAO = transactionsDAO;
+		this.townNotificationMessages = townNotificationMessages;
 	}
 
 	public Transactions createTransaction(CreateTransactionRequestDTO requestDTO) throws MyException {
@@ -44,13 +47,14 @@ public class PaymentService {
 
 		case PaymentType.COD:
 			/* Exception case for COD - because Payment Status : PENDING */
-			if(transactionsDAO.findByOrderId(order, TransactionStatus.SUCCESS) != null){
+			if (transactionsDAO.findByOrderId(order, TransactionStatus.SUCCESS) != null) {
 				throw new MyException(FailureMessages.TRANSACTION_ALREADY_DONE);
 			}
 			newTransaction = transactionsDAO.create(order, PaymentType.COD, CurrencyType.INR);
 			if (newTransaction.getStatus() == TransactionStatus.SUCCESS) {
 				order.setStatus(OrderStatus.CONFIRMED);
 				order.updatePaymentTypeAndStatus(PaymentType.COD, PaymentStatus.PENDING);
+				townNotificationMessages.confirmOrderMessage(order);
 			}
 			break;
 		case PaymentType.CARD:
@@ -61,7 +65,6 @@ public class PaymentService {
 			throw new MyException(FailureMessages.INVALID_PAYMENT_TYPE);
 		}
 
-	
 		return newTransaction;
 	}
 }

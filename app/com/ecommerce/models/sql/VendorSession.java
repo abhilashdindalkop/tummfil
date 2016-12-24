@@ -162,6 +162,11 @@ public class VendorSession extends Model {
 		this.update();
 	}
 
+	public void updateDeviceToken(String deviceToken) {
+		this.setDeviceToken(deviceToken);
+		this.update();
+	}
+	
 	public static VendorSession findByDeviceToken(String deviceToken) {
 		if (deviceToken == null) {
 			return null;

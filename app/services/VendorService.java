@@ -19,6 +19,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import integrations.fcm.NotificationConstants.NotificationType;
+import integrations.fcm.NotificationHandler;
 import play.libs.Json;
 import utils.MyConstants.APIRequestKeys;
 import utils.MyConstants.APIResponseKeys;
@@ -31,10 +33,12 @@ import utils.MyException;
 public class VendorService {
 
 	VendorLocationDAO vendorLocationDAO;
+	NotificationHandler notificationHandler;
 
 	@Inject
-	public VendorService(VendorLocationDAO vendorLocationDAO) {
+	public VendorService(VendorLocationDAO vendorLocationDAO, NotificationHandler notificationHandler) {
 		this.vendorLocationDAO = vendorLocationDAO;
+		this.notificationHandler = notificationHandler;
 	}
 
 	public ObjectNode signUpUsingPhoneNo(JsonNode inputJson) throws MyException, NoSuchAlgorithmException, IOException {
@@ -209,7 +213,9 @@ public class VendorService {
 	}
 
 	public ObjectNode getVendorCategories() throws IOException, MyException {
+
 		String vendorId = VendorSession.getVendorEncryptedIdByContext();
+
 		Vendors vendor = Vendors.findById(vendorId);
 
 		List<HashMap<String, Object>> categoryList = CreateResponseJson
@@ -221,4 +227,7 @@ public class VendorService {
 		return categoriesNode;
 	}
 
+	public void registerVendorFCM(VendorSession session, String deviceToken) throws IOException {
+		session.updateDeviceToken(deviceToken);
+	}
 }

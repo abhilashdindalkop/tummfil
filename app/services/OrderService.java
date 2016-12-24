@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import integrations.fcm.TownNotificationMessages;
 import play.libs.Json;
 import utils.MyConstants;
 import utils.MyConstants.APIRequestKeys;
@@ -33,11 +34,14 @@ public class OrderService {
 
 	TransactionsDAO transactionsDAO;
 	BoyAssignedOrdersDAO boyAssignedOrdersDAO;
+	TownNotificationMessages townNotificationMessages;
 
 	@Inject
-	public OrderService(TransactionsDAO transactionsDAO, BoyAssignedOrdersDAO boyAssignedOrdersDAO) {
+	public OrderService(TransactionsDAO transactionsDAO, BoyAssignedOrdersDAO boyAssignedOrdersDAO,
+			TownNotificationMessages townNotificationMessages) {
 		this.transactionsDAO = transactionsDAO;
 		this.boyAssignedOrdersDAO = boyAssignedOrdersDAO;
+		this.townNotificationMessages = townNotificationMessages;
 	}
 
 	public ObjectNode getVendorOrders(int status, int page, int limit) throws MyException, IOException {
@@ -125,6 +129,24 @@ public class OrderService {
 				boyAssignedOrdersDAO.updateOrderStatus(order, OrderStatus.DELIVERED);
 			}
 			Ebean.commitTransaction();
+
+			switch (orderStatus) {
+			case OrderStatus.CONFIRMED:
+				break;
+			case OrderStatus.OUT_FOR_DELIVERY:
+				townNotificationMessages.outForDeliveryOrderMessage(order);
+				break;
+			case OrderStatus.DELIVERED:
+				townNotificationMessages.deliveredOrderMessage(order);
+				break;
+			case OrderStatus.CANCELLED:
+				townNotificationMessages.cancelledOrderMessage(order);
+				break;
+			case OrderStatus.DECLINED:
+				townNotificationMessages.declinedOrderMessage(order);
+				break;
+			}
+
 		} finally {
 			if (Ebean.currentTransaction() != null) {
 				Ebean.currentTransaction().rollback();

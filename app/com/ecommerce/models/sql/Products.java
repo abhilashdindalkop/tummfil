@@ -221,7 +221,7 @@ public class Products extends Model {
 		query.where().eq("isDeleted", false);
 		return query;
 	}
-	
+
 	public static Query<Products> basicQuery() throws MyException {
 		Query<Products> query = Ebean.createQuery(Products.class);
 		query.where().eq("isDeleted", false).eq("status", ProductStatus.AVAILABLE);
@@ -229,8 +229,8 @@ public class Products extends Model {
 	}
 
 	public static List<Category> getVendorCategories(Vendors vendor) throws MyException {
-		Set<Products> listProducts = basicQueryVendor().where().eq("vendor", vendor).select("category").setDistinct(true)
-				.findSet();
+		Set<Products> listProducts = basicQueryVendor().where().eq("vendor", vendor).select("category")
+				.setDistinct(true).findSet();
 		List<Category> categoryList = new ArrayList<Category>();
 		for (Products product : listProducts) {
 			categoryList.add(product.getCategory());
@@ -306,6 +306,11 @@ public class Products extends Model {
 	public static void deleteProduct(Products product) throws MyException, IOException {
 		// TODO check if any active orders with this product
 		// Do not allow to delete
+
+		if (product.getIsDeleted()) {
+			throw new MyException(FailureMessages.PRODUCT_ALREADY_DELETED);
+		}
+
 		product.setIsDeleted(true);
 		product.update();
 	}

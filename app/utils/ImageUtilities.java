@@ -173,7 +173,7 @@ public class ImageUtilities {
 
 	/* Construct Category Image url */
 	public static String constructCategoryImageUrl(Category category) {
-		String imageUrl = MyConstants.CATEGORY_IMAGE_BASE_PATH + category.getType() + ".png";
+		String imageUrl = MyConstants.CATEGORY_IMAGE_BASE_PATH + category.getType() + ".svg";
 		return imageUrl;
 
 	}

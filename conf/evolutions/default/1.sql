@@ -150,10 +150,23 @@ create table promotions (
 
 create table referral (
   id                        bigint auto_increment not null,
+  referred_by_id            bigint not null,
+  referred_to_id            bigint not null,
   credit                    float not null,
   status                    integer not null,
   created_time              TIMESTAMP DEFAULT CURRENT_TIMESTAMP not null,
   constraint pk_referral primary key (id))
+;
+
+create table subscriptions (
+  id                        bigint auto_increment not null,
+  user_id                   bigint,
+  vendor_id                 bigint,
+  device_token              varchar(255),
+  topic                     varchar(255),
+  is_subribed               tinyint(1) default 0,
+  created_time              TIMESTAMP DEFAULT CURRENT_TIMESTAMP not null,
+  constraint pk_subscriptions primary key (id))
 ;
 
 create table tags (
@@ -194,12 +207,11 @@ create table user_address (
 
 create table user_push_notifications (
   id                        bigint auto_increment not null,
-  sender_profile_id         varchar(255),
-  receiver_profile_id       varchar(255) not null,
+  receiver_id               varchar(255) not null,
   message                   TEXT,
+  platform                  integer,
   device_token              varchar(255),
   timestamp                 TIMESTAMP DEFAULT CURRENT_TIMESTAMP not null,
-  notification_type         integer,
   account_type              integer,
   is_sent                   tinyint(1) default 0,
   constraint pk_user_push_notifications primary key (id))
@@ -322,24 +334,32 @@ alter table products add constraint fk_products_category_15 foreign key (categor
 create index ix_products_category_15 on products (category_id);
 alter table promotions add constraint fk_promotions_vendor_16 foreign key (vendor_id) references vendors (id) on delete restrict on update restrict;
 create index ix_promotions_vendor_16 on promotions (vendor_id);
-alter table transactions add constraint fk_transactions_order_17 foreign key (order_id) references orders (id) on delete restrict on update restrict;
-create index ix_transactions_order_17 on transactions (order_id);
-alter table user_address add constraint fk_user_address_user_18 foreign key (user_id) references users (id) on delete restrict on update restrict;
-create index ix_user_address_user_18 on user_address (user_id);
-alter table user_address add constraint fk_user_address_city_19 foreign key (city_id) references cities (id) on delete restrict on update restrict;
-create index ix_user_address_city_19 on user_address (city_id);
-alter table user_session add constraint fk_user_session_user_20 foreign key (user_id) references users (id) on delete restrict on update restrict;
-create index ix_user_session_user_20 on user_session (user_id);
-alter table user_session add constraint fk_user_session_deviceType_21 foreign key (device_type_id) references device_type (id) on delete restrict on update restrict;
-create index ix_user_session_deviceType_21 on user_session (device_type_id);
-alter table users add constraint fk_users_city_22 foreign key (city_id) references cities (id) on delete restrict on update restrict;
-create index ix_users_city_22 on users (city_id);
-alter table vendor_session add constraint fk_vendor_session_vendor_23 foreign key (vendor_id) references vendors (id) on delete restrict on update restrict;
-create index ix_vendor_session_vendor_23 on vendor_session (vendor_id);
-alter table vendor_session add constraint fk_vendor_session_deviceType_24 foreign key (device_type_id) references device_type (id) on delete restrict on update restrict;
-create index ix_vendor_session_deviceType_24 on vendor_session (device_type_id);
-alter table vendors add constraint fk_vendors_city_25 foreign key (city_id) references cities (id) on delete restrict on update restrict;
-create index ix_vendors_city_25 on vendors (city_id);
+alter table referral add constraint fk_referral_referredBy_17 foreign key (referred_by_id) references users (id) on delete restrict on update restrict;
+create index ix_referral_referredBy_17 on referral (referred_by_id);
+alter table referral add constraint fk_referral_referredTo_18 foreign key (referred_to_id) references users (id) on delete restrict on update restrict;
+create index ix_referral_referredTo_18 on referral (referred_to_id);
+alter table subscriptions add constraint fk_subscriptions_user_19 foreign key (user_id) references users (id) on delete restrict on update restrict;
+create index ix_subscriptions_user_19 on subscriptions (user_id);
+alter table subscriptions add constraint fk_subscriptions_vendor_20 foreign key (vendor_id) references vendors (id) on delete restrict on update restrict;
+create index ix_subscriptions_vendor_20 on subscriptions (vendor_id);
+alter table transactions add constraint fk_transactions_order_21 foreign key (order_id) references orders (id) on delete restrict on update restrict;
+create index ix_transactions_order_21 on transactions (order_id);
+alter table user_address add constraint fk_user_address_user_22 foreign key (user_id) references users (id) on delete restrict on update restrict;
+create index ix_user_address_user_22 on user_address (user_id);
+alter table user_address add constraint fk_user_address_city_23 foreign key (city_id) references cities (id) on delete restrict on update restrict;
+create index ix_user_address_city_23 on user_address (city_id);
+alter table user_session add constraint fk_user_session_user_24 foreign key (user_id) references users (id) on delete restrict on update restrict;
+create index ix_user_session_user_24 on user_session (user_id);
+alter table user_session add constraint fk_user_session_deviceType_25 foreign key (device_type_id) references device_type (id) on delete restrict on update restrict;
+create index ix_user_session_deviceType_25 on user_session (device_type_id);
+alter table users add constraint fk_users_city_26 foreign key (city_id) references cities (id) on delete restrict on update restrict;
+create index ix_users_city_26 on users (city_id);
+alter table vendor_session add constraint fk_vendor_session_vendor_27 foreign key (vendor_id) references vendors (id) on delete restrict on update restrict;
+create index ix_vendor_session_vendor_27 on vendor_session (vendor_id);
+alter table vendor_session add constraint fk_vendor_session_deviceType_28 foreign key (device_type_id) references device_type (id) on delete restrict on update restrict;
+create index ix_vendor_session_deviceType_28 on vendor_session (device_type_id);
+alter table vendors add constraint fk_vendors_city_29 foreign key (city_id) references cities (id) on delete restrict on update restrict;
+create index ix_vendors_city_29 on vendors (city_id);
 
 
 
@@ -370,6 +390,8 @@ drop table products;
 drop table promotions;
 
 drop table referral;
+
+drop table subscriptions;
 
 drop table tags;
 

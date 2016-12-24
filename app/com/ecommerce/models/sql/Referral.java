@@ -7,8 +7,11 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
@@ -24,10 +27,12 @@ public class Referral extends Model {
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 
-	@Column(nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(nullable = false)
 	private Users referredBy;
 
-	@Column(nullable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(nullable = false)
 	private Users referredTo;
 
 	@Column(nullable = false)

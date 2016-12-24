@@ -17,7 +17,8 @@ libraryDependencies ++= Seq(
   "com.mashape.unirest" % "unirest-java" % "1.4.5",
   "org.mongodb" % "mongo-java-driver" % "3.3.0",
   "org.mongodb.morphia" % "morphia" % "1.2.1",
-  filters
+  filters,
+  "org.projectlombok" % "lombok" % "1.16.12"
 )
 
 // Play provides two styles of routers, one expects its actions to be injected, the
