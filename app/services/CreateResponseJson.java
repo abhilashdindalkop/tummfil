@@ -231,21 +231,4 @@ public class CreateResponseJson {
 		return resultNode;
 	}
 
-	/*
-	 * Construct Category Json
-	 */
-
-	public static List<HashMap<String, Object>> constructCategoriesResponse(List<Category> categoryList)
-			throws IOException {
-		List<HashMap<String, Object>> categoryHMList = new ArrayList<HashMap<String, Object>>();
-		for (Category category : categoryList) {
-			HashMap<String, Object> newHM = new HashMap<String, Object>();
-			newHM.put(APIResponseKeys.ID, category.getId());
-			newHM.put(APIResponseKeys.TYPE, category.getType());
-			newHM.put(APIResponseKeys.IMAGE_URL, ImageUtilities.constructCategoryImageUrl(category));
-			categoryHMList.add(newHM);
-		}
-		return categoryHMList;
-	}
-	
 }

@@ -22,8 +22,8 @@ public class ImageUtilities {
 			return null;
 		}
 
-		String imageUrl = NetworkConstants.HOST_URL_HTTP + MessageReaderFactory.getPropertyValue("S3_DOMAIN_NAME") + "/"
-				+ MessageReaderFactory.getPropertyValue("S3_BUCKET_NAME") + "/";
+		String imageUrl = NetworkConstants.HOST_URL_HTTPS + MessageReaderFactory.getPropertyValue("S3_DOMAIN_NAME")
+				+ "/" + MessageReaderFactory.getPropertyValue("S3_BUCKET_NAME") + "/";
 		switch (imageSizeType) {
 		case ImageResizeType.STANDARD:
 
@@ -149,8 +149,8 @@ public class ImageUtilities {
 			return null;
 		}
 
-		String imageUrl = NetworkConstants.HOST_URL_HTTP + MessageReaderFactory.getPropertyValue("S3_DOMAIN_NAME") + "/"
-				+ MessageReaderFactory.getPropertyValue("S3_BUCKET_NAME") + "/";
+		String imageUrl = NetworkConstants.HOST_URL_HTTPS + MessageReaderFactory.getPropertyValue("S3_DOMAIN_NAME")
+				+ "/" + MessageReaderFactory.getPropertyValue("S3_BUCKET_NAME") + "/";
 
 		switch (imageSizeType) {
 		case ImageResizeType.STANDARD:
@@ -169,13 +169,6 @@ public class ImageUtilities {
 			break;
 		}
 		return imageUrl;
-	}
-
-	/* Construct Category Image url */
-	public static String constructCategoryImageUrl(Category category) {
-		String imageUrl = MyConstants.CATEGORY_IMAGE_BASE_PATH + category.getType() + ".svg";
-		return imageUrl;
-
 	}
 
 }

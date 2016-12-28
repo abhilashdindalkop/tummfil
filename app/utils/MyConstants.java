@@ -497,6 +497,4 @@ public class MyConstants {
 
 	public static final String IMAGE_UPLOAD_KEY = "image";
 
-	public static final String CATEGORY_IMAGE_BASE_PATH = "https://s3-us-west-2.amazonaws.com/cake-house/categories/";
-
 }

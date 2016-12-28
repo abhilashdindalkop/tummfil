@@ -29,7 +29,7 @@ public class Category extends Model {
 	@Column(nullable = false, length = 50)
 	private String type;
 
-	private boolean isImageExists;
+	private String imageUrl;
 
 	@Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	@JsonIgnore
@@ -59,12 +59,12 @@ public class Category extends Model {
 		this.createdTime = createdTime;
 	}
 
-	public boolean isImageExists() {
-		return isImageExists;
+	public String getImageUrl() {
+		return imageUrl;
 	}
 
-	public void setImageExists(boolean isImageExists) {
-		this.isImageExists = isImageExists;
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 	public static Category findById(long id) throws MyException {

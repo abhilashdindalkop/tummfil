@@ -15,7 +15,7 @@ create table boy_assigned_orders (
 create table category (
   id                        bigint auto_increment not null,
   type                      varchar(50) not null,
-  is_image_exists           tinyint(1) default 0,
+  image_url                 varchar(255),
   created_time              TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   constraint pk_category primary key (id))
 ;
