@@ -28,6 +28,8 @@ public class MyConstants {
 		public static final String PHONE_NO = "phoneNo";
 		public static final String CITY = "city";
 		public static final String EXTRA_FEE = "extraFee";
+		public static final String REFERRAL_CODE = "referralCode";
+		public static final String WALLET_AMOUNT = "walletAmount";
 
 		public static final String IS_NEW_USER = "isNewUser";
 		public static final String CITY_ID = "cityId";
@@ -227,7 +229,7 @@ public class MyConstants {
 		public static final String LOGOUT_SUCCESS = "logout.success";
 		public static final String PRODUCT_UPDATE_AVAILABILITY_SUCCESS = "product.update.availability.success";
 		public static final String FCM_REGISTER_SUCCESS = "fcm.register.success";
-		
+
 	}
 
 	public class FailureMessages {
@@ -328,9 +330,9 @@ public class MyConstants {
 		public static final String DEVICE_TOKEN_NOT_FOUND = "device.token.not.found";
 		public static final String DEVICE_TYPE_NOT_FOUND = "device.type.not.found";
 		public static final String IMAGE_NOT_FOUND = "image.not.found";
-		
+
 		public static final String PRODUCT_ALREADY_DELETED = "product.already.deleted";
-		
+
 	}
 
 	public class OsType {

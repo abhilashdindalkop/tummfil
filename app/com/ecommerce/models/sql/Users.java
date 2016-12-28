@@ -61,6 +61,7 @@ public class Users extends Model {
 
 	private String password;
 
+	@Column(unique = true)
 	private String referralCode;
 
 	private double walletAmount = 0;
@@ -208,6 +209,10 @@ public class Users extends Model {
 		return user;
 	}
 
+	public static Users findByReferralCode(String referralCode) {
+		return Ebean.find(Users.class).where().eq("referralCode", referralCode).findUnique();
+	}
+
 	public static Users findByEmail(String email) {
 		Users user = Ebean.find(Users.class).where().eq("email", email).eq("isDeleted", false).findUnique();
 		return user;
@@ -248,8 +253,10 @@ public class Users extends Model {
 	public void addUser(String password, Cities city) {
 		this.setCity(city);
 		this.setPassword(PasswordEncryptDecrypt.generatePasswordHash(password));
-		this.setEncryptedUserId(UUID.randomUUID().toString());
-		this.setReferralCode(GenericUtils.generateReferralCode());
+		String uuid = UUID.randomUUID().toString();
+		this.setEncryptedUserId(uuid);
+		String referralCode = GenericUtils.generateReferralCode(uuid);
+		this.setReferralCode(referralCode);
 		this.setLastLogin(new Date());
 		this.save();
 	}

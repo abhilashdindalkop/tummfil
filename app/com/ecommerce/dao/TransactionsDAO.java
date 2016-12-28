@@ -35,9 +35,9 @@ public class TransactionsDAO {
 			throw new MyException(FailureMessages.INVALID_TRANSACTION);
 		}
 		Transactions newTransaction = new Transactions();
-
-		newTransaction.setEncryptedId(UUID.randomUUID().toString());
-		newTransaction.setTransactionId(GenericUtils.generateTransactionId());
+		String orderId = UUID.randomUUID().toString();
+		newTransaction.setEncryptedId(orderId);
+		newTransaction.setTransactionId(GenericUtils.generateTransactionId(orderId));
 		newTransaction.setOrder(order);
 		newTransaction.setPaymentType(paymentType);
 		newTransaction.setStatus(TransactionStatus.SUCCESS);

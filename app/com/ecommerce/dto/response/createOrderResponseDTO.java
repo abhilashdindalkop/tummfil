@@ -16,7 +16,7 @@ public class createOrderResponseDTO {
 	public List<ObjectNode> products = new ArrayList<ObjectNode>();
 
 	public Double extraFee;
-	
+
 	public Double totalPrice;
 
 	public String name;

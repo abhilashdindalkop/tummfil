@@ -1,6 +1,8 @@
 package utils;
 
-import java.util.UUID;
+import java.security.SecureRandom;
+import java.util.Date;
+import java.util.Random;
 
 import com.ecommerce.models.sql.Products;
 
@@ -14,27 +16,49 @@ public class GenericUtils {
 		return price;
 	}
 
-	public static String generateReferralCode() {
-		// TODO
-		String referralCode = UUID.randomUUID().toString();
-		return referralCode;
+	public static double computeCompanyFee(double price) {
+		double companyFee = (price * MyConstants.COMPANY_FEE_PERCENTAGE) / 100;
+		return companyFee;
 	}
 
-	public static String generateTransactionId() {
-		// TODO
-		String transactionId = UUID.randomUUID().toString();
-		return transactionId;
+	public static String generateReferralCode(String uuid) {
+		StringBuilder referralCode = createRandomCode(4);
+		referralCode.append(uuid.substring(5, 7));
+		return referralCode.toString().toUpperCase();
 	}
 
-	public static String generateOrderId() {
-		// TODO
-		String orderId = UUID.randomUUID().toString();
-		return orderId;
+	public static String generateTransactionId(String orderId) {
+		StringBuilder transactionId = createRandomCode(4);
+		transactionId.append(new Date().getTime() / 100000000);
+		transactionId.append(orderId.substring(5, 7));
+		return transactionId.toString().toUpperCase();
+	}
+
+	public static String generateOrderId(long userId, long vendorId) {
+		StringBuilder orderId = new StringBuilder();
+		orderId.append("T-");
+		orderId.append(createRandomCode(4));
+		orderId.append(userId);
+		orderId.append(createRandomCode(2));
+		orderId.append(vendorId);
+		orderId.append(new Date().getTime() / 100000000);
+		return orderId.toString().toUpperCase();
 	}
 
 	public static double computeExtraFee() {
 		// TODO Get delivery fee based on vendor
 		return MyConstants.DELIVERY_FEE;
+	}
+
+	public static StringBuilder createRandomCode(int codeLength) {
+		char[] chars = "abcdefghijklmnopqrstuvwxyz1234567890".toCharArray();
+		StringBuilder sb = new StringBuilder();
+		Random random = new SecureRandom();
+		for (int i = 0; i < codeLength; i++) {
+			char c = chars[random.nextInt(chars.length)];
+			sb.append(c);
+		}
+		return sb;
 	}
 
 	public static void orderStatusValidation(int prevOrderStatus, int orderStatus) throws MyException {

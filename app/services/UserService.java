@@ -135,6 +135,8 @@ public class UserService {
 		resultNode.put(APIResponseKeys.NAME, user.getName());
 		resultNode.put(APIResponseKeys.EMAIL, user.getEmail());
 		resultNode.put(APIResponseKeys.PHONE_NO, user.getPhoneNo());
+		resultNode.put(APIResponseKeys.REFERRAL_CODE, user.getReferralCode());
+		resultNode.put(APIResponseKeys.WALLET_AMOUNT, user.getWalletAmount());
 		resultNode.put(APIResponseKeys.ADDRESS, user.getAddress());
 		resultNode.put(APIResponseKeys.PINCODE, user.getPincode());
 		resultNode.set(APIResponseKeys.CITY, Json.toJson(user.getCity()));

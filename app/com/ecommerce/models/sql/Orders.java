@@ -272,11 +272,6 @@ public class Orders extends Model {
 		this.updatedTime = updatedTime;
 	}
 
-	public static double computeCompanyFee(double price) {
-		double companyFee = (price * MyConstants.COMPANY_FEE_PERCENTAGE) / 100;
-		return companyFee;
-	}
-
 	public static JsonNode createOrder(CreateOrderRequestDTO requestDTO, Users user) throws MyException {
 		try {
 			Ebean.beginTransaction();
@@ -326,13 +321,13 @@ public class Orders extends Model {
 				orderedProdJsonList.add(prodJson);
 			}
 
-			double companyFee = Orders.computeCompanyFee(totalProductsPrice);
+			double companyFee = GenericUtils.computeCompanyFee(totalProductsPrice);
 			double extraFee = GenericUtils.computeExtraFee();
 
 			totalPrice = totalProductsPrice + extraFee;
 
 			/* Create order id */
-			String orderId = GenericUtils.generateOrderId();
+			String orderId = GenericUtils.generateOrderId(user.getId(), vendor.getId());
 
 			Orders newOrder = new Orders();
 			newOrder.save(requestDTO, orderId, user, vendor, companyFee, extraFee, totalPrice);
