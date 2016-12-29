@@ -327,7 +327,7 @@ public class Vendors extends Model {
 
 	public void updateVendor() {
 		this.setUpdatedTime(new Date());
-		this.save();
+		this.update();
 	}
 
 	public static ObjectNode getVendorFeeds(JsonNode filterNode, int page, int limit) throws MyException, IOException {

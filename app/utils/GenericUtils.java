@@ -22,7 +22,7 @@ public class GenericUtils {
 	}
 
 	public static String generateReferralCode(String uuid) {
-		StringBuilder referralCode = createRandomCode(4);
+		StringBuilder referralCode = createRandomCode(6);
 		referralCode.append(uuid.substring(5, 7));
 		return referralCode.toString().toUpperCase();
 	}

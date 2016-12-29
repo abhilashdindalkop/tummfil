@@ -22,7 +22,7 @@ public class VendorLocationDAO {
 
 	public Query<VendorLocations> findNearbyVendors(double latitude, double longitude, double distance) {
 		double distanceInKM = distance / 1000;
-		return ds.find(VendorLocations.class).field("location").near(latitude, longitude, distanceInKM / 111.12)
+		return ds.find(VendorLocations.class).field("location").near(longitude, latitude, distanceInKM / 111.12)
 				.order("createdTime");
 	}
 
