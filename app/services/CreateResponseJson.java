@@ -184,6 +184,7 @@ public class CreateResponseJson {
 		orderNode.put(APIResponseKeys.PAYMENT_STATUS, order.getPaymentStatus());
 		orderNode.put(APIResponseKeys.TOTAL_PRICE, order.getTotalPrice());
 
+		orderNode.put(APIResponseKeys.EXTRA_FEE, order.getExtraFee());
 		orderNode.put(APIResponseKeys.PINCODE, order.getPincode());
 		orderNode.set(APIResponseKeys.CITY, Json.toJson(order.getCity()));
 
