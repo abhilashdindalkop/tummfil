@@ -69,6 +69,21 @@ public class GenericUtils {
 			if (prevOrderStatus == OrderStatus.CONFIRMED) {
 				failureMessage = FailureMessages.ALREADY_CONFIRMED;
 			}
+			if (prevOrderStatus == OrderStatus.UNDER_PROGRESS) {
+				failureMessage = FailureMessages.ALREADY_UNDER_PROGRESS;
+			}
+			if (prevOrderStatus == OrderStatus.OUT_FOR_DELIVERY) {
+				failureMessage = FailureMessages.ALREADY_OUT_FOR_DELIVERY;
+			}
+			if (prevOrderStatus == OrderStatus.CANCELLED) {
+				failureMessage = FailureMessages.ALREADY_CANCELLED;
+			}
+			if (prevOrderStatus == OrderStatus.DELIVERED) {
+				failureMessage = FailureMessages.ALREADY_DELIVERED;
+			}
+			if (prevOrderStatus == OrderStatus.DECLINED) {
+				failureMessage = FailureMessages.ALREADY_DECLINED;
+			}
 		case OrderStatus.UNDER_PROGRESS:
 			if (prevOrderStatus == OrderStatus.UNDER_PROGRESS) {
 				failureMessage = FailureMessages.ALREADY_UNDER_PROGRESS;
@@ -104,6 +119,9 @@ public class GenericUtils {
 			if (prevOrderStatus == OrderStatus.OUT_FOR_DELIVERY) {
 				failureMessage = FailureMessages.ALREADY_OUT_FOR_DELIVERY;
 			}
+			if (prevOrderStatus == OrderStatus.UNDER_PROGRESS) {
+				failureMessage = FailureMessages.ALREADY_UNDER_PROGRESS;
+			}
 			if (prevOrderStatus == OrderStatus.CANCELLED) {
 				failureMessage = FailureMessages.ALREADY_CANCELLED;
 			}
@@ -115,6 +133,9 @@ public class GenericUtils {
 			}
 			break;
 		case OrderStatus.CANCELLED:
+			if (prevOrderStatus == OrderStatus.CONFIRMED) {
+				failureMessage = FailureMessages.CANNOT_CANCEL_CONFIRMED_EVENT;
+			}
 			if (prevOrderStatus == OrderStatus.CANCELLED) {
 				failureMessage = FailureMessages.ALREADY_CANCELLED;
 			}
@@ -132,9 +153,6 @@ public class GenericUtils {
 			if (prevOrderStatus == OrderStatus.UNDER_PROGRESS) {
 				failureMessage = FailureMessages.ALREADY_UNDER_PROGRESS;
 			}
-			if (prevOrderStatus == OrderStatus.OUT_FOR_DELIVERY) {
-				failureMessage = FailureMessages.ALREADY_OUT_FOR_DELIVERY;
-			}
 			if (prevOrderStatus == OrderStatus.CANCELLED) {
 				failureMessage = FailureMessages.ALREADY_CANCELLED;
 			}
@@ -145,6 +163,8 @@ public class GenericUtils {
 				failureMessage = FailureMessages.ALREADY_DECLINED;
 			}
 			break;
+		default:
+			throw new MyException(FailureMessages.INVALID_ORDER_STATUS);
 		}
 
 		if (failureMessage != null) {

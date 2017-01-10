@@ -26,6 +26,8 @@ import utils.MyConstants.APIRequestKeys;
 import utils.MyConstants.APIResponseKeys;
 import utils.MyConstants.FailureMessages;
 import utils.MyConstants.OrderStatus;
+import utils.MyConstants.PaymentStatus;
+import utils.MyConstants.PaymentType;
 import utils.MyConstants.TransactionStatus;
 import utils.MyException;
 import utils.ObjectMapperUtil;
@@ -126,6 +128,9 @@ public class OrderService {
 			Ebean.beginTransaction();
 			order.updateStatus(orderStatus);
 			if (orderStatus == OrderStatus.DELIVERED) {
+				if (order.getPaymentType() == PaymentType.COD) {
+					order.updatePaymentTypeAndStatus(PaymentType.COD, PaymentStatus.SUCCESS);
+				}
 				boyAssignedOrdersDAO.updateOrderStatus(order, OrderStatus.DELIVERED);
 			}
 			Ebean.commitTransaction();

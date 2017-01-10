@@ -254,6 +254,7 @@ create table users (
   last_login                TIMESTAMP,
   constraint uq_users_encrypted_user_id unique (encrypted_user_id),
   constraint uq_users_email unique (email),
+  constraint uq_users_referral_code unique (referral_code),
   constraint pk_users primary key (id))
 ;
 

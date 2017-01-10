@@ -280,6 +280,8 @@ public class MyConstants {
 		public static final String SIGN_UP_FAILED = "sign.up.failed";
 		public static final String YET_TO_IMPLEMENT = "yet.to.implement";
 		public static final String INVALID_PAYMENT_TYPE = "invalid.payment.type";
+		public static final String CANNOT_CANCEL_CONFIRMED_EVENT = "cannot.cancel.confirmed.event";
+		
 
 		public static final String FACEBOOK_LINK_ABSENT = "facebook.account.absent";
 		public static final String INVALID_FACEBOOK_CREDENTIALS = "invalid.facebook.credentials";
@@ -302,6 +304,8 @@ public class MyConstants {
 		public static final String PRODUCT_NOT_ADDED_TO_CART = "product.not.added.to.cart";
 		public static final String CART_EMPTY = "cart.empty";
 		public static final String INVALID_ORDER_TYPE = "invalid.order.type";
+		public static final String INVALID_ORDER_STATUS = "invalid.order.status";
+		
 		public static final String PRODUCTS_BELONGS_TO_MULTIPLE_VENDORS = "products.belongs.to.multiple.vendors";
 		public static final String ERROR_WHILE_UPLOADING_IMAGE = "error.while.uploading.image";
 
