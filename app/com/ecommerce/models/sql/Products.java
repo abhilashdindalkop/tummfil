@@ -410,7 +410,7 @@ public class Products extends Model {
 			products = productQuery.findPagedList(page, limit).getList();
 		}
 
-		resultNode.set("productList", CreateResponseJson.getProductsFeedListJson(products));
+		resultNode.set(APIResponseKeys.PRODUCTS, CreateResponseJson.getProductsFeedListJson(products));
 		resultNode.put(APIResponseKeys.TOTAL_COUNT, totalCount);
 		return resultNode;
 	}
@@ -450,8 +450,7 @@ public class Products extends Model {
 		searchText = searchText.replace(" ", "").toLowerCase();
 		String searchProductQuery = "SELECT product_id, name, description, category_id, "
 				+ "status, product_type, units, price, unit_type FROM "
-				+ "products WHERE is_deleted = false AND REPLACE(LOWER(name), ' ', '') LIKE '%"
-				+ searchText + "%'";
+				+ "products WHERE is_deleted = false AND REPLACE(LOWER(name), ' ', '') LIKE '%" + searchText + "%'";
 
 		SqlQuery rawSqlQuery = Ebean.createSqlQuery(searchProductQuery);
 
