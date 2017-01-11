@@ -364,7 +364,7 @@ public class Products extends Model {
 		if (filterNode.has(APIRequestKeys.IS_FEATURED)) {
 			boolean isFeatured = filterNode.findValue(APIRequestKeys.IS_FEATURED).asBoolean();
 			if (isFeatured) {
-				// TODO calculate featured products
+				productQuery.where().eq("is_featured", isFeatured);
 			}
 		}
 
@@ -450,7 +450,7 @@ public class Products extends Model {
 		searchText = searchText.replace(" ", "").toLowerCase();
 		String searchProductQuery = "SELECT product_id, name, description, category_id, "
 				+ "status, product_type, units, price, unit_type FROM "
-				+ "products WHERE image_url != null AND is_deleted = false AND REPLACE(LOWER(name), ' ', '') LIKE '%"
+				+ "products WHERE is_deleted = false AND REPLACE(LOWER(name), ' ', '') LIKE '%"
 				+ searchText + "%'";
 
 		SqlQuery rawSqlQuery = Ebean.createSqlQuery(searchProductQuery);
