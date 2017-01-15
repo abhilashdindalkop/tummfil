@@ -294,11 +294,6 @@ public class Products extends Model {
 			}
 			product.setProductType(productType);
 		}
-		if (inputJson.has(APIRequestKeys.IS_DELETED)) {
-			// TODO check if any active orders with this product
-			// Do not allow to delete
-			product.setIsDeleted(inputJson.findValue(APIRequestKeys.IS_DELETED).asBoolean());
-		}
 		product.setUpdatedTime(new Date());
 		product.update();
 	}

@@ -74,6 +74,11 @@ public class OrderService {
 		ObjectMapper mapper = ObjectMapperUtil.getInstance();
 		CreateOrderRequestDTO requestDTO = mapper.convertValue(inputJson, CreateOrderRequestDTO.class);
 
+		if (!(requestDTO.latitude != null && requestDTO.longitude != null)
+				|| (requestDTO.pincode != null && requestDTO.cityId != null)) {
+			throw new MyException(FailureMessages.INVALID_ADDRESS_INFO);
+		}
+
 		Users user = Users.findById(encryptedUserId);
 
 		ObjectNode resultNode = Json.newObject();

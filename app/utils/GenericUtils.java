@@ -134,7 +134,7 @@ public class GenericUtils {
 			break;
 		case OrderStatus.CANCELLED:
 			if (prevOrderStatus == OrderStatus.CONFIRMED) {
-				failureMessage = FailureMessages.CANNOT_CANCEL_CONFIRMED_EVENT;
+				failureMessage = FailureMessages.CANNOT_CANCEL_CONFIRMED_ORDER;
 			}
 			if (prevOrderStatus == OrderStatus.CANCELLED) {
 				failureMessage = FailureMessages.ALREADY_CANCELLED;

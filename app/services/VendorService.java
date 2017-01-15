@@ -174,18 +174,12 @@ public class VendorService {
 		productTypeHM.put(ProductType.NON_VEG_STR, ProductType.NON_VEG);
 
 		HashMap<String, Integer> orderTypeHM = new HashMap<String, Integer>();
-		orderTypeHM.put(OrderType.NORMAL_STR, OrderType.NORMAL);
+		orderTypeHM.put(OrderType.DELIVER_STR, OrderType.DELIVER);
 		orderTypeHM.put(OrderType.GIFT_WRAP_STR, OrderType.GIFT_WRAP);
-		orderTypeHM.put(OrderType.PRE_ORDER_STR, OrderType.PRE_ORDER);
-
-		HashMap<String, Integer> unitTypesHM = new HashMap<String, Integer>();
-		unitTypesHM.put(UnitType.KG_STR, UnitType.KG);
-		unitTypesHM.put(UnitType.LITRE_STR, UnitType.LITRE);
-		unitTypesHM.put(UnitType.NONE_STR, UnitType.NONE);
+		orderTypeHM.put(OrderType.PICK_UP_STR, OrderType.PICK_UP);
 
 		resultNode.set(APIResponseKeys.PRODUCT_TYPES, Json.toJson(productTypeHM));
 		resultNode.set(APIResponseKeys.ORDER_TYPES, Json.toJson(orderTypeHM));
-		resultNode.set(APIResponseKeys.UNIT_TYPES, Json.toJson(unitTypesHM));
 
 		Date updatedDate = new Date(updatedTime);
 		boolean isUpdate = false;

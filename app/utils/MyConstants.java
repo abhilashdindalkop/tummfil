@@ -233,7 +233,7 @@ public class MyConstants {
 	}
 
 	public class FailureMessages {
-		public static final String FILE_CONTENT_TYPE_NOT_SUPPORTED = "file.Content.type.not.supported";
+		public static final String FILE_CONTENT_TYPE_NOT_SUPPORTED = "file.content.type.not.supported";
 		public static final String UNSUPPORTED_FILE_TYPE = "unsupported.file.type";
 
 		public static final String USER_NOT_EXISTS = "user.not.exists";
@@ -280,7 +280,7 @@ public class MyConstants {
 		public static final String SIGN_UP_FAILED = "sign.up.failed";
 		public static final String YET_TO_IMPLEMENT = "yet.to.implement";
 		public static final String INVALID_PAYMENT_TYPE = "invalid.payment.type";
-		public static final String CANNOT_CANCEL_CONFIRMED_EVENT = "cannot.cancel.confirmed.event";
+		public static final String CANNOT_CANCEL_CONFIRMED_ORDER = "cannot.cancel.confirmed.order";
 		
 
 		public static final String FACEBOOK_LINK_ABSENT = "facebook.account.absent";
@@ -336,6 +336,8 @@ public class MyConstants {
 		public static final String IMAGE_NOT_FOUND = "image.not.found";
 
 		public static final String PRODUCT_ALREADY_DELETED = "product.already.deleted";
+		public static final String INVALID_ADDRESS_INFO = "invalid.address.info";
+		
 
 	}
 
@@ -391,7 +393,7 @@ public class MyConstants {
 			ProductStatus.INCOMPLETE);
 	public static List<Integer> productTypeList = Arrays.asList(ProductType.NONE, ProductType.VEG, ProductType.NON_VEG);
 
-	public static List<Integer> orderTypeList = Arrays.asList(OrderType.NORMAL, OrderType.PRE_ORDER,
+	public static List<Integer> orderTypeList = Arrays.asList(OrderType.PICK_UP, OrderType.DELIVER,
 			OrderType.GIFT_WRAP);
 	public static List<Integer> orderStatusList = Arrays.asList(OrderStatus.CONFIRMED, OrderStatus.UNDER_PROGRESS,
 			OrderStatus.OUT_FOR_DELIVERY, OrderStatus.DECLINED, OrderStatus.CANCELLED, OrderStatus.DELIVERED);
@@ -425,13 +427,13 @@ public class MyConstants {
 	}
 
 	public class OrderType {
-		public static final int NORMAL = 1;
-		public static final int GIFT_WRAP = 2;
-		public static final int PRE_ORDER = 3;
+		public static final int PICK_UP = 2;
+		public static final int DELIVER = 1;
+		public static final int GIFT_WRAP = 3;
 
-		public static final String NORMAL_STR = "Normal";
-		public static final String GIFT_WRAP_STR = "GiftWrap";
-		public static final String PRE_ORDER_STR = "PreOrder";
+		public static final String DELIVER_STR = "Deliver";
+		public static final String PICK_UP_STR = "Pick-Up";
+		public static final String GIFT_WRAP_STR = "Gift-Wrap";
 	}
 
 	public class PaymentType {

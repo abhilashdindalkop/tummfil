@@ -10,25 +10,23 @@ public class CreateOrderRequestDTO {
 	@Required
 	public String name;
 
-	@Required
-	public int cityId;
+	public Integer cityId;
 
-	public int orderType;
+	public Integer orderType;
 
 	@Required
 	public String address;
 
-	@Required
-	public long pincode;
+	public Long pincode;
 
 	@Required
 	public String phoneNo;
 
 	public String description;
 
-	public double latitude;
+	public Double latitude;
 
-	public double longitude;
+	public Double longitude;
 
 	public List<OrderedProductsRequestDTO> orderedProducts = new ArrayList<OrderedProductsRequestDTO>();
 

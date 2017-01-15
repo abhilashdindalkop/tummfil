@@ -1,75 +1,128 @@
-title = WASH HOUSE
+title = Tummfil
 
 ##################################### API SUCCESS MESSAGES #####################################
 vendor.update.success = Vendor updated successful
 product.update.success = Product updated successful
-##################################### API FAILURE MESSAGES #####################################
-unsupported.file.type = Unsupported file type
-file.Content.type.not.supported = File Content type not supported
-user.not.exists = User does not exists
-user.already.exists = User already exists
-invalid.json = Invalid JSON
-bad.request = Bad request
-invalid.api.call = Invalid API call
-invalid.input = Invalid input
-invalid.name = Invalid first name
-invalid.device.type = Invalid device type ID
-invalid.email = Invalid email
-invalid.user = Invalid User
-invalid.profile.type = Invalid Profile type
-json.parse.error =  Error while parsing JSON
-json.mapper.error = Error while mapping JSON 
-technical.error = Oops! Something went wrong
-session.creation.failed = Session creation failed
-session.invalid = Session is invalid
-db.error = Database Error
-email.already.exists = Email already exists
-phone.no.already.exists = Phone number already exists
-city.doesnt.exist = City doesn't exist
-vendor.not.verified = Vendor is not verified. Please contact main branch to get verified
-###	Product Failure messages ###
-product.doesnt.exist = Product doesn't exist
-category.doesnt.exist = Category doesn't exist
-vendor.doesnt.exist = Vendor doesn't exist
-vendor.not.owner.of.product = Vendor is not the owner of product
-invalid.product.status = Invalid product status
-invalid.product.type = Invalid product type
-invalid.search.operation = Invalid search operation
-search.text.min.length.two = Search text minimum length two
-values.cant.be.negative = Values can't be negative
-send.valid.order.status = Send valid order status
-order.doesnt.exist = Order doesn't exist
-order.doesnt.belong.to.vendor = Order doesn't belong to vendor
-order.id.not.found = Order id not found
-order.status.not.found = Order status not found
-already.confirmed = Already confirmed
-already.declined = Already declined
-already.cancelled = Already cancelled
-already.out.for.delivery = Already out for delivery
-already.under.progress = Already under progress
-already.delivered = Already delivered
-order.status.update.success = Order status update successful
-######################################################################################################
-################################################ USER ############################################
-
-##################################### API SUCCESS MESSAGES #####################################
 user.update.success = User updated successful
 product.added.to.cart.success = Product added to cart success
+
+product.delete.success=Product delete successful
+order.status.update.success=Order status update successful
+order.assign.success=Order assigned successful
+product.deleted.from.cart.success=Product delete from cart successful
+cart.product.update.success=Cart product update successful
+address.added.success=Address add successful
+address.delete.success=Address delete successful
+logout.success=Logout complete
+product.update.availability.success=Product availability updated successful
+fcm.register.success=Fcm registration successful
+
+
 ##################################### API FAILURE MESSAGES #####################################
-email.phone.not.found = Email or Phone Number not found
-workshop.not.found = Workshop not found 
-incorrect.password = Incorrect Password
-phone.already.registered = User already registered with this Phone No.
-email.already.registered = User already registered with this Email ID
-city.id.doesnt.exist = City id doesn't exist
-incorrect.email.phone = Incorrect Email or Phone No.
-cloth.type.doesnt.exist = Cloth type doesn't exist
-wash.type.doesnt.exist = Wash type doesn't exist
-user.doesnt.exist = User doesn't exist
-unique.device.id.token = Send unique device id and device token
-product.not.added.to.cart = Product not added to cart
-invalid.access = Invalid access
-product.deleted.from.cart.success = Product deleted from cart successfully
-cart.product.update.success = Updated product in the cart
-cart.empty = Cart is empty. Please, add some products to the cart.
-invalid.order.type = Invalid order type
+
+file.content.type.not.supported=File Content type not supported
+unsupported.file.type=Unsupported file type
+user.not.exists=User does not exists
+user.already.exists=User already exists
+invalid.json=Invalid JSON
+bad.request=Bad request
+invalid.api.call=Invalid API Call
+invalid.input=Invalid input
+invalid.email=Invalid email
+json.parse.error=Json parse error
+json.mapper.error=Json mapper error
+io.error=IO Error
+technical.error=Technical error
+session.creation.failed=Session creation failed
+session.invalid=Session invalid
+db.error=DB Error
+signout.conflict=Signout conflict
+email.already.exists= Email already exists
+phone.no.already.exists= Phone number already exists
+email.phone.not.found= Email or Phone number not found
+password.not.found=Password not found
+incorrect.password=Incorrect password. Please, try again.
+phone.already.registered=Phone number already registered
+email.already.registered=Email already registered
+city.id.doesnt.exist=City id doesn't exist
+incorrect.email.phone=Incorrect email or phone number
+user.doesnt.exist=User doesn't exist
+city.doesnt.exist=City doesn't exist
+unique.device.id.token=Send unique device id and device token
+vendor.not.verified= Vendor is not verified. Please, contact us to get verified
+product.doesnt.exist=Product doesn't exist 
+category.doesnt.exist=Category doesn't exist. Please, search similar category
+vendor.doesnt.exist=Vendor doesn't exist
+tag.doesnt.exist=Tag doesn't exist. Please, search similar tag
+locality.doesnt.exist=Locality doesn't exist
+vendor.not.owner.of.product=You are not the owner of the product
+invalid.product.status=Invalid product status
+invalid.product.type=Invalid product type
+invalid.unit.type=Invalid unit type
+invalid.search.operation=Invalid search operation
+search.text.min.length.two= Search text should contain minimum 2 characters 
+send.valid.order.status=Send valid order status
+invalid.access=Invalid access
+sign.up.failed=Sign up failed
+yet.to.implement=Service unavailable
+invalid.payment.type=Invalid payment type
+cannot.cancel.confirmed.order= You cannot cancel confirmed order 
+facebook.account.absent=Facebook account doesn't exist
+invalid.facebook.credentials=Invalid facebook credentials
+order.doesnt.exist=Order doesn't exist
+order.doesnt.belong.to.vendor=Order doesn't belong to you
+order.doesnt.belong.to.delivery.boy=Order doesn't belong to you
+order.id.not.found=Order id not found 
+delivery.boy.id.not.found=Delivery boy id not found
+order.status.not.found=Order status not found
+order.doesnt.belong.to.user=Order doesn't belong to user
+already.confirmed=Order already confirmed 
+already.declined=Order already declined
+already.cancelled=Order already cancelled
+already.out.for.delivery=Order already out for delivery
+already.under.progress=Order already under progress
+already.delivered=Order already delivered
+product.not.added.to.cart=Product not added to cart
+cart.empty=Cart is empty
+invalid.order.type=Invalid order type
+invalid.order.status=Invalid order status
+products.belongs.to.multiple.vendors=Products belongs to multiple vendors
+error.while.uploading.image=Error while uploading image
+product.or.vendor.id.not.found=Product or vendor id not found
+facebook.conflict=Facebook conflict
+invalid.promotion.id=Invalid promotion id
+invalid.address.id=Invalid address id
+address.not.found=Address not found
+cannot.delete.default.address=Cannot delete default address
+invalid.address.type=Invalid address type
+address.type.not.found=Address type not found
+unit.type.doesnt.exist=Unit type doesn't exist
+vendor.location.doesnt.exist=Vendor location doesn't exist
+delivery.boy.doesnt.exist=Delivery boy doesn't exist
+transaction.doesnt.exist=Transaction doesn't exist
+transaction.already.done=Transaction already processed
+invalid.transaction=Invalid transaction
+transaction.failed=Transaction failed
+vendor.not.available=Vendor not available
+pincode.not.found=Pincode not found
+update.availability.failed=update availability failed
+device.token.not.found=Device token not found
+device.type.not.found=Device type not found
+image.not.found=Image not found
+product.already.deleted=Product already deleted
+invalid.address.info=Please, provide your delivery address information
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
