@@ -41,13 +41,6 @@ public class ProductService {
 			}
 		}
 
-		if (inputJson.has(APIRequestKeys.UNIT_TYPE)) {
-			int unitType = inputJson.findValue(APIRequestKeys.UNIT_TYPE).asInt();
-			if (!MyConstants.unitTypeList.contains(unitType)) {
-				throw new MyException(FailureMessages.INVALID_UNIT_TYPE);
-			}
-		}
-
 		ObjectMapper mapper = ObjectMapperUtil.getInstance();
 		Products newProduct = mapper.convertValue(inputJson, Products.class);
 

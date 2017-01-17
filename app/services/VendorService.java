@@ -9,17 +9,17 @@ import java.util.List;
 import javax.inject.Inject;
 
 import com.ecommerce.dao.VendorLocationDAO;
+import com.ecommerce.models.mongo.VendorLocations;
 import com.ecommerce.models.sql.Category;
 import com.ecommerce.models.sql.Cities;
+import com.ecommerce.models.sql.Products;
 import com.ecommerce.models.sql.VendorSession;
 import com.ecommerce.models.sql.Vendors;
-import com.ecommerce.models.sql.Products;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import integrations.fcm.NotificationConstants.NotificationType;
 import integrations.fcm.NotificationHandler;
 import play.libs.Json;
 import utils.MyConstants.APIRequestKeys;
@@ -27,7 +27,6 @@ import utils.MyConstants.APIResponseKeys;
 import utils.MyConstants.FailureMessages;
 import utils.MyConstants.OrderType;
 import utils.MyConstants.ProductType;
-import utils.MyConstants.UnitType;
 import utils.MyException;
 
 public class VendorService {
@@ -145,9 +144,6 @@ public class VendorService {
 		if (inputJson.has(APIRequestKeys.LATITUDE) && inputJson.has(APIRequestKeys.LONGITUDE)) {
 			double longitude = inputJson.findValue(APIRequestKeys.LONGITUDE).asDouble();
 			double latitude = inputJson.findValue(APIRequestKeys.LATITUDE).asDouble();
-			vendor.setLongitude(longitude);
-			vendor.setLatitude(latitude);
-
 			vendorLocationDAO.updateLocation(vendor.getId(), latitude, longitude);
 		}
 		if (inputJson.has(APIRequestKeys.SHIPPING_DISTANCE)) {
@@ -196,6 +192,10 @@ public class VendorService {
 
 		ObjectNode vendorNode = Json.newObject();
 		vendorNode = CreateResponseJson.constructVendorResponseJson(vendor);
+		VendorLocations vendorLoc = new VendorLocationDAO().findById(vendor.getId());
+		List<Double> location = vendorLoc.getLocation();
+		vendorNode.put(APIResponseKeys.LATITUDE, location.get(1));
+		vendorNode.put(APIResponseKeys.LONGITUDE, location.get(0));
 		vendorNode.put(APIResponseKeys.EMAIL, vendor.getEmail());
 		vendorNode.put(APIResponseKeys.PHONE_NO, vendor.getPhoneNo());
 

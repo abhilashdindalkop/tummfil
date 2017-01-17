@@ -131,6 +131,7 @@ public class MyConstants {
 
 		public static final String CITY_ID = "cityId";
 		public static final String PINCODE = "pincode";
+		public static final String VENDOR_TYPE = "vendorType";
 
 		public static final String VENDOR_TOKEN = "token";
 		public static final String ENCRYPTED_VENDOR_ID = "encryptedVendorId";
@@ -400,8 +401,6 @@ public class MyConstants {
 
 	public static List<Integer> addressTypeList = Arrays.asList(AddressType.HOME, AddressType.OTHERS, AddressType.WORK);
 
-	public static List<Integer> unitTypeList = Arrays.asList(UnitType.NONE, UnitType.KG, UnitType.LITRE);
-
 	public class OrderStatus {
 		public static final int PENDING = 1;
 		public static final int CONFIRMED = 2;
@@ -459,20 +458,9 @@ public class MyConstants {
 		public static final int DELIVERY_BOY = 3;
 	}
 
-	public class UnitType {
-		public static final int NONE = 0;
-		public static final int KG = 1;
-		public static final int LITRE = 2;
-
-		public static final String NONE_STR = "None";
-		public static final String KG_STR = "KG";
-		public static final String LITRE_STR = "Litre";
-	}
-
 	public class VendorType {
-		public static final int NORMAL = 1;
-		public static final int EXECUTIVE = 2;
-		public static final int PREMIUM = 3;
+		public static final int HOTEL = 1;
+		public static final int BAKERY = 2;
 	}
 
 	public class ImageResizeType {

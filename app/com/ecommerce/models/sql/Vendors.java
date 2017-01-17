@@ -50,7 +50,7 @@ public class Vendors extends Model {
 
 	private String vendorName;
 
-	private int vendorType = VendorType.NORMAL;
+	private int vendorType = VendorType.HOTEL;
 
 	@Column(columnDefinition = "TEXT")
 	private String vendorAddress;
@@ -58,10 +58,6 @@ public class Vendors extends Model {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(nullable = false)
 	private Cities city;
-
-	private double latitude;
-
-	private double longitude;
 
 	@Column(columnDefinition = "TEXT")
 	private String description;
@@ -203,22 +199,6 @@ public class Vendors extends Model {
 		this.imageUrl = imageUrl;
 	}
 
-	public double getLatitude() {
-		return latitude;
-	}
-
-	public void setLatitude(double latitude) {
-		this.latitude = latitude;
-	}
-
-	public double getLongitude() {
-		return longitude;
-	}
-
-	public void setLongitude(double longitude) {
-		this.longitude = longitude;
-	}
-
 	public String getVendorName() {
 		return vendorName;
 	}
@@ -342,6 +322,11 @@ public class Vendors extends Model {
 		if (filterNode.has(APIRequestKeys.VENDOR_ID)) {
 			String vendorId = filterNode.findValue(APIRequestKeys.VENDOR_ID).asText();
 			vendorQuery.where().eq("encryptedVendorId", vendorId);
+		}
+		
+		if (filterNode.has(APIRequestKeys.VENDOR_TYPE)) {
+			String vendorType = filterNode.findValue(APIRequestKeys.VENDOR_TYPE).asText();
+			vendorQuery.where().eq("vendorType", vendorType);
 		}
 
 		if (filterNode.has(APIRequestKeys.CITY_ID)) {

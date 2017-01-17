@@ -16,11 +16,6 @@ public class GenericUtils {
 		return price;
 	}
 
-	public static double computeCompanyFee(double price) {
-		double companyFee = (price * MyConstants.COMPANY_FEE_PERCENTAGE) / 100;
-		return companyFee;
-	}
-
 	public static String generateReferralCode(String uuid) {
 		StringBuilder referralCode = createRandomCode(6);
 		referralCode.append(uuid.substring(5, 7));

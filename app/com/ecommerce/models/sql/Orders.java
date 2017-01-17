@@ -54,7 +54,7 @@ public class Orders extends Model {
 	private Users user;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(nullable = false)
+	@JoinColumn()
 	private Cities city;
 
 	private String name;
@@ -62,8 +62,6 @@ public class Orders extends Model {
 	private Double extraFee = 0.0;
 
 	private Double totalPrice;
-
-	private Double companyFee;
 
 	private Integer status;
 
@@ -158,14 +156,6 @@ public class Orders extends Model {
 
 	public void setVendor(Vendors vendor) {
 		this.vendor = vendor;
-	}
-
-	public Double getCompanyFee() {
-		return companyFee;
-	}
-
-	public void setCompanyFee(Double companyFee) {
-		this.companyFee = companyFee;
 	}
 
 	public Integer getStatus() {
@@ -321,7 +311,6 @@ public class Orders extends Model {
 				orderedProdJsonList.add(prodJson);
 			}
 
-			double companyFee = GenericUtils.computeCompanyFee(totalProductsPrice);
 			double extraFee = GenericUtils.computeExtraFee();
 
 			totalPrice = totalProductsPrice + extraFee;
@@ -330,7 +319,7 @@ public class Orders extends Model {
 			String orderId = GenericUtils.generateOrderId(user.getId(), vendor.getId());
 
 			Orders newOrder = new Orders();
-			newOrder.save(requestDTO, orderId, user, vendor, companyFee, extraFee, totalPrice);
+			newOrder.save(requestDTO, orderId, user, vendor, extraFee, totalPrice);
 			newOrder.refresh();
 
 			for (OrderedProducts orderedProdDb : listOrderedProducts) {
@@ -358,15 +347,16 @@ public class Orders extends Model {
 
 	}
 
-	public void save(CreateOrderRequestDTO requestDTO, String orderId, Users user, Vendors vendor, double companyFee,
+	public void save(CreateOrderRequestDTO requestDTO, String orderId, Users user, Vendors vendor,
 			double extraFee, double totalPrice) throws MyException {
 		this.setOrderId(orderId);
 		this.setVendor(vendor);
 		this.setUser(user);
-		Cities city = Cities.findById(requestDTO.cityId);
-		this.setCity(city);
+		if(requestDTO.cityId != null && requestDTO.cityId != 0){
+			Cities city = Cities.findById(requestDTO.cityId);
+			this.setCity(city);
+		}
 		this.setName(requestDTO.name);
-		this.setCompanyFee(companyFee);
 		this.setExtraFee(extraFee);
 		this.setTotalPrice(totalPrice);
 		this.setStatus(OrderStatus.PENDING);

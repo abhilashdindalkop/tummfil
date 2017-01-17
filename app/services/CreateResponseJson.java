@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import com.avaje.ebean.SqlRow;
-import com.ecommerce.models.sql.BoyAssignedOrders;
+import com.ecommerce.dao.VendorLocationDAO;
+import com.ecommerce.models.mongo.VendorLocations;
 import com.ecommerce.models.sql.Category;
 import com.ecommerce.models.sql.OrderedProducts;
 import com.ecommerce.models.sql.Orders;
@@ -105,7 +108,6 @@ public class CreateResponseJson {
 		newHM.put(APIResponseKeys.STATUS, product.getStatus());
 		newHM.put(APIResponseKeys.PRODUCT_TYPE, product.getProductType());
 		newHM.put(APIResponseKeys.UNITS, product.getUnits());
-		newHM.put(APIResponseKeys.UNIT_TYPE, product.getUnitType());
 		newHM.put(APIResponseKeys.PRICE, product.getPrice());
 		newHM.put(APIResponseKeys.IS_FEATURED, product.getIsFeatured());
 		return newHM;
@@ -133,8 +135,6 @@ public class CreateResponseJson {
 		vendorNode.put(APIResponseKeys.VENDOR_ADDRESS, vendor.getVendorAddress());
 		vendorNode.put(APIResponseKeys.DESCRIPTION, vendor.getDescription());
 		vendorNode.put(APIResponseKeys.VENDOR_ID, vendor.getEncryptedVendorId());
-		vendorNode.put(APIResponseKeys.LATITUDE, vendor.getLatitude());
-		vendorNode.put(APIResponseKeys.LONGITUDE, vendor.getLongitude());
 		vendorNode.put(APIResponseKeys.IS_AVAILABLE, vendor.getIsVendorAvailable());
 		vendorNode.set(APIResponseKeys.CITY, Json.toJson(vendor.getCity()));
 		double extraFee = GenericUtils.computeExtraFee();

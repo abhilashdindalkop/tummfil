@@ -70,8 +70,6 @@ public class Products extends Model {
 
 	private int productType = 0;
 
-	private int unitType = 0;
-
 	private double units = 1;
 
 	private double price;
@@ -118,14 +116,6 @@ public class Products extends Model {
 
 	public void setProductType(int productType) {
 		this.productType = productType;
-	}
-
-	public int getUnitType() {
-		return unitType;
-	}
-
-	public void setUnitType(int unitType) {
-		this.unitType = unitType;
 	}
 
 	public double getUnits() {
@@ -280,13 +270,7 @@ public class Products extends Model {
 		if (inputJson.has(APIRequestKeys.UNITS)) {
 			product.setUnits(inputJson.findValue(APIRequestKeys.UNITS).asDouble());
 		}
-		if (inputJson.has(APIRequestKeys.UNIT_TYPE)) {
-			int unitType = inputJson.findValue(APIRequestKeys.UNIT_TYPE).asInt();
-			if (!MyConstants.unitTypeList.contains(unitType)) {
-				throw new MyException(FailureMessages.UNIT_TYPE_DOESNT_EXIST);
-			}
-			product.setUnitType(unitType);
-		}
+
 		if (inputJson.has(APIRequestKeys.PRODUCT_TYPE)) {
 			int productType = inputJson.findValue(APIRequestKeys.PRODUCT_TYPE).asInt();
 			if (!MyConstants.productTypeList.contains(productType)) {

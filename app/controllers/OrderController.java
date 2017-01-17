@@ -102,6 +102,7 @@ public class OrderController extends ParentController {
 			ObjectNode resultNode = orderService.createOrder(inputJson);
 			response = new MySuccessResponse(resultNode);
 		} catch (Exception e) {
+			e.printStackTrace();
 			response = createFailureResponse(e);
 		}
 		return response.getResult();
