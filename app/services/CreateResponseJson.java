@@ -5,11 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import com.avaje.ebean.SqlRow;
-import com.ecommerce.dao.VendorLocationDAO;
-import com.ecommerce.models.mongo.VendorLocations;
 import com.ecommerce.models.sql.Category;
 import com.ecommerce.models.sql.OrderedProducts;
 import com.ecommerce.models.sql.Orders;
@@ -75,7 +71,6 @@ public class CreateResponseJson {
 			newHM.put(APIResponseKeys.STATUS, product.getInteger("status"));
 			newHM.put(APIResponseKeys.PRODUCT_TYPE, product.getInteger("product_type"));
 			newHM.put(APIResponseKeys.UNITS, product.getDouble("units"));
-			newHM.put(APIResponseKeys.UNIT_TYPE, product.getDouble("unit_type"));
 			newHM.put(APIResponseKeys.PRICE, product.getDouble("price"));
 			newHM.put(APIResponseKeys.IS_FEATURED, product.getBoolean("is_featured"));
 			productList.add(newHM);
