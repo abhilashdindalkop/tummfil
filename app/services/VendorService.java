@@ -171,7 +171,6 @@ public class VendorService {
 
 		HashMap<String, Integer> orderTypeHM = new HashMap<String, Integer>();
 		orderTypeHM.put(OrderType.DELIVER_STR, OrderType.DELIVER);
-		orderTypeHM.put(OrderType.GIFT_WRAP_STR, OrderType.GIFT_WRAP);
 		orderTypeHM.put(OrderType.PICK_UP_STR, OrderType.PICK_UP);
 
 		resultNode.set(APIResponseKeys.PRODUCT_TYPES, Json.toJson(productTypeHM));

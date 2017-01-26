@@ -394,8 +394,7 @@ public class MyConstants {
 			ProductStatus.INCOMPLETE);
 	public static List<Integer> productTypeList = Arrays.asList(ProductType.NONE, ProductType.VEG, ProductType.NON_VEG);
 
-	public static List<Integer> orderTypeList = Arrays.asList(OrderType.PICK_UP, OrderType.DELIVER,
-			OrderType.GIFT_WRAP);
+	public static List<Integer> orderTypeList = Arrays.asList(OrderType.PICK_UP, OrderType.DELIVER);
 	public static List<Integer> orderStatusList = Arrays.asList(OrderStatus.CONFIRMED, OrderStatus.UNDER_PROGRESS,
 			OrderStatus.OUT_FOR_DELIVERY, OrderStatus.DECLINED, OrderStatus.CANCELLED, OrderStatus.DELIVERED);
 
@@ -426,13 +425,11 @@ public class MyConstants {
 	}
 
 	public class OrderType {
-		public static final int PICK_UP = 2;
 		public static final int DELIVER = 1;
-		public static final int GIFT_WRAP = 3;
+		public static final int PICK_UP = 2;
 
 		public static final String DELIVER_STR = "Deliver";
-		public static final String PICK_UP_STR = "Pick-Up";
-		public static final String GIFT_WRAP_STR = "Gift-Wrap";
+		public static final String PICK_UP_STR = "Pick-up";
 	}
 
 	public class PaymentType {
