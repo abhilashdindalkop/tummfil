@@ -20,7 +20,7 @@ public class MySuccessResponse extends MyResponse {
 			String successMessage = successData.get(messageKey).asText();
 			successData.put(messageKey, getResponseMessage(successMessage));
 		}
-		if (args[0] != null) {
+		if (args.length != 0) {
 			result.put(error, args[0]);
 		} else {
 			result.put(error, 0);
