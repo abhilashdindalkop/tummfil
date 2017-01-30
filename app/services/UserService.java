@@ -9,7 +9,6 @@ import com.ecommerce.models.sql.Cities;
 import com.ecommerce.models.sql.UserAddress;
 import com.ecommerce.models.sql.UserSession;
 import com.ecommerce.models.sql.Users;
-import com.ecommerce.models.sql.VendorSession;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;

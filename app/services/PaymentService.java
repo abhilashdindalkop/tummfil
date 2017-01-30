@@ -8,7 +8,7 @@ import com.ecommerce.models.sql.Orders;
 import com.ecommerce.models.sql.Transactions;
 import com.ecommerce.models.sql.UserSession;
 
-import integrations.fcm.TownNotificationMessages;
+import integrations.fcm.TummfilNotificationMessages;
 import utils.MyConstants.CurrencyType;
 import utils.MyConstants.FailureMessages;
 import utils.MyConstants.OrderStatus;
@@ -20,12 +20,12 @@ import utils.MyException;
 public class PaymentService {
 
 	TransactionsDAO transactionsDAO;
-	TownNotificationMessages townNotificationMessages;
+	TummfilNotificationMessages tummfilNotificationMessages;
 
 	@Inject
-	public PaymentService(TransactionsDAO transactionsDAO, TownNotificationMessages townNotificationMessages) {
+	public PaymentService(TransactionsDAO transactionsDAO, TummfilNotificationMessages townNotificationMessages) {
 		this.transactionsDAO = transactionsDAO;
-		this.townNotificationMessages = townNotificationMessages;
+		this.tummfilNotificationMessages = townNotificationMessages;
 	}
 
 	public Transactions createTransaction(CreateTransactionRequestDTO requestDTO) throws MyException {
@@ -54,7 +54,7 @@ public class PaymentService {
 			if (newTransaction.getStatus() == TransactionStatus.SUCCESS) {
 				order.setStatus(OrderStatus.CONFIRMED);
 				order.updatePaymentTypeAndStatus(PaymentType.COD, PaymentStatus.PENDING);
-				townNotificationMessages.confirmOrderMessage(order);
+				tummfilNotificationMessages.confirmOrderMessage(order);
 			}
 			break;
 		case PaymentType.CARD:

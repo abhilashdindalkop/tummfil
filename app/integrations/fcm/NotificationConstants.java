@@ -46,26 +46,24 @@ public class NotificationConstants {
 			/*
 			 * Users
 			 */
-			public static final String WELCOME = "Welcome!";
-			public static final String CREATE_ORDER_USER = "Welcome!";
-			public static final String ORDER_CONFIRMED = "Order confirmed";
-			public static final String ORDER_DECLINED = "Order declined";
-			public static final String ORDER_CANCELLED = "Order cancelled";
-			public static final String ORDER_OUT_FOR_DELIVERY = "Order out for delivery";
-			public static final String ORDER_DELIVERED = "Order delivered";
+			public static final String WELCOME = "Welcome to Tummfil!";
+			public static final String ORDER_CONFIRMED = "Your order got confirmed!";
+			public static final String ORDER_DECLINED = "Sorry for inconvinience, your order got declined";
+			public static final String ORDER_CANCELLED = "Sorry for inconvinience, your order got cancelled";
+			public static final String ORDER_OUT_FOR_DELIVERY = "Your order will reach you in sometime. It's already out for delivery!";
+			public static final String ORDER_DELIVERED = "Thanks for ordering from Tummfil, have a great meal!";
 		}
 
 		class VendorMessages {
 			/*
 			 * Vendors
 			 */
-			public static final String WELCOME = "Welcome!";
-			public static final String CREATE_ORDER_USER = "Welcome!";
-			public static final String ORDER_CONFIRMED = "Order confirmed";
-			public static final String ORDER_DECLINED = "Order declined";
-			public static final String ORDER_CANCELLED = "Order cancelled";
+			public static final String WELCOME = "Welcome to Tummfil!";
+			public static final String ORDER_CONFIRMED = "You got an order!";
+			public static final String ORDER_DECLINED = "Order declined successful";
+			public static final String ORDER_CANCELLED = "Order cancelled successful";
 			public static final String ORDER_OUT_FOR_DELIVERY = "Order out for delivery";
-			public static final String ORDER_DELIVERED = "Order delivered";
+			public static final String ORDER_DELIVERED = "Order delivered!";
 		}
 	}
 

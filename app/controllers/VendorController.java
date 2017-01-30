@@ -40,7 +40,7 @@ public class VendorController extends ParentController {
 
 			ObjectNode result = vendorService.signUpUsingPhoneNo(inputJson);
 
-			response = new MySuccessResponse(result);
+			response = new MySuccessResponse(result, 101);
 
 		} catch (Exception e) {
 			response = createFailureResponse(e);

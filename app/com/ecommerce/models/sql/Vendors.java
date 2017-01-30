@@ -281,12 +281,12 @@ public class Vendors extends Model {
 			VendorLocationDAO vendorLocationDAO = new VendorLocationDAO();
 			vendorLocationDAO.add(newVendor, 0d, 0d, 0d);
 			/* Create Vendor Session */
-			VendorSession session = VendorSession.create(newVendor, deviceToken, deviceId, deviceTypeId);
+//			VendorSession session = VendorSession.create(newVendor, deviceToken, deviceId, deviceTypeId);
 			Ebean.commitTransaction();
 
 			ObjectNode resultNode = Json.newObject();
 			resultNode.put(APIResponseKeys.VENDOR_ID, newVendor.getEncryptedVendorId());
-			resultNode.put(APIResponseKeys.TOKEN, session.getToken());
+//			resultNode.put(APIResponseKeys.TOKEN, session.getToken());
 
 			return resultNode;
 		} finally {

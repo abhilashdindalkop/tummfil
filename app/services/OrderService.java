@@ -19,7 +19,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import integrations.fcm.TownNotificationMessages;
+import integrations.fcm.TummfilNotificationMessages;
 import play.libs.Json;
 import utils.MyConstants;
 import utils.MyConstants.APIRequestKeys;
@@ -36,14 +36,14 @@ public class OrderService {
 
 	TransactionsDAO transactionsDAO;
 	BoyAssignedOrdersDAO boyAssignedOrdersDAO;
-	TownNotificationMessages townNotificationMessages;
+	TummfilNotificationMessages tummfilNotificationMessages;
 
 	@Inject
 	public OrderService(TransactionsDAO transactionsDAO, BoyAssignedOrdersDAO boyAssignedOrdersDAO,
-			TownNotificationMessages townNotificationMessages) {
+			TummfilNotificationMessages tummfilNotificationMessages) {
 		this.transactionsDAO = transactionsDAO;
 		this.boyAssignedOrdersDAO = boyAssignedOrdersDAO;
-		this.townNotificationMessages = townNotificationMessages;
+		this.tummfilNotificationMessages = tummfilNotificationMessages;
 	}
 
 	public ObjectNode getVendorOrders(int status, int page, int limit) throws MyException, IOException {
@@ -144,16 +144,16 @@ public class OrderService {
 			case OrderStatus.CONFIRMED:
 				break;
 			case OrderStatus.OUT_FOR_DELIVERY:
-				townNotificationMessages.outForDeliveryOrderMessage(order);
+				tummfilNotificationMessages.outForDeliveryOrderMessage(order);
 				break;
 			case OrderStatus.DELIVERED:
-				townNotificationMessages.deliveredOrderMessage(order);
+				tummfilNotificationMessages.deliveredOrderMessage(order);
 				break;
 			case OrderStatus.CANCELLED:
-				townNotificationMessages.cancelledOrderMessage(order);
+				tummfilNotificationMessages.cancelledOrderMessage(order);
 				break;
 			case OrderStatus.DECLINED:
-				townNotificationMessages.declinedOrderMessage(order);
+				tummfilNotificationMessages.declinedOrderMessage(order);
 				break;
 			}
 

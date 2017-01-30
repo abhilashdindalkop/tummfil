@@ -1,4 +1,4 @@
-package com.ecommerce.twofactor;
+package integrations.twofactor;
 
 public class SendMessage {
 

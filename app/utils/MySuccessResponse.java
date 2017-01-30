@@ -15,12 +15,17 @@ public class MySuccessResponse extends MyResponse {
 		result.put(messageKey, getResponseMessage(successMessage));
 	}
 
-	public MySuccessResponse(ObjectNode successData) {
+	public MySuccessResponse(ObjectNode successData, Integer... args) {
 		if (successData.has(messageKey)) {
 			String successMessage = successData.get(messageKey).asText();
 			successData.put(messageKey, getResponseMessage(successMessage));
 		}
-		result.put(error, 0);
+		if (args[0] != null) {
+			result.put(error, args[0]);
+		} else {
+			result.put(error, 0);
+		}
+
 		result.put(count, 1);
 		result.put(messageKey, "done");
 		ArrayList<JsonNode> list = new ArrayList<JsonNode>();

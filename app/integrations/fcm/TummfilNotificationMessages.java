@@ -6,12 +6,12 @@ import com.ecommerce.models.sql.Orders;
 
 import integrations.fcm.NotificationConstants.NotificationType;
 
-public class TownNotificationMessages {
+public class TummfilNotificationMessages {
 
 	NotificationHandler notificationHandler;
 
 	@Inject
-	public TownNotificationMessages(NotificationHandler notificationHandler) {
+	public TummfilNotificationMessages(NotificationHandler notificationHandler) {
 		this.notificationHandler = notificationHandler;
 	}
 
