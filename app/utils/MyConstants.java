@@ -78,6 +78,7 @@ public class MyConstants {
 		public static final String ADDRESS = "address";
 		public static final String PINCODE = "pincode";
 		public static final String IS_AVAILABLE = "isAvailable";
+		public static final String IS_VERIFIED = "isVerified";
 
 		public static final String LATITUDE = "latitude";
 		public static final String LONGITUDE = "longitude";
@@ -132,6 +133,7 @@ public class MyConstants {
 		public static final String CITY_ID = "cityId";
 		public static final String PINCODE = "pincode";
 		public static final String VENDOR_TYPE = "vendorType";
+		public static final String IS_VERIFIED = "isVerified";
 
 		public static final String VENDOR_TOKEN = "token";
 		public static final String ENCRYPTED_VENDOR_ID = "encryptedVendorId";
@@ -282,7 +284,6 @@ public class MyConstants {
 		public static final String YET_TO_IMPLEMENT = "yet.to.implement";
 		public static final String INVALID_PAYMENT_TYPE = "invalid.payment.type";
 		public static final String CANNOT_CANCEL_CONFIRMED_ORDER = "cannot.cancel.confirmed.order";
-		
 
 		public static final String FACEBOOK_LINK_ABSENT = "facebook.account.absent";
 		public static final String INVALID_FACEBOOK_CREDENTIALS = "invalid.facebook.credentials";
@@ -306,7 +307,7 @@ public class MyConstants {
 		public static final String CART_EMPTY = "cart.empty";
 		public static final String INVALID_ORDER_TYPE = "invalid.order.type";
 		public static final String INVALID_ORDER_STATUS = "invalid.order.status";
-		
+
 		public static final String PRODUCTS_BELONGS_TO_MULTIPLE_VENDORS = "products.belongs.to.multiple.vendors";
 		public static final String ERROR_WHILE_UPLOADING_IMAGE = "error.while.uploading.image";
 
@@ -338,7 +339,10 @@ public class MyConstants {
 
 		public static final String PRODUCT_ALREADY_DELETED = "product.already.deleted";
 		public static final String INVALID_ADDRESS_INFO = "invalid.address.info";
-		
+		public static final String CONTACT_FOR_VENDOR_VERIFICATION = "contact.for.vendor.verification";
+		public static final String SIGN_IN_CONTACT_FOR_VENDOR_VERIFICATION = "sign.in.contact.for.vendor.verification";
+
+		public static final String VENDOR_ID_NOT_FOUND = "vendor.id.not.found";
 
 	}
 
@@ -484,6 +488,7 @@ public class MyConstants {
 	public static final int MIN_SEARCH_LENGTH = 2;
 	public static final String PREREQUISITE_TOKEN = "token";
 	public static final String PREREQUISITE_KEY = "sa2131sadsfsdsad4534534dsfsd";
+	public static final String CMS_KEY = "ash2e3we32e3asadsade3e32e3enkitarn3243242332wdsbaeakk1211938951238";
 
 	public static final float COMPANY_FEE_PERCENTAGE = 5.0f;
 	public static final float DELIVERY_FEE = 20;

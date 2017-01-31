@@ -4,18 +4,18 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import com.ecommerce.models.sql.Vendors;
 import com.ecommerce.models.sql.Products;
+import com.ecommerce.models.sql.Vendors;
 
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Http.MultipartFormData.FilePart;
 import utils.AmazonS3Utils;
+import utils.ImageUtilities;
+import utils.MessageReaderFactory;
 import utils.MyConstants;
 import utils.MyConstants.FailureMessages;
 import utils.MyConstants.ImageResizeType;
 import utils.MyException;
-import utils.ImageUtilities;
-import utils.MessageReaderFactory;
 
 public class ImageService {
 

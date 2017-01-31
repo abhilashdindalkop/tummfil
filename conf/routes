@@ -79,3 +79,9 @@ DELETE  /write/api/v1/delivery-boy/logout					controllers.DeliveryBoyController.
 #=====================================ORDERS=================================================================================
 POST   	/write/api/v1/order/delivery-boy/update-status	controllers.DeliveryBoyController.updateOrderStatusDeliveryBoy()	
 GET		/read/api/v1/delivery-boy/orders/get				controllers.DeliveryBoyController.getBoyOrders(status:Integer?=0, page:Integer?=0,  limit:Integer?=10)
+
+#=====================================		CMS		=================================================================================
+#=====================================		VENDOR	=================================================================================
+GET		/read/cms/vendor/get						controllers.cms.VendorCmsController.getVendorDetails(vendorId:String?=null)
+POST   	/write/cms/vendor/update					controllers.cms.VendorCmsController.updateVendor()	
+POST   	/read/cms/vendor/list						controllers.cms.VendorCmsController.getVendorList()	

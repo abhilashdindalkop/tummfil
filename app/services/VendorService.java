@@ -97,6 +97,10 @@ public class VendorService {
 			throw new MyException(FailureMessages.INCORRECT_PASSWORD);
 		}
 
+		if (!vendor.getIsVendorVerified()) {
+			return null;
+		}
+
 		int deviceTypeId = inputJson.findValue(APIRequestKeys.DEVICE_TYPE).asInt();
 		String deviceId = inputJson.findValue(APIRequestKeys.DEVICE_ID).asText();
 		String deviceToken = (inputJson.has(APIRequestKeys.DEVICE_TOKEN))

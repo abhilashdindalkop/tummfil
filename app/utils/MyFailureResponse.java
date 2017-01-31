@@ -10,7 +10,7 @@ import play.libs.Json;
 
 public class MyFailureResponse extends MyResponse {
 
-	public MyFailureResponse(String errorMessage) {
+	public MyFailureResponse(String errorMessage, Integer... args) {
 		result.put(error, 100);
 		result.put(count, 0);
 		result.put(messageKey, getResponseMessage(errorMessage));

@@ -68,6 +68,10 @@ public class Vendors extends Model {
 	@Column(unique = true)
 	private String email;
 
+	private double shippingFee;
+
+	private double tax;
+
 	private String password;
 
 	private String imageUrl;
@@ -141,6 +145,22 @@ public class Vendors extends Model {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public double getShippingFee() {
+		return shippingFee;
+	}
+
+	public void setShippingFee(double shippingFee) {
+		this.shippingFee = shippingFee;
+	}
+
+	public double getTax() {
+		return tax;
+	}
+
+	public void setTax(double tax) {
+		this.tax = tax;
 	}
 
 	public Boolean getIsVendorVerified() {
@@ -281,12 +301,13 @@ public class Vendors extends Model {
 			VendorLocationDAO vendorLocationDAO = new VendorLocationDAO();
 			vendorLocationDAO.add(newVendor, 0d, 0d, 0d);
 			/* Create Vendor Session */
-//			VendorSession session = VendorSession.create(newVendor, deviceToken, deviceId, deviceTypeId);
+			// VendorSession session = VendorSession.create(newVendor,
+			// deviceToken, deviceId, deviceTypeId);
 			Ebean.commitTransaction();
 
 			ObjectNode resultNode = Json.newObject();
 			resultNode.put(APIResponseKeys.VENDOR_ID, newVendor.getEncryptedVendorId());
-//			resultNode.put(APIResponseKeys.TOKEN, session.getToken());
+			// resultNode.put(APIResponseKeys.TOKEN, session.getToken());
 
 			return resultNode;
 		} finally {
@@ -323,7 +344,7 @@ public class Vendors extends Model {
 			String vendorId = filterNode.findValue(APIRequestKeys.VENDOR_ID).asText();
 			vendorQuery.where().eq("encryptedVendorId", vendorId);
 		}
-		
+
 		if (filterNode.has(APIRequestKeys.VENDOR_TYPE)) {
 			String vendorType = filterNode.findValue(APIRequestKeys.VENDOR_TYPE).asText();
 			vendorQuery.where().eq("vendorType", vendorType);
@@ -389,6 +410,58 @@ public class Vendors extends Model {
 		this.setImageUrl(imageUrl);
 		this.update();
 		this.refresh();
+	}
+
+	public static ObjectNode getVendorCmsList(JsonNode filterNode, int page, int limit)
+			throws MyException, IOException {
+		/*
+		 * Get All Vendors with image. Filters : searchText, city
+		 */
+		boolean isEmpty = false;
+
+		ObjectNode resultNode = Json.newObject();
+		Query<Vendors> vendorQuery = Ebean.createQuery(Vendors.class);
+
+		if (filterNode.has(APIRequestKeys.VENDOR_TYPE)) {
+			String vendorType = filterNode.findValue(APIRequestKeys.VENDOR_TYPE).asText();
+			vendorQuery.where().eq("vendor_type", vendorType);
+		}
+
+		if (filterNode.has(APIRequestKeys.IS_VERIFIED)) {
+			boolean isVerified = filterNode.findValue(APIRequestKeys.IS_VERIFIED).asBoolean();
+			vendorQuery.where().eq("is_vendor_verified", isVerified);
+		}
+
+		if (filterNode.has(APIRequestKeys.IS_AVAILABLE)) {
+			boolean isAvailable = filterNode.findValue(APIRequestKeys.IS_AVAILABLE).asBoolean();
+			vendorQuery.where().eq("is_vendor_available", isAvailable);
+		}
+
+		if (filterNode.has(APIRequestKeys.CITY_ID)) {
+			int cityId = filterNode.findValue(APIRequestKeys.CITY_ID).asInt();
+			vendorQuery.where().eq("city_id", cityId);
+		}
+		String searchText = null;
+		if (filterNode.has(APIRequestKeys.SEARCH_TEXT)) {
+			searchText = filterNode.findValue(APIRequestKeys.SEARCH_TEXT).asText();
+			List<String> searchedVendorIds = searchVendorByText(searchText);
+			if (!searchedVendorIds.isEmpty()) {
+				vendorQuery.where().in("encrypted_vendor_id", searchedVendorIds);
+			} else {
+				isEmpty = true;
+			}
+		}
+
+		List<Vendors> vendorsList = new ArrayList<Vendors>();
+		int totalCount = 0;
+		if (!isEmpty) {
+			totalCount = vendorQuery.findRowCount();
+			vendorsList = vendorQuery.findPagedList(page, limit).getList();
+		}
+
+		resultNode.put(APIResponseKeys.TOTAL_COUNT, totalCount);
+		resultNode.set(APIResponseKeys.VENDOR_LIST, Json.toJson(CreateResponseJson.getVendorsJsonList(vendorsList)));
+		return resultNode;
 	}
 
 }

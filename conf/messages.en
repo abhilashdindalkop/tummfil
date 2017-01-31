@@ -111,7 +111,9 @@ device.type.not.found=Device type not found
 image.not.found=Image not found
 product.already.deleted=Product already deleted
 invalid.address.info=Please, provide your delivery address information
-
+contact.for.vendor.verification=Welcome to Tummfil. Please contact Tummfil office to get verified.
+sign.in.contact.for.vendor.verification=You are not verified, please contact Tummfil office to get verified
+vendor.id.not.found=Vendor id not found
 
 
 
