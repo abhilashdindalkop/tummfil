@@ -68,9 +68,9 @@ public class Vendors extends Model {
 	@Column(unique = true)
 	private String email;
 
-	private double shippingFee;
+	private double shippingFee = 0;
 
-	private double tax;
+	private double tax = 0;
 
 	private String password;
 

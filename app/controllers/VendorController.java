@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import authentication.VendorAuthenticator;
+import play.libs.Json;
 import play.mvc.BodyParser;
 import play.mvc.Result;
 import play.mvc.Security;
@@ -57,6 +58,7 @@ public class VendorController extends ParentController {
 			ObjectNode resultNode = vendorService.vendorSignIn(inputJson);
 
 			if (resultNode == null) {
+				resultNode = Json.newObject();
 				response = new MySuccessResponse(resultNode, 101);
 			}
 
