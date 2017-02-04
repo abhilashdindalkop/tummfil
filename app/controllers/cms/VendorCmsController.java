@@ -55,8 +55,8 @@ public class VendorCmsController extends ParentController {
 	@BodyParser.Of(BodyParser.Json.class)
 	public Result getVendorList() {
 		/*
-		 * page, limit, searchText, isAvailable, isVerified, isDeleted,
-		 * vendorType,
+		 * page, limit, filters: {searchText, isAvailable, isVerified,
+		 * isDeleted, vendorType}
 		 */
 		try {
 			if (!isAdmin()) {

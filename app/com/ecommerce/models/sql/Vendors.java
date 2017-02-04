@@ -388,7 +388,7 @@ public class Vendors extends Model {
 		}
 
 		resultNode.put(APIResponseKeys.TOTAL_COUNT, totalCount);
-		resultNode.set(APIResponseKeys.VENDOR_LIST, Json.toJson(CreateResponseJson.getVendorsJsonList(vendorsList)));
+		resultNode.set(APIResponseKeys.VENDOR_LIST, Json.toJson(CreateResponseJson.getVendorsJsonList(vendorsList, false)));
 		return resultNode;
 	}
 
@@ -460,7 +460,7 @@ public class Vendors extends Model {
 		}
 
 		resultNode.put(APIResponseKeys.TOTAL_COUNT, totalCount);
-		resultNode.set(APIResponseKeys.VENDOR_LIST, Json.toJson(CreateResponseJson.getVendorsJsonList(vendorsList)));
+		resultNode.set(APIResponseKeys.VENDOR_LIST, Json.toJson(CreateResponseJson.getVendorsJsonList(vendorsList, true)));
 		return resultNode;
 	}
 

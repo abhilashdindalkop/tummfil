@@ -112,11 +112,16 @@ public class CreateResponseJson {
 	 * Construct Vendor Json
 	 */
 
-	public static List<ObjectNode> getVendorsJsonList(List<Vendors> vendorsList) throws IOException {
+	public static List<ObjectNode> getVendorsJsonList(List<Vendors> vendorsList, boolean isAdmin) throws IOException {
 		List<ObjectNode> vendorListNode = new ArrayList<ObjectNode>();
 		for (Vendors vendor : vendorsList) {
 			ObjectNode vendorNode = Json.newObject();
 			vendorNode = CreateResponseJson.constructVendorResponseJson(vendor);
+			if (isAdmin) {
+				vendorNode.put(APIResponseKeys.EMAIL, vendor.getEmail());
+				vendorNode.put(APIResponseKeys.PHONE_NO, vendor.getPhoneNo());
+				vendorNode.put(APIResponseKeys.ADDRESS, vendor.getVendorAddress());
+			}
 			vendorListNode.add(vendorNode);
 		}
 		return vendorListNode;

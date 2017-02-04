@@ -21,8 +21,12 @@
 					"id": "cityId",
 					"type": "integer"
 				},
+				"vendorType": {
+					"id": "vendorType",
+					"type": "integer"
+				},
 				"localityId": {
-					"id": "cityId",
+					"id": "localityId",
 					"type": "integer"
 				},
 				"searchText": {
