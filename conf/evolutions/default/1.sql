@@ -285,6 +285,8 @@ create table vendors (
   description               TEXT,
   phone_no                  varchar(255),
   email                     varchar(255),
+  shipping_fee              double,
+  tax                       double,
   password                  varchar(255),
   image_url                 varchar(255),
   is_vendor_available       tinyint(1) default 0,

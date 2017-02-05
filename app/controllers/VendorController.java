@@ -57,12 +57,14 @@ public class VendorController extends ParentController {
 
 			ObjectNode resultNode = vendorService.vendorSignIn(inputJson);
 
+			
 			if (resultNode == null) {
 				resultNode = Json.newObject();
 				response = new MySuccessResponse(resultNode, 101);
+			}else{
+				response = new MySuccessResponse(resultNode);
 			}
-
-			response = new MySuccessResponse(resultNode);
+			
 		} catch (PersistenceException e) {
 			response = new MyFailureResponse(FailureMessages.UNIQUE_DEVICE_ID_TOKEN);
 		} catch (Exception e) {

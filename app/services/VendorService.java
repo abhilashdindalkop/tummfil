@@ -86,11 +86,6 @@ public class VendorService {
 		}
 		if (vendor == null) {
 			throw new MyException(FailureMessages.INCORRECT_EMAIL_PHONE);
-		} else {
-			// TODO Check if verified
-			// if (!vendor.getIsVendorVerified()) {
-			// throw new CakeException(FailureMessages.VENDOR_NOT_VERIFIED);
-			// }
 		}
 		String password = inputJson.findValue(APIRequestKeys.PASSWORD).asText();
 		if (!Vendors.checkPassword(vendor, password)) {
