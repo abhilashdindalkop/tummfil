@@ -397,7 +397,7 @@ public class Products extends Model {
 	public static List<SqlRow> searchMyProductsByTextQuery(Vendors vendor, String searchText) {
 		searchText = searchText.replace(" ", "").toLowerCase();
 		String searchProductQuery = "SELECT product_id, name, description, category_id, "
-				+ "status, product_type, units, price, unit_type FROM "
+				+ "status, product_type, price FROM "
 				+ "products WHERE vendor_id = :vendorId AND is_deleted = false AND REPLACE(LOWER(name), ' ', '') LIKE '%"
 				+ searchText + "%'";
 
@@ -428,7 +428,7 @@ public class Products extends Model {
 	public static List<SqlRow> searchProductsByTextQuery(String searchText) {
 		searchText = searchText.replace(" ", "").toLowerCase();
 		String searchProductQuery = "SELECT product_id, name, description, category_id, "
-				+ "status, product_type, units, price, unit_type FROM "
+				+ "status, product_type, price FROM "
 				+ "products WHERE is_deleted = false AND REPLACE(LOWER(name), ' ', '') LIKE '%" + searchText + "%'";
 
 		SqlQuery rawSqlQuery = Ebean.createSqlQuery(searchProductQuery);
