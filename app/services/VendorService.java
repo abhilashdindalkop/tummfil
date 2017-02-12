@@ -202,9 +202,10 @@ public class VendorService {
 		List<Double> location = vendorLoc.getLocation();
 		vendorNode.put(APIResponseKeys.LATITUDE, location.get(1));
 		vendorNode.put(APIResponseKeys.LONGITUDE, location.get(0));
+		vendorNode.put(APIResponseKeys.SHIPPING_DISTANCE, vendorLoc.getShippingDistance());
+		vendorNode.put(APIResponseKeys.SHIPPING_FEE_DISTANCE_LIMIT, vendorLoc.getShippingFeeDistanceLimit());
 		vendorNode.put(APIResponseKeys.EMAIL, vendor.getEmail());
 		vendorNode.put(APIResponseKeys.PHONE_NO, vendor.getPhoneNo());
-
 		return vendorNode;
 	}
 

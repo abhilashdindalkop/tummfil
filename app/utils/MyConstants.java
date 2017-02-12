@@ -110,6 +110,8 @@ public class MyConstants {
 		public static final String AMOUNT = "amount";
 		public static final String CREATED_TIME = "createdTime";
 		public static final String IS_FEATURED = "isFeatured";
+		public static final String SHIPPING_FEE_DISTANCE_LIMIT = "shippingFeeDistanceLimit";
+
 
 	}
 
