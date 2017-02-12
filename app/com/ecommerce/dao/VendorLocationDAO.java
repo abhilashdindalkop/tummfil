@@ -44,7 +44,7 @@ public class VendorLocationDAO {
 		return vendorLocation;
 	}
 
-	public VendorLocations add(Vendors newVendor, double latitude, double longitude, double shippingDistance) {
+	public VendorLocations add(Vendors newVendor, double latitude, double longitude, long shippingDistance) {
 		VendorLocations newVendorLoc = new VendorLocations();
 		newVendorLoc.setVendorId(newVendor.getId());
 		newVendorLoc.setLocation(Arrays.asList(longitude, latitude));
@@ -55,18 +55,23 @@ public class VendorLocationDAO {
 	}
 
 	public void updateLocation(long vendorId, double latitude, double longitude) throws MyException {
-
 		Query<VendorLocations> vendorUpdate = ds.find(VendorLocations.class).filter("vendorId", vendorId);
 		UpdateOperations<VendorLocations> ops = ds.createUpdateOperations(VendorLocations.class);
 		ops.set("location", Arrays.asList(longitude, latitude));
 		ds.update(vendorUpdate, ops);
 	}
 
-	public void updateShippingDistance(long vendorId, double shippingDistance) throws MyException {
-
+	public void updateShippingDistance(long vendorId, long shippingDistance) throws MyException {
 		Query<VendorLocations> vendorUpdate = ds.find(VendorLocations.class).filter("vendorId", vendorId);
 		UpdateOperations<VendorLocations> ops = ds.createUpdateOperations(VendorLocations.class);
 		ops.set("shippingDistance", shippingDistance);
+		ds.update(vendorUpdate, ops);
+	}
+
+	public void updateShippingFeeDistanceLimit(long vendorId, long shippingFeeDistanceLimit) throws MyException {
+		Query<VendorLocations> vendorUpdate = ds.find(VendorLocations.class).filter("vendorId", vendorId);
+		UpdateOperations<VendorLocations> ops = ds.createUpdateOperations(VendorLocations.class);
+		ops.set("shippingFeeDistanceLimit", shippingFeeDistanceLimit);
 		ds.update(vendorUpdate, ops);
 	}
 

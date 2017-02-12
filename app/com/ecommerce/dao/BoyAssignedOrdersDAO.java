@@ -34,6 +34,9 @@ public class BoyAssignedOrdersDAO {
 
 	public void updateOrderStatus(Orders order, int orderStatus) {
 		BoyAssignedOrders assignedOrder = findByOrderId(order);
+		if (assignedOrder == null) {
+			return;
+		}
 		assignedOrder.setOrderStatus(orderStatus);
 		assignedOrder.update();
 	}

@@ -299,7 +299,7 @@ public class Vendors extends Model {
 			newVendor.add(password, city);
 
 			VendorLocationDAO vendorLocationDAO = new VendorLocationDAO();
-			vendorLocationDAO.add(newVendor, 0d, 0d, 0d);
+			vendorLocationDAO.add(newVendor, 0d, 0d, 10000);
 			/* Create Vendor Session */
 			// VendorSession session = VendorSession.create(newVendor,
 			// deviceToken, deviceId, deviceTypeId);
@@ -388,7 +388,8 @@ public class Vendors extends Model {
 		}
 
 		resultNode.put(APIResponseKeys.TOTAL_COUNT, totalCount);
-		resultNode.set(APIResponseKeys.VENDOR_LIST, Json.toJson(CreateResponseJson.getVendorsJsonList(vendorsList, false)));
+		resultNode.set(APIResponseKeys.VENDOR_LIST,
+				Json.toJson(CreateResponseJson.getVendorsJsonList(vendorsList, false)));
 		return resultNode;
 	}
 
@@ -460,7 +461,8 @@ public class Vendors extends Model {
 		}
 
 		resultNode.put(APIResponseKeys.TOTAL_COUNT, totalCount);
-		resultNode.set(APIResponseKeys.VENDOR_LIST, Json.toJson(CreateResponseJson.getVendorsJsonList(vendorsList, true)));
+		resultNode.set(APIResponseKeys.VENDOR_LIST,
+				Json.toJson(CreateResponseJson.getVendorsJsonList(vendorsList, true)));
 		return resultNode;
 	}
 

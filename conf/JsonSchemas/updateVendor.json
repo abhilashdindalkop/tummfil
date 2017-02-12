@@ -42,6 +42,14 @@
 			"type": "integer",
 			"description": "Distance in Meters"
 		},
+		"shippingFeeDistanceLimit": {
+			"type": "integer",
+			"description": "Distance in Meters"
+		},
+		"shippingFee": {
+			"type": "number",
+			"description": "Fee for delivery"
+		},
 		"isAvailable": {
 			"type": "boolean",
 			"description": "Vendor Availability"

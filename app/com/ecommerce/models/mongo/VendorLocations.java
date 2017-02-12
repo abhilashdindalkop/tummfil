@@ -14,7 +14,11 @@ public class VendorLocations {
 
 	private List<Double> location;
 
-	private double shippingDistance;
+	// In Meters
+	private long shippingDistance = 10000;
+
+	// In Meters
+	private long shippingFeeDistanceLimit = 0;
 
 	private Date createdTime;
 
@@ -42,12 +46,20 @@ public class VendorLocations {
 		this.location = location;
 	}
 
-	public double getShippingDistance() {
+	public long getShippingDistance() {
 		return shippingDistance;
 	}
 
-	public void setShippingDistance(double shippingDistance) {
+	public void setShippingDistance(long shippingDistance) {
 		this.shippingDistance = shippingDistance;
+	}
+
+	public long getShippingFeeDistanceLimit() {
+		return shippingFeeDistanceLimit;
+	}
+
+	public void setShippingFeeDistanceLimit(long shippingFeeDistanceLimit) {
+		this.shippingFeeDistanceLimit = shippingFeeDistanceLimit;
 	}
 
 	public Date getCreatedTime() {

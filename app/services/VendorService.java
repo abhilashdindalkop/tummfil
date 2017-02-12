@@ -146,8 +146,16 @@ public class VendorService {
 			vendorLocationDAO.updateLocation(vendor.getId(), latitude, longitude);
 		}
 		if (inputJson.has(APIRequestKeys.SHIPPING_DISTANCE)) {
-			double shippingDistance = inputJson.findValue(APIRequestKeys.SHIPPING_DISTANCE).asDouble();
+			long shippingDistance = inputJson.findValue(APIRequestKeys.SHIPPING_DISTANCE).asLong();
 			vendorLocationDAO.updateShippingDistance(vendor.getId(), shippingDistance);
+		}
+		if (inputJson.has(APIRequestKeys.SHIPPING_FEE_DISTANCE_LIMIT)) {
+			long shippingFeeDistanceLimit = inputJson.findValue(APIRequestKeys.SHIPPING_FEE_DISTANCE_LIMIT).asLong();
+			vendorLocationDAO.updateShippingFeeDistanceLimit(vendor.getId(), shippingFeeDistanceLimit);
+		}
+		if (inputJson.has(APIRequestKeys.SHIPPING_FEE)) {
+			double shippingFee = inputJson.findValue(APIRequestKeys.SHIPPING_FEE).asDouble();
+			vendor.setShippingFee(shippingFee);
 		}
 		vendor.updateVendor();
 	}

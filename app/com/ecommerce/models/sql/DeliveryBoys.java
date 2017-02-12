@@ -32,10 +32,6 @@ public class DeliveryBoys extends Model {
 	private String address;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn()
-	private Locality localityId;
-
-	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(nullable = false)
 	private Cities city;
 
@@ -102,14 +98,6 @@ public class DeliveryBoys extends Model {
 
 	public void setVendor(Vendors vendor) {
 		this.vendor = vendor;
-	}
-
-	public Locality getLocalityId() {
-		return localityId;
-	}
-
-	public void setLocalityId(Locality localityId) {
-		this.localityId = localityId;
 	}
 
 	public String getPhoneNo() {

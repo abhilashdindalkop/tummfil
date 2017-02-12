@@ -311,7 +311,7 @@ public class Orders extends Model {
 				orderedProdJsonList.add(prodJson);
 			}
 
-			double extraFee = GenericUtils.computeExtraFee();
+			double extraFee = GenericUtils.computeExtraFee(vendor);
 
 			totalPrice = totalProductsPrice + extraFee;
 
@@ -347,12 +347,12 @@ public class Orders extends Model {
 
 	}
 
-	public void save(CreateOrderRequestDTO requestDTO, String orderId, Users user, Vendors vendor,
-			double extraFee, double totalPrice) throws MyException {
+	public void save(CreateOrderRequestDTO requestDTO, String orderId, Users user, Vendors vendor, double extraFee,
+			double totalPrice) throws MyException {
 		this.setOrderId(orderId);
 		this.setVendor(vendor);
 		this.setUser(user);
-		if(requestDTO.cityId != null && requestDTO.cityId != 0){
+		if (requestDTO.cityId != null && requestDTO.cityId != 0) {
 			Cities city = Cities.findById(requestDTO.cityId);
 			this.setCity(city);
 		}

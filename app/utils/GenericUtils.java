@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Random;
 
 import com.ecommerce.models.sql.Products;
+import com.ecommerce.models.sql.Vendors;
 
 import utils.MyConstants.FailureMessages;
 import utils.MyConstants.OrderStatus;
@@ -40,9 +41,9 @@ public class GenericUtils {
 		return orderId.toString().toUpperCase();
 	}
 
-	public static double computeExtraFee() {
+	public static double computeExtraFee(Vendors vendor) {
 		// TODO Get delivery fee based on vendor
-		return MyConstants.DELIVERY_FEE;
+		return vendor.getShippingFee();
 	}
 
 	public static StringBuilder createRandomCode(int codeLength) {

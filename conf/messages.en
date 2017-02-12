@@ -114,6 +114,8 @@ invalid.address.info=Please, provide your delivery address information
 contact.for.vendor.verification=Welcome to Tummfil. Please contact Tummfil office to get verified.
 sign.in.contact.for.vendor.verification=You are not verified, please contact Tummfil office to get verified
 vendor.id.not.found=Vendor id not found
+product.doesnt.exist.in.cart= Product doesn't exist in cart
+different.vendor=Products of same hotel/bakery should be added
 
 
 

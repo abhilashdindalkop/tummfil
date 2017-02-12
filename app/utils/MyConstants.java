@@ -194,6 +194,10 @@ public class MyConstants {
 
 		public static final String LOCALITY_ID = "localityId";
 		public static final String SHIPPING_DISTANCE = "shippingDistance";
+		public static final String IS_EMPTY_CART = "isEmptyCart";
+		public static final String SHIPPING_FEE = "shippingFee";
+
+		public static final String SHIPPING_FEE_DISTANCE_LIMIT = "shippingFeeDistanceLimit";
 
 	}
 
@@ -343,6 +347,9 @@ public class MyConstants {
 		public static final String SIGN_IN_CONTACT_FOR_VENDOR_VERIFICATION = "sign.in.contact.for.vendor.verification";
 
 		public static final String VENDOR_ID_NOT_FOUND = "vendor.id.not.found";
+
+		public static final String PRODUCT_DOESNT_EXIST_IN_CART = "product.doesnt.exist.in.cart";
+		public static final String DIFFERENT_VENDOR = "different.vendor";
 
 	}
 

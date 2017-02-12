@@ -71,7 +71,7 @@ public class VendorCmsService {
 			vendor.setPassword(PasswordEncryptDecrypt.generatePasswordHash(password));
 		}
 		if (inputJson.has(APIRequestKeys.SHIPPING_DISTANCE)) {
-			double shippingDistance = inputJson.findValue(APIRequestKeys.SHIPPING_DISTANCE).asDouble();
+			long shippingDistance = inputJson.findValue(APIRequestKeys.SHIPPING_DISTANCE).asLong();
 			vendorLocationDAO.updateShippingDistance(vendor.getId(), shippingDistance);
 		}
 		vendor.updateVendor();

@@ -19,6 +19,7 @@ import utils.GenericUtils;
 import utils.ImageUtilities;
 import utils.MyConstants.APIResponseKeys;
 import utils.MyConstants.ImageResizeType;
+import utils.MyConstants.ProductStatus;
 import utils.MyException;
 
 public class CreateResponseJson {
@@ -68,7 +69,11 @@ public class CreateResponseJson {
 						ImageUtilities.getProductImageUrl(productId, imageUrl, ImageResizeType.STANDARD));
 			}
 			newHM.put(APIResponseKeys.CATEGORY_ID, product.getInteger("category_id"));
-			newHM.put(APIResponseKeys.STATUS, product.getInteger("status"));
+			boolean isAvailable = false;
+			if (product.getInteger("status") == ProductStatus.AVAILABLE) {
+				isAvailable = true;
+			}
+			newHM.put(APIResponseKeys.IS_AVAILABLE, isAvailable);
 			newHM.put(APIResponseKeys.PRODUCT_TYPE, product.getInteger("product_type"));
 			newHM.put(APIResponseKeys.PRICE, product.getDouble("price"));
 			newHM.put(APIResponseKeys.IS_FEATURED, product.getBoolean("is_featured"));
@@ -99,7 +104,11 @@ public class CreateResponseJson {
 					product.getImageUrl(), ImageResizeType.STANDARD));
 		}
 		newHM.put(APIResponseKeys.CATEGORY_ID, product.getCategory().getId());
-		newHM.put(APIResponseKeys.STATUS, product.getStatus());
+		boolean isAvailable = false;
+		if (product.getStatus() == ProductStatus.AVAILABLE) {
+			isAvailable = true;
+		}
+		newHM.put(APIResponseKeys.IS_AVAILABLE, isAvailable);
 		newHM.put(APIResponseKeys.PRODUCT_TYPE, product.getProductType());
 		newHM.put(APIResponseKeys.PRICE, product.getPrice());
 		newHM.put(APIResponseKeys.IS_FEATURED, product.getIsFeatured());
@@ -136,7 +145,7 @@ public class CreateResponseJson {
 		vendorNode.put(APIResponseKeys.IS_AVAILABLE, vendor.getIsVendorAvailable());
 		vendorNode.put(APIResponseKeys.IS_VERIFIED, vendor.getIsVendorVerified());
 		vendorNode.set(APIResponseKeys.CITY, Json.toJson(vendor.getCity()));
-		double extraFee = GenericUtils.computeExtraFee();
+		double extraFee = GenericUtils.computeExtraFee(vendor);
 		vendorNode.put(APIResponseKeys.EXTRA_FEE, extraFee);
 		if (vendor.getImageUrl() != null) {
 			vendorNode.put(APIResponseKeys.VENDOR_IMAGE_URL, ImageUtilities
