@@ -67,6 +67,10 @@ public class CreateResponseJson {
 						ImageUtilities.getProductImageUrl(productId, imageUrl, ImageResizeType.THUMBNAIL_SIZE));
 				newHM.put(APIResponseKeys.PRODUCT_IMAGE_URL,
 						ImageUtilities.getProductImageUrl(productId, imageUrl, ImageResizeType.STANDARD));
+				newHM.put(APIResponseKeys.PRODUCT_IMAGE_URL_WEB,
+						ImageUtilities.getProductImageUrl(productId, imageUrl, ImageResizeType.WEB_SIZE));
+				newHM.put(APIResponseKeys.PRODUCT_IMAGE_URL_ANDROID,
+						ImageUtilities.getProductImageUrl(productId, imageUrl, ImageResizeType.ANDROID_SIZE));
 			}
 			newHM.put(APIResponseKeys.CATEGORY_ID, product.getInteger("category_id"));
 			boolean isAvailable = false;
@@ -102,6 +106,10 @@ public class CreateResponseJson {
 					.getProductImageUrl(product.getProductId(), product.getImageUrl(), ImageResizeType.THUMBNAIL_SIZE));
 			newHM.put(APIResponseKeys.PRODUCT_IMAGE_URL, ImageUtilities.getProductImageUrl(product.getProductId(),
 					product.getImageUrl(), ImageResizeType.STANDARD));
+			newHM.put(APIResponseKeys.PRODUCT_IMAGE_URL_WEB, ImageUtilities.getProductImageUrl(product.getProductId(),
+					product.getImageUrl(), ImageResizeType.WEB_SIZE));
+			newHM.put(APIResponseKeys.PRODUCT_IMAGE_URL_ANDROID, ImageUtilities
+					.getProductImageUrl(product.getProductId(), product.getImageUrl(), ImageResizeType.ANDROID_SIZE));
 		}
 		newHM.put(APIResponseKeys.CATEGORY_ID, product.getCategory().getId());
 		boolean isAvailable = false;
@@ -150,8 +158,10 @@ public class CreateResponseJson {
 		if (vendor.getImageUrl() != null) {
 			vendorNode.put(APIResponseKeys.VENDOR_IMAGE_URL, ImageUtilities
 					.getVendorImageUrl(vendor.getEncryptedVendorId(), vendor.getImageUrl(), ImageResizeType.STANDARD));
-			vendorNode.put(APIResponseKeys.VENDOR_THUMBNAIL_IMAGE_URL, ImageUtilities.getVendorImageUrl(
-					vendor.getEncryptedVendorId(), vendor.getImageUrl(), ImageResizeType.THUMBNAIL_SIZE));
+			vendorNode.put(APIResponseKeys.VENDOR_IMAGE_URL_WEB, ImageUtilities
+					.getVendorImageUrl(vendor.getEncryptedVendorId(), vendor.getImageUrl(), ImageResizeType.WEB_SIZE));
+			vendorNode.put(APIResponseKeys.VENDOR_IMAGE_URL_ANDROID, ImageUtilities.getVendorImageUrl(
+					vendor.getEncryptedVendorId(), vendor.getImageUrl(), ImageResizeType.ANDROID_SIZE));
 		}
 		return vendorNode;
 	}

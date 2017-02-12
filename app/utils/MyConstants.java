@@ -51,9 +51,13 @@ public class MyConstants {
 		public static final String STATUS = "status";
 		public static final String QUANTITY = "quantity";
 		public static final String PRODUCT_IMAGE_URL = "productImageUrl";
+		public static final String PRODUCT_IMAGE_URL_WEB = "productImageUrlWeb";
+		public static final String PRODUCT_IMAGE_URL_ANDROID = "productImageUrlAndroid";
 		public static final String PRODUCT_THUMBNAIL_IMAGE_URL = "productThumbnailImageUrl";
 		public static final String IMAGE_URL = "imageUrl";
 		public static final String VENDOR_IMAGE_URL = "vendorImageUrl";
+		public static final String VENDOR_IMAGE_URL_WEB = "vendorImageUrlWeb";
+		public static final String VENDOR_IMAGE_URL_ANDROID = "vendorImageUrlAndroid";
 		public static final String VENDOR_THUMBNAIL_IMAGE_URL = "vendorThumbnailImageUrl";
 
 		public static final String PRODUCTS = "products";
