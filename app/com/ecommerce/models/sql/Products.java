@@ -295,14 +295,18 @@ public class Products extends Model {
 	}
 
 	public static void setAvailability(List<String> productIds, boolean isAvailable) throws MyException, IOException {
+		if (productIds.isEmpty()) {
+			return;
+		}
 		int status;
 		if (isAvailable) {
 			status = ProductStatus.AVAILABLE;
 		} else {
 			status = ProductStatus.UNAVAILABLE;
 		}
+
 		String ids = StringUtils.join(productIds, "\",\"");
-		String sql = "update products set status=:status where product_id IN (\"" + ids + "\")";
+		String sql = "update products set status = :status where product_id IN (\"" + ids + "\")";
 		SqlUpdate update = Ebean.createSqlUpdate(sql).setParameter("status", status);
 		if (update.execute() == 0) {
 			throw new MyException(FailureMessages.UPDATE_AVAILABILITY_FAILED);

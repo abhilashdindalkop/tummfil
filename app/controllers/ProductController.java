@@ -77,6 +77,7 @@ public class ProductController extends ParentController {
 
 			response = new MySuccessResponse(SuccessMessages.PRODUCT_UPDATE_AVAILABILITY_SUCCESS);
 		} catch (Exception e) {
+			e.printStackTrace();
 			response = createFailureResponse(e);
 		}
 		return response.getResult();

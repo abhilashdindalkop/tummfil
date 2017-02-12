@@ -178,7 +178,7 @@ public class ProductService {
 	}
 
 	public ObjectNode searchCategory(String searchText) throws MyException, IOException {
-	
+
 		List<SqlRow> categoryList = Category.searchByText(searchText);
 
 		ObjectNode resultNode = Json.newObject();
