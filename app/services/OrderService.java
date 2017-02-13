@@ -132,9 +132,11 @@ public class OrderService {
 		try {
 			Ebean.beginTransaction();
 			order.updateStatus(orderStatus);
+			
 			if (orderStatus == OrderStatus.DELIVERED) {
 				if (order.getPaymentType() == PaymentType.COD) {
 					order.updatePaymentTypeAndStatus(PaymentType.COD, PaymentStatus.SUCCESS);
+					System.out.println("Orders ----------------- ");
 				}
 				boyAssignedOrdersDAO.updateOrderStatus(order, OrderStatus.DELIVERED);
 			}

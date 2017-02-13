@@ -34,8 +34,8 @@ public class AmazonS3Utils {
 	private static AmazonS3 s3Client = null;
 
 	private static final String SUFFIX = "/";
-	private static final float WEB_MAX_WIDTH = 400;
-	private static final float WEB_MAX_HEIGHT = 300;
+	private static final float WEB_MAX_WIDTH = 600;
+	private static final float WEB_MAX_HEIGHT = 450;
 	private static final float ANDROID_MAX_WIDTH = 800;
 	private static final float ANDROID_MAX_HEIGHT = 600;
 	private static final float THUMBNAIL_SIZE_MAX_WIDTH = 200;

@@ -29,7 +29,7 @@ public class BoyAssignedOrdersDAO {
 	}
 
 	public BoyAssignedOrders findByOrderId(Orders order) {
-		return Ebean.find(BoyAssignedOrders.class).where().eq("orders", order).findUnique();
+		return Ebean.find(BoyAssignedOrders.class).where().eq("order", order).findUnique();
 	}
 
 	public void updateOrderStatus(Orders order, int orderStatus) {

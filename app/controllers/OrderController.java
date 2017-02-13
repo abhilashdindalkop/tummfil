@@ -59,7 +59,7 @@ public class OrderController extends ParentController {
 			}
 			String orderId = inputJson.findValue(APIRequestKeys.ORDER_ID).asText();
 			Orders order = Orders.findById(orderId);
-
+		
 			String encryptedVendorId = VendorSession.getVendorEncryptedIdByContext();
 			if (!order.getVendor().getEncryptedVendorId().equals(encryptedVendorId)) {
 				throw new MyException(FailureMessages.ORDER_DOESNT_BELONG_TO_VENDOR);
