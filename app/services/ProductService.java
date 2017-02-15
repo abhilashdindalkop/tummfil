@@ -85,30 +85,31 @@ public class ProductService {
 
 		String encryptedVendorId = VendorSession.getVendorEncryptedIdByContext();
 
-		JsonNode availableProductIdsJson = Json.newArray();
-		JsonNode unavailableProductIdsJson = Json.newArray();
-
-		availableProductIdsJson = inputJson.findValue(APIRequestKeys.AVAILABLE_PRODUCT_IDS);
-		unavailableProductIdsJson = inputJson.findValue(APIRequestKeys.UNAVAILABLE_PRODUCT_IDS);
+		JsonNode availableProductIdsJson = inputJson.findValue(APIRequestKeys.AVAILABLE_PRODUCT_IDS);
+		JsonNode unavailableProductIdsJson = inputJson.findValue(APIRequestKeys.UNAVAILABLE_PRODUCT_IDS);
 
 		List<String> availableProdList = new ArrayList<String>();
 		List<String> unavailableProdList = new ArrayList<String>();
 
-		for (JsonNode productIdJson : availableProductIdsJson) {
-			String productId = productIdJson.asText();
-			Products product = Products.findById(productId);
-			if (!product.getVendor().getEncryptedVendorId().equals(encryptedVendorId)) {
-				throw new MyException(FailureMessages.VENDOR_NOT_OWNER_OF_PRODUCT);
+		if (availableProductIdsJson != null) {
+			for (JsonNode productIdJson : availableProductIdsJson) {
+				String productId = productIdJson.asText();
+				Products product = Products.findById(productId);
+				if (!product.getVendor().getEncryptedVendorId().equals(encryptedVendorId)) {
+					throw new MyException(FailureMessages.VENDOR_NOT_OWNER_OF_PRODUCT);
+				}
+				availableProdList.add(productId);
 			}
-			availableProdList.add(productId);
 		}
-		for (JsonNode productIdJson : unavailableProductIdsJson) {
-			String productId = productIdJson.asText();
-			Products product = Products.findById(productId);
-			if (!product.getVendor().getEncryptedVendorId().equals(encryptedVendorId)) {
-				throw new MyException(FailureMessages.VENDOR_NOT_OWNER_OF_PRODUCT);
+		if (unavailableProductIdsJson != null) {
+			for (JsonNode productIdJson : unavailableProductIdsJson) {
+				String productId = productIdJson.asText();
+				Products product = Products.findById(productId);
+				if (!product.getVendor().getEncryptedVendorId().equals(encryptedVendorId)) {
+					throw new MyException(FailureMessages.VENDOR_NOT_OWNER_OF_PRODUCT);
+				}
+				unavailableProdList.add(productId);
 			}
-			unavailableProdList.add(productId);
 		}
 
 		try {
