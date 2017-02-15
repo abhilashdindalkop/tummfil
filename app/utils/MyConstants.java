@@ -116,7 +116,6 @@ public class MyConstants {
 		public static final String IS_FEATURED = "isFeatured";
 		public static final String SHIPPING_FEE_DISTANCE_LIMIT = "shippingFeeDistanceLimit";
 
-
 	}
 
 	public class APIRequestKeys {
@@ -356,6 +355,9 @@ public class MyConstants {
 
 		public static final String PRODUCT_DOESNT_EXIST_IN_CART = "product.doesnt.exist.in.cart";
 		public static final String DIFFERENT_VENDOR = "different.vendor";
+
+		public static final String CATEGORY_NAME_NOT_FOUND = "category.name.not.found";
+		public static final String TIME_FIELDS_NOT_FOUND = "time.fields.not.found";
 
 	}
 

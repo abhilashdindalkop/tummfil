@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
 import com.avaje.ebean.Query;
+import com.avaje.ebean.SqlQuery;
+import com.avaje.ebean.SqlRow;
 import com.ecommerce.dto.request.CreateOrderRequestDTO;
 import com.ecommerce.dto.request.OrderedProductsRequestDTO;
 import com.ecommerce.dto.response.createOrderResponseDTO;
@@ -395,9 +397,9 @@ public class Orders extends Model {
 		return order;
 	}
 
-	public static HashMap<String, Object> findVendorOrders(Vendors vendor, int status, int page, int limit)
-			throws MyException {
-		Query<Orders> query = Ebean.find(Orders.class).where().eq("vendor", vendor).eq("status", status).order()
+	public static HashMap<String, Object> findVendorOrders(Vendors vendor, List<Integer> statusList, int page,
+			int limit) throws MyException {
+		Query<Orders> query = Ebean.find(Orders.class).where().eq("vendor", vendor).in("status", statusList).order()
 				.desc("created_time");
 
 		HashMap<String, Object> orderMap = new HashMap<String, Object>();
@@ -426,6 +428,19 @@ public class Orders extends Model {
 		orderMap.put("result", orderList);
 
 		return orderMap;
+	}
+
+	public static List<SqlRow> findVendorOrderStats(Vendors vendor, Date startTime, Date endTime) throws MyException {
+
+		String sql = "SELECT status, count(*) as total, sum(total_price) as total_amount FROM orders"
+				+ " where vendor_id = :vendorId AND created_time >= :startTime AND created_time <= :endTime AND status in (2,3,4,5,6,7)"
+				+ " group by status";
+
+		SqlQuery rawSqlQuery = Ebean.createSqlQuery(sql).setParameter("vendorId", vendor.getId())
+				.setParameter("startTime", startTime).setParameter("endTime", endTime);
+
+		return rawSqlQuery.findList();
+
 	}
 
 }

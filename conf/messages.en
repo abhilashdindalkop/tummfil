@@ -116,6 +116,8 @@ sign.in.contact.for.vendor.verification=You are not verified, please contact Tum
 vendor.id.not.found=Vendor id not found
 product.doesnt.exist.in.cart= Product doesn't exist in cart
 different.vendor=Products of same hotel/bakery should be added
+time.fields.not.found=Time fields not found
+category.name.not.found=Category name not found
 
 
 

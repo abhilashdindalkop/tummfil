@@ -36,9 +36,12 @@ public class OrderController extends ParentController {
 	 * Vendor
 	 */
 	@Security.Authenticated(VendorAuthenticator.class)
-	public Result getVendorOrders(int status, int page, int limit) {
+	public Result getVendorOrders(String status, int page, int limit) {
 		try {
 
+			if (status == null) {
+				throw new MyException(FailureMessages.SEND_VALID_ORDER_STATUS);
+			}
 			ObjectNode resultNode = orderService.getVendorOrders(status, page, limit);
 			response = new MySuccessResponse(resultNode);
 
@@ -59,7 +62,7 @@ public class OrderController extends ParentController {
 			}
 			String orderId = inputJson.findValue(APIRequestKeys.ORDER_ID).asText();
 			Orders order = Orders.findById(orderId);
-		
+
 			String encryptedVendorId = VendorSession.getVendorEncryptedIdByContext();
 			if (!order.getVendor().getEncryptedVendorId().equals(encryptedVendorId)) {
 				throw new MyException(FailureMessages.ORDER_DOESNT_BELONG_TO_VENDOR);
@@ -128,6 +131,23 @@ public class OrderController extends ParentController {
 		try {
 
 			ObjectNode resultNode = orderService.getByOrderId(orderId);
+			response = new MySuccessResponse(resultNode);
+
+		} catch (Exception e) {
+			response = createFailureResponse(e);
+		}
+		return response.getResult();
+	}
+
+	@Security.Authenticated(VendorAuthenticator.class)
+	public Result getVendorOrderStats(long startTime, long endTime) {
+		try {
+
+			if (startTime == 0 || endTime == 0) {
+				throw new MyException(FailureMessages.TIME_FIELDS_NOT_FOUND);
+			}
+
+			ObjectNode resultNode = orderService.getVendorOrderStats(startTime, endTime);
 			response = new MySuccessResponse(resultNode);
 
 		} catch (Exception e) {

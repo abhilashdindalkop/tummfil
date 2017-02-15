@@ -1,12 +1,15 @@
 package services;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import com.avaje.ebean.Ebean;
+import com.avaje.ebean.SqlRow;
 import com.ecommerce.dao.BoyAssignedOrdersDAO;
 import com.ecommerce.dao.TransactionsDAO;
 import com.ecommerce.dto.request.CreateOrderRequestDTO;
@@ -46,15 +49,25 @@ public class OrderService {
 		this.tummfilNotificationMessages = tummfilNotificationMessages;
 	}
 
-	public ObjectNode getVendorOrders(int status, int page, int limit) throws MyException, IOException {
+	public ObjectNode getVendorOrders(String status, int page, int limit) throws MyException, IOException {
 
-		if (!MyConstants.orderStatusList.contains(status)) {
+		List<Integer> statusList = new ArrayList<Integer>();
+		String[] statusStrList = status.split(",");
+		for (String statusStr : statusStrList) {
+			int statusInt = Integer.parseInt(statusStr);
+			if (!MyConstants.orderStatusList.contains(statusInt)) {
+				throw new MyException(FailureMessages.SEND_VALID_ORDER_STATUS);
+			}
+			statusList.add(statusInt);
+		}
+		if (statusList.isEmpty()) {
 			throw new MyException(FailureMessages.SEND_VALID_ORDER_STATUS);
 		}
+
 		String vendorId = VendorSession.getVendorEncryptedIdByContext();
 		Vendors vendor = Vendors.findById(vendorId);
 
-		HashMap<String, Object> orderMap = Orders.findVendorOrders(vendor, status, page, limit);
+		HashMap<String, Object> orderMap = Orders.findVendorOrders(vendor, statusList, page, limit);
 
 		@SuppressWarnings("unchecked")
 		List<Orders> orderList = (List<Orders>) orderMap.get("result");
@@ -132,7 +145,7 @@ public class OrderService {
 		try {
 			Ebean.beginTransaction();
 			order.updateStatus(orderStatus);
-			
+
 			if (orderStatus == OrderStatus.DELIVERED) {
 				if (order.getPaymentType() == PaymentType.COD) {
 					order.updatePaymentTypeAndStatus(PaymentType.COD, PaymentStatus.SUCCESS);
@@ -164,6 +177,57 @@ public class OrderService {
 				Ebean.currentTransaction().rollback();
 			}
 		}
+	}
+
+	public ObjectNode getVendorOrderStats(long startTime, long endTime) throws MyException, IOException {
+
+		Vendors vendor = VendorSession.findByContext().getVendor();
+
+		List<SqlRow> orderList = Orders.findVendorOrderStats(vendor, new Date(startTime), new Date(endTime));
+
+		int status;
+		long total;
+		double totalAmount;
+
+		double successTotalAmount = 0, pendingTotalAmount = 0, failedTotalAmount = 0;
+		long successTotal = 0, failedTotal = 0, pendingTotal = 0;
+
+		for (SqlRow order : orderList) {
+			status = order.getInteger("status");
+			total = order.getLong("total");
+			totalAmount = order.getDouble("total_amount");
+
+			System.out.println(" status: " + status);
+			if (status == 2 || status == 3 || status == 4) {
+				pendingTotal += total;
+				pendingTotalAmount += totalAmount;
+			} else if (status == 5 || status == 6) {
+				failedTotal += total;
+				failedTotalAmount += totalAmount;
+			} else if (status == 7) {
+				successTotal += total;
+				successTotalAmount += totalAmount;
+			}
+		}
+
+		ObjectNode successDetails = Json.newObject();
+		successDetails.put("totalAmount", successTotalAmount);
+		successDetails.put("orderCount", successTotal);
+
+		ObjectNode pendingDetails = Json.newObject();
+		pendingDetails.put("totalAmount", pendingTotalAmount);
+		pendingDetails.put("orderCount", pendingTotal);
+
+		ObjectNode failedDetails = Json.newObject();
+		failedDetails.put("totalAmount", failedTotalAmount);
+		failedDetails.put("orderCount", failedTotal);
+
+		ObjectNode resultNode = Json.newObject();
+		resultNode.set("successStats", successDetails);
+		resultNode.set("failedStats", failedDetails);
+		resultNode.set("pendingStats", pendingDetails);
+
+		return resultNode;
 	}
 
 }

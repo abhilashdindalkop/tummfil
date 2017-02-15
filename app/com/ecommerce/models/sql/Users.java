@@ -257,6 +257,7 @@ public class Users extends Model {
 		this.setEncryptedUserId(uuid);
 		String referralCode = GenericUtils.generateReferralCode(uuid);
 		this.setReferralCode(referralCode);
+		this.setCreatedTime(new Date());
 		this.setLastLogin(new Date());
 		this.save();
 	}

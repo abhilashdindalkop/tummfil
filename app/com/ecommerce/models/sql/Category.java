@@ -67,6 +67,15 @@ public class Category extends Model {
 		this.imageUrl = imageUrl;
 	}
 
+	public static Category add(String name, String imageUrl) throws MyException {
+		Category newCategory = new Category();
+		newCategory.setType(name);
+		newCategory.setImageUrl(imageUrl);
+		newCategory.setCreatedTime(new Date());
+		newCategory.save();
+		return newCategory;
+	}
+
 	public static Category findById(long id) throws MyException {
 		Category category = Ebean.find(Category.class).where().eq("id", id).findUnique();
 		if (category == null) {

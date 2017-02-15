@@ -41,6 +41,7 @@ public class AmazonS3Utils {
 	private static final float THUMBNAIL_SIZE_MAX_WIDTH = 200;
 	private static final float THUMBNAIL_SIZE_MAX_HEIGHT = 200;
 	private final static String JPG_TYPE = "jpg";
+	private final static String PNG_TYPE = "png";
 	private final static String JPG_MIME = "image/jpeg";
 	private final static String CSV_TYPE = "text/csv";
 
@@ -57,14 +58,19 @@ public class AmazonS3Utils {
 		}
 	}
 
-	public static void uploadStandardSizeFile(File file, String filePath) throws MyException, IOException {
+	public static void uploadStandardSizeFile(File file, String filePath, boolean isJpg)
+			throws MyException, IOException {
 
 		if (file != null) {
 			InputStream inputStream = new FileInputStream(file);
 			try {
 				String bucketName = MessageReaderFactory.getPropertyValue("S3_BUCKET_NAME").trim();
 				ObjectMetadata metadata = new ObjectMetadata();
-				metadata.setContentType(JPG_TYPE);
+				if (isJpg) {
+					metadata.setContentType(JPG_TYPE);
+				} else {
+					metadata.setContentType(PNG_TYPE);
+				}
 				Logger.info(filePath);
 
 				PutObjectRequest putObjectUploadRequest = new PutObjectRequest(bucketName, filePath, inputStream,

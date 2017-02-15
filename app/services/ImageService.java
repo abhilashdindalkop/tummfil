@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import com.ecommerce.models.sql.Category;
 import com.ecommerce.models.sql.Products;
 import com.ecommerce.models.sql.Vendors;
 
@@ -46,7 +47,7 @@ public class ImageService {
 
 			/* To upload the image to the S3 bucket */
 			AmazonS3Utils.uploadStandardSizeFile(imageFile,
-					productImageConstantPath + MessageReaderFactory.getPropertyValue("IMAGE_EXTENSION"));
+					productImageConstantPath + MessageReaderFactory.getPropertyValue("IMAGE_EXTENSION"), true);
 
 			// To upload thumbnail size images to the S3
 			AmazonS3Utils.uploadResizedFile(imageFile, productImageConstantPath, ImageResizeType.THUMBNAIL_SIZE);
@@ -90,7 +91,7 @@ public class ImageService {
 
 			/* To upload the image to the S3 bucket */
 			AmazonS3Utils.uploadStandardSizeFile(imageFile,
-					filePath + MessageReaderFactory.getPropertyValue("IMAGE_EXTENSION"));
+					filePath + MessageReaderFactory.getPropertyValue("IMAGE_EXTENSION"), true);
 
 			// To upload thumbnail size images to the S3
 			AmazonS3Utils.uploadResizedFile(imageFile, filePath, ImageResizeType.THUMBNAIL_SIZE);
@@ -104,6 +105,40 @@ public class ImageService {
 			// update the DB that cover image is uploaded
 			vendor.updateImageUrlStatus(filename);
 
+		}
+	}
+
+	public void uploadCategoryImage(MultipartFormData image, String categoryName)
+			throws FileNotFoundException, IOException, MyException {
+
+		FilePart imageFilePart = image.getFile(MyConstants.IMAGE_UPLOAD_KEY);
+		if (imageFilePart != null) {
+			File imageFile = imageFilePart.getFile();
+
+			if (!imageFile.isFile()) {
+				throw new MyException(FailureMessages.UNSUPPORTED_FILE_TYPE);
+			}
+
+			/* TO validate the uploaded file is an image */
+			if (!AmazonS3Utils.isImageFile(imageFile)) {
+				throw new MyException(FailureMessages.UNSUPPORTED_FILE_TYPE);
+			}
+
+			// if image exists delete it
+			if (categoryName != null) {
+				// TODO Delete old Category image
+			}
+
+			String filename = categoryName;
+
+			String filePath = MessageReaderFactory.getPropertyValue("CATEGORY_IMAGE_CONSTANT_PATH") + filename
+					+ MessageReaderFactory.getPropertyValue("IMAGE_EXTENSION_PNG");
+
+			/* To upload the image to the S3 bucket */
+			AmazonS3Utils.uploadStandardSizeFile(imageFile, filePath, false);
+
+			// update the DB that cover image is uploaded
+			// TODO Update complete url of image in category table
 		}
 	}
 }

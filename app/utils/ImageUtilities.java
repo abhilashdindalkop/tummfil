@@ -171,4 +171,17 @@ public class ImageUtilities {
 		return imageUrl;
 	}
 
+	public static String getCategoryImageUrl(String category) throws IOException {
+		if (category == null) {
+			return null;
+		}
+
+		String imageUrl = NetworkConstants.HOST_URL_HTTPS + MessageReaderFactory.getPropertyValue("S3_DOMAIN_NAME")
+				+ "/" + MessageReaderFactory.getPropertyValue("S3_BUCKET_NAME") + "/"
+				+ MessageReaderFactory.getPropertyValue("CATEGORY_IMAGE_CONSTANT_PATH") + category
+				+ MessageReaderFactory.getPropertyValue("IMAGE_EXTENSION_PNG");
+
+		return imageUrl;
+	}
+
 }

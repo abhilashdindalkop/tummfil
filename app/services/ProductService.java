@@ -85,8 +85,11 @@ public class ProductService {
 
 		String encryptedVendorId = VendorSession.getVendorEncryptedIdByContext();
 
-		JsonNode availableProductIdsJson = inputJson.findValue(APIRequestKeys.AVAILABLE_PRODUCT_IDS);
-		JsonNode unavailableProductIdsJson = inputJson.findValue(APIRequestKeys.UNAVAILABLE_PRODUCT_IDS);
+		JsonNode availableProductIdsJson = Json.newArray();
+		JsonNode unavailableProductIdsJson = Json.newArray();
+
+		availableProductIdsJson = inputJson.findValue(APIRequestKeys.AVAILABLE_PRODUCT_IDS);
+		unavailableProductIdsJson = inputJson.findValue(APIRequestKeys.UNAVAILABLE_PRODUCT_IDS);
 
 		List<String> availableProdList = new ArrayList<String>();
 		List<String> unavailableProdList = new ArrayList<String>();

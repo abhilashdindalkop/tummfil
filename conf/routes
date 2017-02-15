@@ -64,10 +64,11 @@ POST	/write/api/v1/product/delete					controllers.ProductController.deleteProduc
 POST   	/write/api/v1/product/availability				controllers.ProductController.setProductAvailability()	
 
 #=====================================ORDERS=================================================================================
-GET		/read/api/v1/vendor/orders/get					controllers.OrderController.getVendorOrders(status:Integer?=0, page:Integer?=0,  limit:Integer?=10)
+GET		/read/api/v1/vendor/orders/get					controllers.OrderController.getVendorOrders(status:String?=null, page:Integer?=0,  limit:Integer?=10)
 POST   	/write/api/v1/order/update-status				controllers.OrderController.updateOrderStatus()	
 POST   	/write/api/v1/image/upload						controllers.ImageController.uploadImage()
 POST   	/write/api/v1/order/assign						controllers.OrderController.assignOrderToBoy()	
+GET		/read/api/v1/vendor/order-stats/get				controllers.OrderController.getVendorOrderStats(startTime:Long?=0,  endTime:Long?=0)
 
 #=====================================		Delivery Boy		=================================================================================
 #=====================================Delivery Boy SIGNIN=================================================================================
