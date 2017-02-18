@@ -3,7 +3,8 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
+GET     /                           								   controllers.Application.index()
+GET     /loaderio-1ee9557d5025abab3d22cc7d89c6888d                     controllers.Application.loadTestingLink()
 
 OPTIONS /*all 						controllers.Application.preflight(all)
 

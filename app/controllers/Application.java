@@ -15,5 +15,9 @@ public class Application extends Controller {
 		return ok("");
 	}
 
+	public Result loadTestingLink() {
+
+		return redirect("https://s3-us-west-2.amazonaws.com/cake-house/loaderio-1ee9557d5025abab3d22cc7d89c6888d.txt");
+	}
 
 }
