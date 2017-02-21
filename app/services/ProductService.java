@@ -125,7 +125,8 @@ public class ProductService {
 		}
 	}
 
-	public ObjectNode getVendorProducts(int categoryId, int page, int limit) throws MyException, IOException {
+	public ObjectNode getVendorProducts(int categoryId, Boolean isAvailable, int page, int limit)
+			throws MyException, IOException {
 		String vendorId = VendorSession.getVendorEncryptedIdByContext();
 		Vendors vendor = Vendors.findById(vendorId);
 
@@ -135,7 +136,7 @@ public class ProductService {
 		}
 		ObjectNode resultNode = Json.newObject();
 
-		Query<Products> productsQuery = Products.findVendorProductsQuery(vendor, category);
+		Query<Products> productsQuery = Products.findVendorProductsQuery(vendor, isAvailable, category);
 		resultNode.put(APIResponseKeys.TOTAL_COUNT, productsQuery.findRowCount());
 
 		List<Products> products = new ArrayList<Products>();

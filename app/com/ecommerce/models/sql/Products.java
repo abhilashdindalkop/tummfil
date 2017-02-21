@@ -313,9 +313,16 @@ public class Products extends Model {
 		}
 	}
 
-	public static Query<Products> findVendorProductsQuery(Vendors vendor, Category category) throws MyException {
+	public static Query<Products> findVendorProductsQuery(Vendors vendor, Boolean isAvailable, Category category)
+			throws MyException {
 		Query<Products> query = basicQueryVendor();
 		query.where().eq("vendor", vendor);
+
+		if (isAvailable != null) {
+			int status = isAvailable ? ProductStatus.AVAILABLE : ProductStatus.UNAVAILABLE;
+			query.where().eq("status", status);
+		}
+
 		if (category != null) {
 			query.where().eq("category", category);
 		}

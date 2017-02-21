@@ -84,10 +84,10 @@ public class ProductController extends ParentController {
 	}
 
 	@Security.Authenticated(VendorAuthenticator.class)
-	public Result getVendorProducts(int categoryId, int page, int limit) {
+	public Result getVendorProducts(int categoryId, Boolean isAvailable, int page, int limit) {
 		try {
 
-			ObjectNode resultNode = productService.getVendorProducts(categoryId, page, limit);
+			ObjectNode resultNode = productService.getVendorProducts(categoryId, isAvailable, page, limit);
 
 			response = new MySuccessResponse(resultNode);
 		} catch (Exception e) {
