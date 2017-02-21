@@ -85,13 +85,11 @@ public class ProductService {
 
 		String encryptedVendorId = VendorSession.getVendorEncryptedIdByContext();
 
-		JsonNode availableProductIdsJson = inputJson.findValue(APIRequestKeys.AVAILABLE_PRODUCT_IDS);
-		JsonNode unavailableProductIdsJson = inputJson.findValue(APIRequestKeys.UNAVAILABLE_PRODUCT_IDS);
-
 		List<String> availableProdList = new ArrayList<String>();
 		List<String> unavailableProdList = new ArrayList<String>();
 
-		if (availableProductIdsJson != null) {
+		if (inputJson.has(APIRequestKeys.AVAILABLE_PRODUCT_IDS)) {
+			JsonNode availableProductIdsJson = inputJson.findValue(APIRequestKeys.AVAILABLE_PRODUCT_IDS);
 			for (JsonNode productIdJson : availableProductIdsJson) {
 				String productId = productIdJson.asText();
 				Products product = Products.findById(productId);
@@ -100,8 +98,8 @@ public class ProductService {
 				}
 				availableProdList.add(productId);
 			}
-		}
-		if (unavailableProductIdsJson != null) {
+		} else if (inputJson.has(APIRequestKeys.UNAVAILABLE_PRODUCT_IDS)) {
+			JsonNode unavailableProductIdsJson = inputJson.findValue(APIRequestKeys.UNAVAILABLE_PRODUCT_IDS);
 			for (JsonNode productIdJson : unavailableProductIdsJson) {
 				String productId = productIdJson.asText();
 				Products product = Products.findById(productId);
@@ -110,6 +108,8 @@ public class ProductService {
 				}
 				unavailableProdList.add(productId);
 			}
+		} else {
+			throw new MyException(FailureMessages.INVALID_INPUT);
 		}
 
 		try {

@@ -3,8 +3,7 @@
 # ~~~~
 
 # Home page
-GET     /                           								   controllers.Application.index()
-GET     /loaderio-1ee9557d5025abab3d22cc7d89c6888d                     controllers.Application.loadTestingLink()
+GET     /                           controllers.Application.index()
 
 OPTIONS /*all 						controllers.Application.preflight(all)
 
@@ -87,3 +86,9 @@ GET		/read/api/v1/delivery-boy/orders/get				controllers.DeliveryBoyController.g
 GET		/read/cms/vendor/get						controllers.cms.VendorCmsController.getVendorDetails(vendorId:String?=null)
 POST   	/write/cms/vendor/update					controllers.cms.VendorCmsController.updateVendor()	
 POST   	/read/cms/vendor/list						controllers.cms.VendorCmsController.getVendorList()	
+
+
+POST	/read/shopify								controllers.ShopifyController.shopifyProductTest()
+
+
+
