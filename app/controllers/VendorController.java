@@ -33,6 +33,7 @@ public class VendorController extends ParentController {
 	}
 
 	/* To Sign Up a new user */
+	@CorsComposition.Cors
 	@BodyParser.Of(BodyParser.Json.class)
 	@ValidateJson(JsonSchemaFilePath.VENDOR_SIGN_UP)
 	public Result signUpUsingPhoneNo() {
@@ -49,6 +50,7 @@ public class VendorController extends ParentController {
 		return response.getResult();
 	}
 
+	@CorsComposition.Cors
 	@BodyParser.Of(BodyParser.Json.class)
 	@ValidateJson(JsonSchemaFilePath.VENDOR_SIGN_IN)
 	public Result vendorSignIn() {
@@ -73,6 +75,7 @@ public class VendorController extends ParentController {
 		return response.getResult();
 	}
 
+	@CorsComposition.Cors
 	@BodyParser.Of(BodyParser.Json.class)
 	@ValidateJson(JsonSchemaFilePath.UPDATE_VENDOR)
 	@Security.Authenticated(VendorAuthenticator.class)
@@ -103,6 +106,7 @@ public class VendorController extends ParentController {
 		return response.getResult();
 	}
 
+	@CorsComposition.Cors
 	@Security.Authenticated(VendorAuthenticator.class)
 	public Result getVendorDetails() {
 		try {

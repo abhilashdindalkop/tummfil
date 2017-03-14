@@ -35,6 +35,7 @@ public class OrderController extends ParentController {
 	/*
 	 * Vendor
 	 */
+	@CorsComposition.Cors
 	@Security.Authenticated(VendorAuthenticator.class)
 	public Result getVendorOrders(String status, int page, int limit) {
 		try {
@@ -51,6 +52,7 @@ public class OrderController extends ParentController {
 		return response.getResult();
 	}
 
+	@CorsComposition.Cors
 	@BodyParser.Of(BodyParser.Json.class)
 	@Security.Authenticated(VendorAuthenticator.class)
 	public Result updateOrderStatus() {
@@ -139,6 +141,7 @@ public class OrderController extends ParentController {
 		return response.getResult();
 	}
 
+	@CorsComposition.Cors
 	@Security.Authenticated(VendorAuthenticator.class)
 	public Result getVendorOrderStats(long startTime, long endTime) {
 		try {

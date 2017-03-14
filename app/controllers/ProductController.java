@@ -12,6 +12,7 @@ import play.mvc.Security;
 import services.ProductService;
 import utils.MyConstants.JsonSchemaFilePath;
 import utils.MyConstants.SuccessMessages;
+import utils.CorsComposition;
 import utils.MySuccessResponse;
 import utils.ValidateJsonSchema.ValidateJson;
 
@@ -24,6 +25,7 @@ public class ProductController extends ParentController {
 		this.productService = productService;
 	}
 
+	@CorsComposition.Cors
 	@BodyParser.Of(BodyParser.Json.class)
 	@Security.Authenticated(VendorAuthenticator.class)
 	@ValidateJson(JsonSchemaFilePath.ADD_PRODUCT)
@@ -39,6 +41,7 @@ public class ProductController extends ParentController {
 		return response.getResult();
 	}
 
+	@CorsComposition.Cors
 	@BodyParser.Of(BodyParser.Json.class)
 	@Security.Authenticated(VendorAuthenticator.class)
 	@ValidateJson(JsonSchemaFilePath.UPDATE_PRODUCT)
@@ -54,6 +57,7 @@ public class ProductController extends ParentController {
 		return response.getResult();
 	}
 
+	@CorsComposition.Cors
 	@BodyParser.Of(BodyParser.Json.class)
 	@Security.Authenticated(VendorAuthenticator.class)
 	public Result deleteProductByIds() {
@@ -68,6 +72,7 @@ public class ProductController extends ParentController {
 		return response.getResult();
 	}
 
+	@CorsComposition.Cors
 	@BodyParser.Of(BodyParser.Json.class)
 	@Security.Authenticated(VendorAuthenticator.class)
 	public Result setProductAvailability() {
@@ -83,6 +88,7 @@ public class ProductController extends ParentController {
 		return response.getResult();
 	}
 
+	@CorsComposition.Cors
 	@Security.Authenticated(VendorAuthenticator.class)
 	public Result getVendorProducts(int categoryId, Boolean isAvailable, int page, int limit) {
 		try {
@@ -97,6 +103,7 @@ public class ProductController extends ParentController {
 	}
 
 	/* Search products for Vendors */
+	@CorsComposition.Cors
 	@Security.Authenticated(VendorAuthenticator.class)
 	public Result searchVendorProducts(String searchText) {
 		try {
@@ -111,6 +118,7 @@ public class ProductController extends ParentController {
 	}
 
 	/* Search products for Users */
+	@CorsComposition.Cors
 	public Result searchProducts(String searchText, int page, int limit) {
 		try {
 
@@ -123,6 +131,7 @@ public class ProductController extends ParentController {
 		return response.getResult();
 	}
 
+	@CorsComposition.Cors
 	@Security.Authenticated(VendorAuthenticator.class)
 	public Result searchCategory(String searchText) {
 		try {

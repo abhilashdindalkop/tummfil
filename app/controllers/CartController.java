@@ -11,6 +11,7 @@ import play.mvc.Result;
 import play.mvc.Security;
 import services.CartService;
 import utils.MyConstants.SuccessMessages;
+import utils.CorsComposition;
 import utils.MySuccessResponse;
 
 public class CartController extends ParentController {
@@ -25,6 +26,7 @@ public class CartController extends ParentController {
 	/*
 	 * Add products to cart
 	 */
+	@CorsComposition.Cors
 	@BodyParser.Of(BodyParser.Json.class)
 	@Security.Authenticated(UserAuthenticator.class)
 	public Result addProductToCart() {
@@ -43,6 +45,7 @@ public class CartController extends ParentController {
 	/*
 	 * delete product from Cart
 	 */
+	@CorsComposition.Cors
 	@BodyParser.Of(BodyParser.Json.class)
 	@Security.Authenticated(UserAuthenticator.class)
 	public Result deleteProductFromCart() {
@@ -57,6 +60,7 @@ public class CartController extends ParentController {
 		return response.getResult();
 	}
 
+	@CorsComposition.Cors
 	@Security.Authenticated(UserAuthenticator.class)
 	public Result getCartProducts() {
 		try {

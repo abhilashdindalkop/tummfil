@@ -88,7 +88,7 @@ POST   	/write/cms/vendor/update					controllers.cms.VendorCmsController.updateV
 POST   	/read/cms/vendor/list						controllers.cms.VendorCmsController.getVendorList()	
 
 
-POST	/read/shopify								controllers.ShopifyController.shopifyProductTest()
+# POST	/read/shopify								controllers.ShopifyController.shopifyProductTest()
 
 
 
