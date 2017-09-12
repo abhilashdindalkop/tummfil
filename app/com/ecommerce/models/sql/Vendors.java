@@ -76,9 +76,9 @@ public class Vendors extends Model {
 
 	private String imageUrl;
 
-	private Boolean isVendorAvailable = false;
+	private Boolean isVendorAvailable = true;
 
-	private Boolean isVendorVerified = false;
+	private Boolean isVendorVerified = true;
 
 	private Boolean isDeleted = false;
 
