@@ -165,14 +165,6 @@ create table subscriptions (
   constraint pk_subscriptions primary key (id))
 ;
 
-create table tags (
-  id                        bigint auto_increment not null,
-  name                      varchar(255) not null,
-  created_time              TIMESTAMP,
-  constraint uq_tags_name unique (name),
-  constraint pk_tags primary key (id))
-;
-
 create table transactions (
   id                        bigint auto_increment not null,
   encrypted_id              varchar(255) not null,
@@ -391,8 +383,6 @@ drop table promotions;
 drop table referral;
 
 drop table subscriptions;
-
-drop table tags;
 
 drop table transactions;
 
