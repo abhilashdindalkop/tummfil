@@ -38,11 +38,6 @@ public class UserService {
 				throw new MyException(FailureMessages.EMAIL_ALREADY_EXISTS);
 			}
 		}
-		Cities city = null;
-		if (inputJson.has(APIRequestKeys.CITY_ID)) {
-			int cityId = inputJson.findValue(APIRequestKeys.CITY_ID).asInt();
-			city = Cities.findById(cityId);
-		}
 
 		String password = inputJson.findValue(APIRequestKeys.PASSWORD).asText();
 		int deviceTypeId = inputJson.findValue(APIRequestKeys.DEVICE_TYPE).asInt();
@@ -57,7 +52,7 @@ public class UserService {
 		ObjectNode resultNode = Json.newObject();
 		try {
 			Ebean.beginTransaction();
-			newUser.addUser(password, city);
+			newUser.addUser(password);
 			/* Create User Session */
 			UserSession session = UserSession.create(newUser, deviceToken, deviceId, deviceTypeId);
 			Ebean.commitTransaction();
@@ -76,20 +71,18 @@ public class UserService {
 
 	public ObjectNode userSignIn(JsonNode inputJson) throws MyException, NoSuchAlgorithmException, IOException {
 		Users user = null;
-		if (inputJson.has(APIRequestKeys.EMAIL)) {
-			String email = inputJson.findValue(APIRequestKeys.EMAIL).asText();
+		if (inputJson.has(APIRequestKeys.USERNAME)) {
+			String username = inputJson.findValue(APIRequestKeys.USERNAME).asText();
 			/* Get by Email */
-			user = Users.findByEmail(email);
-		} else if (inputJson.has(APIRequestKeys.PHONE_NO)) {
-			String phoneNo = inputJson.findValue(APIRequestKeys.PHONE_NO).asText();
-			/* Get by Phone No */
-			user = Users.findByPhoneNo(phoneNo);
+			user = Users.findByUsername(username);
 		} else {
 			throw new MyException(FailureMessages.EMAIL_PHONE_NOT_FOUND);
 		}
+
 		if (user == null) {
 			throw new MyException(FailureMessages.INCORRECT_EMAIL_PHONE);
 		}
+
 		String password = inputJson.findValue(APIRequestKeys.PASSWORD).asText();
 		if (!Users.checkPassword(user, password)) {
 			throw new MyException(FailureMessages.INCORRECT_PASSWORD);
@@ -107,14 +100,13 @@ public class UserService {
 		resultNode.put(APIResponseKeys.NAME, user.getName());
 		resultNode.put(APIResponseKeys.EMAIL, user.getEmail());
 		resultNode.put(APIResponseKeys.PHONE_NO, user.getPhoneNo());
-		resultNode.put(APIResponseKeys.ADDRESS, user.getAddress());
-		resultNode.put(APIResponseKeys.PINCODE, user.getPincode());
-		resultNode.set(APIResponseKeys.CITY, Json.toJson(user.getCity()));
 		resultNode.put(APIResponseKeys.TOKEN, session.getToken());
 		if (user.getCreatedTime() == null) {
 			user.updateCreatedTime();
 			resultNode.put(APIResponseKeys.IS_NEW_USER, true);
 		}
+
+		// TODO - Get User Default Address
 
 		return resultNode;
 	}
@@ -136,9 +128,8 @@ public class UserService {
 		resultNode.put(APIResponseKeys.PHONE_NO, user.getPhoneNo());
 		resultNode.put(APIResponseKeys.REFERRAL_CODE, user.getReferralCode());
 		resultNode.put(APIResponseKeys.WALLET_AMOUNT, user.getWalletAmount());
-		resultNode.put(APIResponseKeys.ADDRESS, user.getAddress());
-		resultNode.put(APIResponseKeys.PINCODE, user.getPincode());
-		resultNode.set(APIResponseKeys.CITY, Json.toJson(user.getCity()));
+
+		// TODO - Get User Default Address
 
 		return resultNode;
 
@@ -161,9 +152,8 @@ public class UserService {
 		resultNode.put(APIResponseKeys.NAME, user.getName());
 		resultNode.put(APIResponseKeys.EMAIL, user.getEmail());
 		resultNode.put(APIResponseKeys.PHONE_NO, user.getPhoneNo());
-		resultNode.put(APIResponseKeys.ADDRESS, user.getAddress());
-		resultNode.put(APIResponseKeys.PINCODE, user.getPincode());
-		resultNode.set(APIResponseKeys.CITY, Json.toJson(user.getCity()));
+
+		// TODO - Get User Default Address
 
 		return resultNode;
 	}

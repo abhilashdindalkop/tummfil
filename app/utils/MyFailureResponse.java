@@ -2,24 +2,16 @@ package utils;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.ArrayList;
-
-import com.fasterxml.jackson.databind.JsonNode;
-
-import play.libs.Json;
 
 public class MyFailureResponse extends MyResponse {
 
 	public MyFailureResponse(String errorMessage) {
 		result.put(error, 100);
-		result.put(count, 0);
 		result.put(messageKey, getResponseMessage(errorMessage));
-		result.set(resultKey, Json.toJson(new ArrayList<JsonNode>()));
 	}
 
 	public MyFailureResponse(String errorMessage, String systemMessage) {
 		result.put(error, 100);
-		result.put(count, 0);
 		result.put(messageKey, getResponseMessage(errorMessage));
 		result.put(systemMessageKey, systemMessage);
 	}
@@ -42,6 +34,7 @@ public class MyFailureResponse extends MyResponse {
 			this.isNullPointerException = true;
 		}
 
+		result.put(error, 100);
 		result.put(messageKey, getResponseMessage(errorMessage));
 		result.put(systemMessageKey, systemMessage);
 	}

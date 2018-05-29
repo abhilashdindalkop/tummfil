@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.avaje.ebean.Ebean;
+import com.avaje.ebean.Expr;
 import com.avaje.ebean.Model;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -223,6 +224,12 @@ public class Users extends Model {
 		return user;
 	}
 
+	public static Users findByUsername(String username) {
+		Users user = Ebean.find(Users.class).where().or(Expr.eq("phoneNo", username), Expr.eq("email", username))
+				.eq("isDeleted", false).findUnique();
+		return user;
+	}
+
 	public static Boolean isEmailExists(String email) {
 		return findByEmail(email) != null;
 	}
@@ -250,8 +257,7 @@ public class Users extends Model {
 		return user;
 	}
 
-	public void addUser(String password, Cities city) {
-		this.setCity(city);
+	public void addUser(String password) {
 		this.setPassword(PasswordEncryptDecrypt.generatePasswordHash(password));
 		String uuid = UUID.randomUUID().toString();
 		this.setEncryptedUserId(uuid);
@@ -268,20 +274,8 @@ public class Users extends Model {
 			String name = inputJson.findValue(APIRequestKeys.NAME).asText();
 			this.setName(name);
 		}
-		if (inputJson.has(APIRequestKeys.ADDRESS)) {
-			String address = inputJson.findValue(APIRequestKeys.ADDRESS).asText();
-			this.setAddress(address);
-		}
-		if (inputJson.has(APIRequestKeys.PINCODE)) {
-			String pincode = inputJson.findValue(APIRequestKeys.PINCODE).asText();
-			this.setPincode(pincode);
-		}
-		if (inputJson.has(APIRequestKeys.CITY_ID)) {
-			long cityId = inputJson.findValue(APIRequestKeys.CITY_ID).asLong();
-			Cities city = Cities.findById(cityId);
-			this.setCity(city);
-		}
 		if (inputJson.has(APIRequestKeys.EMAIL)) {
+			// TODO Send confirmation mail
 			String email = inputJson.findValue(APIRequestKeys.EMAIL).asText();
 			this.setEmail(email);
 		}
@@ -300,7 +294,7 @@ public class Users extends Model {
 
 	public static ObjectNode createUserUsingFacebook(String facebookId, String phoneNo, String email, String name,
 			String deviceToken, String deviceId, int deviceTypeId)
-					throws NoSuchAlgorithmException, IOException, MyException {
+			throws NoSuchAlgorithmException, IOException, MyException {
 
 		ObjectNode resultNode = Json.newObject();
 

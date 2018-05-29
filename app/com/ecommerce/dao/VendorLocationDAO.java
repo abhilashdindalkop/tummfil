@@ -22,8 +22,8 @@ public class VendorLocationDAO {
 
 	public Query<VendorLocations> findNearbyVendors(double latitude, double longitude, double distance) {
 		double distanceInKM = distance / 1000;
-		return ds.find(VendorLocations.class).field("location").near(longitude, latitude, distanceInKM / 111.12)
-				.order("createdTime");
+		double radians = distanceInKM / 111.12;
+		return ds.find(VendorLocations.class).field("location").near(longitude,latitude, radians).order("createdTime");
 	}
 
 	public List<Long> findNearbyVendorIds(double latitude, double longitude, double distance, int page, int limit) {
@@ -74,5 +74,14 @@ public class VendorLocationDAO {
 		ops.set("shippingFeeDistanceLimit", shippingFeeDistanceLimit);
 		ds.update(vendorUpdate, ops);
 	}
+
+	// Kept a copy
+	// public Query<VendorLocations> findNearbyVendors(double latitude, double
+	// longitude, double distance) {
+	// double distanceInKM = distance / 1000;
+	// return ds.find(VendorLocations.class).field("location").near(longitude,
+	// latitude, distanceInKM / 111.12)
+	// .order("createdTime");
+	// }
 
 }

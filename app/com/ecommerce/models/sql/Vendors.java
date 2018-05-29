@@ -373,6 +373,8 @@ public class Vendors extends Model {
 
 			VendorLocationDAO vendorLocationDAO = new VendorLocationDAO();
 			List<Long> vendorIdList = vendorLocationDAO.findNearbyVendorIds(latitude, longitude, distance, page, limit);
+			
+			System.out.println("VendorIds : " + vendorIdList);
 			if (!vendorIdList.isEmpty()) {
 				vendorQuery.where().in("id", vendorIdList);
 			} else {

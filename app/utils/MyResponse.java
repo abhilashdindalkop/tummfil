@@ -23,7 +23,7 @@ public class MyResponse extends Results {
 	protected boolean isConflict = false;
 	protected String error = APIResponseKeys.ERROR;
 	protected String count = APIResponseKeys.COUNT;
-	protected String resultKey = APIResponseKeys.RESULT_KEY;
+	protected String data = APIResponseKeys.DATA;
 
 	protected String getResponseMessage(String message, Object... args) {
 		if (message.equals(FailureMessages.SESSION_INVALID)) {
@@ -38,51 +38,6 @@ public class MyResponse extends Results {
 	}
 
 	public Result getResult() {
-
-		// boolean notifyErrrorsByEmail =
-		// Play.application().configuration().getBoolean("errors.notifyByEmail",
-		// false);
-		//
-		// if(this instanceof AgntFailureResponse && this.notifyByEmail &&
-		// notifyErrrorsByEmail) {
-		// Request req = Http.Context.current().request();
-		// String token = req.getHeader(APIRequestKeys.TOKEN_HEADER);
-		// String reqMethod = req.method();
-		// String contentType =
-		// req.getHeader(APIRequestKeys.CONTENT_TYPE_HEADER);
-		// String message = new String();
-		//
-		// ObjectNode newResult = Json.newObject();
-		// newResult.put(APIResponseKeys.MESSAGE,
-		// result.get(APIResponseKeys.MESSAGE).asText());
-		//
-		// if(isNullPointerException) {
-		// message += "Exception Type: Null Pointer \n<br/>";
-		// }
-		//
-		// message += "Host: "+req.host()+"\n<br/>";
-		// message += "Action name: "+req.uri()+"\n<br/>";
-		// message += "IP: "+req.remoteAddress()+"\n<br/>";
-		// message += "Token: "+token+"\n<br/>";
-		// message += "Method: "+req.method()+"\n<br/>";
-		//
-		// if(reqMethod.equals("POST") &&
-		// contentType.equals(RequestContentType.APPLICATION_JSON)) {
-		// String inputString = req.body().asJson().toString();
-		// message += "Request Data: "+inputString+"\n<br/>";
-		// }
-		//
-		// message += "Response Data: "+newResult.toString()+"\n<br/>";
-		//
-		// if(this.stackTrace != null) {
-		// message += "Stack Trace:\n<br/>"+
-		// this.stackTrace.replaceAll("(\r\n|\n)", "<br/>");
-		// }
-		//
-		// //TODO make it asynchronous
-		// LatchMailer.sendMail("Latch API Error report: "+req.uri(), message,
-		// AgntConstants.developerEmails);
-		// }
 
 		if (this instanceof MySuccessResponse) {
 			return ok(result);

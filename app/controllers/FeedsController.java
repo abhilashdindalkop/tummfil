@@ -44,6 +44,7 @@ public class FeedsController extends ParentController {
 	@ValidateJson(JsonSchemaFilePath.PRODUCT_FEEDS)
 	public Result productFeeds() {
 		try {
+
 			JsonNode inputJson = request().body().asJson();
 
 			ObjectNode resultNode = feedService.productFeeds(inputJson);

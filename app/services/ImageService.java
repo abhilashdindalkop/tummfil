@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import com.ecommerce.models.sql.Category;
 import com.ecommerce.models.sql.Products;
 import com.ecommerce.models.sql.Vendors;
 

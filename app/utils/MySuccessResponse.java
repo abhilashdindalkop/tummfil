@@ -5,13 +5,10 @@ import java.util.ArrayList;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import play.libs.Json;
-
 public class MySuccessResponse extends MyResponse {
 
 	public MySuccessResponse(String successMessage) {
 		result.put(error, 0);
-		result.put(count, 1);
 		result.put(messageKey, getResponseMessage(successMessage));
 	}
 
@@ -27,10 +24,8 @@ public class MySuccessResponse extends MyResponse {
 			result.put(error, args[0]);
 		}
 
-		result.put(count, 1);
-		result.put(messageKey, "done");
 		ArrayList<JsonNode> list = new ArrayList<JsonNode>();
 		list.add(successData);
-		result.set(resultKey, Json.toJson(list));
+		result.set(data, successData);
 	}
 }

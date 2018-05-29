@@ -3,16 +3,11 @@
     "title": "signIn",
     "type": "object",
     "properties": {
-        "phoneNo": {
+        "username": {
             "type": "string",
-            "maxLength": 25,
+            "maxLength": 100,
             "minLength": 2,
-            "description": "PhoneNo"
-        },
-        "email": {
-            "type": "string",
-            "format": "email",
-            "maxLength": 100
+            "description": "Username"
         },
         "password": {
 			"description": "password",
@@ -35,6 +30,7 @@
     },
     "additionalProperties": false,
     "required": [
+    	"username",
 		"password",
 		"deviceId",
 		"deviceType"

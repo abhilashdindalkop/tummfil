@@ -14,7 +14,7 @@ public class MyConstants {
 		public static final String MESSAGE = "message";
 		public static final String ERROR = "error";
 		public static final String COUNT = "count";
-		public static final String RESULT_KEY = "result";
+//		public static final String RESULT_KEY = "result";
 		public static final String SUCCESS_MESSAGE = "success";
 		public static final String FAILURE_MESSAGE = "error";
 		public static final String MESSAGE_CODE = "messageCode";
@@ -134,7 +134,9 @@ public class MyConstants {
 		public static final String ADDRESS = "address";
 		public static final String ADDRESS_TYPE = "addressType";
 		public static final String IS_AVAILABLE = "isAvailable";
-
+		public static final String USERNAME = "username";
+		
+		
 		public static final String CITY_ID = "cityId";
 		public static final String PINCODE = "pincode";
 		public static final String VENDOR_TYPE = "vendorType";
@@ -358,7 +360,8 @@ public class MyConstants {
 
 		public static final String CATEGORY_NAME_NOT_FOUND = "category.name.not.found";
 		public static final String TIME_FIELDS_NOT_FOUND = "time.fields.not.found";
-
+		
+		
 	}
 
 	public class OsType {
@@ -494,7 +497,7 @@ public class MyConstants {
 
 	public static final int DEFAULT_PAGINATION_LIMIT = 10;
 
-	public static final int SHIPPING_DISTANCE = 20000; // In meters
+	public static final int SHIPPING_DISTANCE = 10000; // In meters
 
 	// In milliseconds (24*60*60*1000)
 	public static final int EXPIRY_TIME = 86400000;
