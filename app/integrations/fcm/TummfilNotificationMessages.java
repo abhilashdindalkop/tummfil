@@ -15,6 +15,13 @@ public class TummfilNotificationMessages {
 		this.notificationHandler = notificationHandler;
 	}
 
+	public void placeOrderMessage(Orders order) {
+
+		notificationHandler.sendUserPushNotification(order.getUser(), NotificationType.ORDER_PLACED, null);
+		notificationHandler.sendVendorPushNotification(order.getVendor(), NotificationType.ORDER_PLACED, null);
+
+	}
+
 	public void confirmOrderMessage(Orders order) {
 
 		notificationHandler.sendUserPushNotification(order.getUser(), NotificationType.ORDER_CONFIRMED, null);

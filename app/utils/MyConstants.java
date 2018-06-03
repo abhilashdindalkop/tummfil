@@ -14,7 +14,7 @@ public class MyConstants {
 		public static final String MESSAGE = "message";
 		public static final String ERROR = "error";
 		public static final String COUNT = "count";
-//		public static final String RESULT_KEY = "result";
+		// public static final String RESULT_KEY = "result";
 		public static final String SUCCESS_MESSAGE = "success";
 		public static final String FAILURE_MESSAGE = "error";
 		public static final String MESSAGE_CODE = "messageCode";
@@ -135,8 +135,7 @@ public class MyConstants {
 		public static final String ADDRESS_TYPE = "addressType";
 		public static final String IS_AVAILABLE = "isAvailable";
 		public static final String USERNAME = "username";
-		
-		
+
 		public static final String CITY_ID = "cityId";
 		public static final String PINCODE = "pincode";
 		public static final String VENDOR_TYPE = "vendorType";
@@ -295,6 +294,8 @@ public class MyConstants {
 		public static final String YET_TO_IMPLEMENT = "yet.to.implement";
 		public static final String INVALID_PAYMENT_TYPE = "invalid.payment.type";
 		public static final String CANNOT_CANCEL_CONFIRMED_ORDER = "cannot.cancel.confirmed.order";
+		public static final String CANNOT_CANCEL_PENDING_ORDER = "cannot.cancel.pending.order";
+		public static final String CONFIRM_PENDING_ORDER_FIRST = "confirm.pending.order.first";
 
 		public static final String FACEBOOK_LINK_ABSENT = "facebook.account.absent";
 		public static final String INVALID_FACEBOOK_CREDENTIALS = "invalid.facebook.credentials";
@@ -311,7 +312,6 @@ public class MyConstants {
 		public static final String ALREADY_DECLINED = "already.declined";
 		public static final String ALREADY_CANCELLED = "already.cancelled";
 		public static final String ALREADY_OUT_FOR_DELIVERY = "already.out.for.delivery";
-		public static final String ALREADY_UNDER_PROGRESS = "already.under.progress";
 		public static final String ALREADY_DELIVERED = "already.delivered";
 
 		public static final String PRODUCT_NOT_ADDED_TO_CART = "product.not.added.to.cart";
@@ -360,8 +360,7 @@ public class MyConstants {
 
 		public static final String CATEGORY_NAME_NOT_FOUND = "category.name.not.found";
 		public static final String TIME_FIELDS_NOT_FOUND = "time.fields.not.found";
-		
-		
+
 	}
 
 	public class OsType {
@@ -417,7 +416,7 @@ public class MyConstants {
 	public static List<Integer> productTypeList = Arrays.asList(ProductType.NONE, ProductType.VEG, ProductType.NON_VEG);
 
 	public static List<Integer> orderTypeList = Arrays.asList(OrderType.PICK_UP, OrderType.DELIVER);
-	public static List<Integer> orderStatusList = Arrays.asList(OrderStatus.CONFIRMED, OrderStatus.UNDER_PROGRESS,
+	public static List<Integer> orderStatusList = Arrays.asList(OrderStatus.PENDING, OrderStatus.CONFIRMED,
 			OrderStatus.OUT_FOR_DELIVERY, OrderStatus.DECLINED, OrderStatus.CANCELLED, OrderStatus.DELIVERED);
 
 	public static List<Integer> addressTypeList = Arrays.asList(AddressType.HOME, AddressType.OTHERS, AddressType.WORK);
@@ -425,11 +424,10 @@ public class MyConstants {
 	public class OrderStatus {
 		public static final int PENDING = 1;
 		public static final int CONFIRMED = 2;
-		public static final int UNDER_PROGRESS = 3;
-		public static final int OUT_FOR_DELIVERY = 4;
-		public static final int DECLINED = 5;
-		public static final int CANCELLED = 6;
-		public static final int DELIVERED = 7;
+		public static final int OUT_FOR_DELIVERY = 3;
+		public static final int DECLINED = 4;
+		public static final int CANCELLED = 5;
+		public static final int DELIVERED = 6;
 	}
 
 	public class PaymentStatus {

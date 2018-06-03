@@ -43,7 +43,6 @@ public class AmazonS3Utils {
 	private final static String JPG_TYPE = "jpg";
 	private final static String PNG_TYPE = "png";
 	private final static String JPG_MIME = "image/jpeg";
-	private final static String CSV_TYPE = "text/csv";
 
 	static {
 		try {
@@ -81,32 +80,6 @@ public class AmazonS3Utils {
 
 			} catch (Exception e) {
 				Logger.info("s3 error log : " + e);
-				throw new MyException(FailureMessages.ERROR_WHILE_UPLOADING_IMAGE);
-			} finally {
-				if (inputStream != null) {
-					inputStream.close();
-				}
-			}
-		}
-	}
-
-	public static void uploadCSVFile(File file, String filePath) throws IOException, MyException {
-
-		if (file != null) {
-			InputStream inputStream = new FileInputStream(file);
-			try {
-				String bucketName = MessageReaderFactory.getPropertyValue("S3_BUCKET_NAME").trim();
-				ObjectMetadata metadata = new ObjectMetadata();
-				metadata.setContentType(CSV_TYPE);
-				metadata.setContentDisposition("attachment;filename=" + file.getName());
-
-				PutObjectRequest putObjectUploadRequest = new PutObjectRequest(bucketName, filePath, inputStream,
-						metadata);
-				PutObjectResult result = s3Client.putObject(putObjectUploadRequest);
-
-				Logger.info(result.getETag());
-
-			} catch (Exception e) {
 				throw new MyException(FailureMessages.ERROR_WHILE_UPLOADING_IMAGE);
 			} finally {
 				if (inputStream != null) {
@@ -218,15 +191,6 @@ public class AmazonS3Utils {
 			}
 		}
 	}
-
-	// public static String constructCsvFilePathUrl(String csvFileName, String
-	// exportTypePath) throws IOException {
-	//
-	// return NetworkConstants.HOST_URL_HTTPS +
-	// MessageReaderFactory.getPropertyValue("DOMAIN_NAME")
-	// .concat(MessageReaderFactory.getPropertyValue("S3_BUCKET_NAME")).concat(SUFFIX).concat(exportTypePath)
-	// .concat(csvFileName);
-	// }
 
 	static void deleteObjectsInFolder(String folderPath) throws IOException {
 		String bucketName = MessageReaderFactory.getPropertyValue("S3_BUCKET_NAME").trim();

@@ -65,9 +65,6 @@ public class GenericUtils {
 			if (prevOrderStatus == OrderStatus.CONFIRMED) {
 				failureMessage = FailureMessages.ALREADY_CONFIRMED;
 			}
-			if (prevOrderStatus == OrderStatus.UNDER_PROGRESS) {
-				failureMessage = FailureMessages.ALREADY_UNDER_PROGRESS;
-			}
 			if (prevOrderStatus == OrderStatus.OUT_FOR_DELIVERY) {
 				failureMessage = FailureMessages.ALREADY_OUT_FOR_DELIVERY;
 			}
@@ -80,23 +77,6 @@ public class GenericUtils {
 			if (prevOrderStatus == OrderStatus.DECLINED) {
 				failureMessage = FailureMessages.ALREADY_DECLINED;
 			}
-		case OrderStatus.UNDER_PROGRESS:
-			if (prevOrderStatus == OrderStatus.UNDER_PROGRESS) {
-				failureMessage = FailureMessages.ALREADY_UNDER_PROGRESS;
-			}
-			if (prevOrderStatus == OrderStatus.OUT_FOR_DELIVERY) {
-				failureMessage = FailureMessages.ALREADY_OUT_FOR_DELIVERY;
-			}
-			if (prevOrderStatus == OrderStatus.CANCELLED) {
-				failureMessage = FailureMessages.ALREADY_CANCELLED;
-			}
-			if (prevOrderStatus == OrderStatus.DELIVERED) {
-				failureMessage = FailureMessages.ALREADY_DELIVERED;
-			}
-			if (prevOrderStatus == OrderStatus.DECLINED) {
-				failureMessage = FailureMessages.ALREADY_DECLINED;
-			}
-			break;
 		case OrderStatus.OUT_FOR_DELIVERY:
 			if (prevOrderStatus == OrderStatus.OUT_FOR_DELIVERY) {
 				failureMessage = FailureMessages.ALREADY_OUT_FOR_DELIVERY;
@@ -115,9 +95,6 @@ public class GenericUtils {
 			if (prevOrderStatus == OrderStatus.OUT_FOR_DELIVERY) {
 				failureMessage = FailureMessages.ALREADY_OUT_FOR_DELIVERY;
 			}
-			if (prevOrderStatus == OrderStatus.UNDER_PROGRESS) {
-				failureMessage = FailureMessages.ALREADY_UNDER_PROGRESS;
-			}
 			if (prevOrderStatus == OrderStatus.CANCELLED) {
 				failureMessage = FailureMessages.ALREADY_CANCELLED;
 			}
@@ -132,6 +109,9 @@ public class GenericUtils {
 			if (prevOrderStatus == OrderStatus.CONFIRMED) {
 				failureMessage = FailureMessages.CANNOT_CANCEL_CONFIRMED_ORDER;
 			}
+			if (prevOrderStatus == OrderStatus.PENDING) {
+				failureMessage = FailureMessages.CANNOT_CANCEL_PENDING_ORDER;
+			}
 			if (prevOrderStatus == OrderStatus.CANCELLED) {
 				failureMessage = FailureMessages.ALREADY_CANCELLED;
 			}
@@ -143,11 +123,8 @@ public class GenericUtils {
 			}
 			break;
 		case OrderStatus.DELIVERED:
-			if (prevOrderStatus == OrderStatus.CONFIRMED) {
-				failureMessage = FailureMessages.ALREADY_CONFIRMED;
-			}
-			if (prevOrderStatus == OrderStatus.UNDER_PROGRESS) {
-				failureMessage = FailureMessages.ALREADY_UNDER_PROGRESS;
+			if (prevOrderStatus == OrderStatus.PENDING) {
+				failureMessage = FailureMessages.CONFIRM_PENDING_ORDER_FIRST;
 			}
 			if (prevOrderStatus == OrderStatus.CANCELLED) {
 				failureMessage = FailureMessages.ALREADY_CANCELLED;

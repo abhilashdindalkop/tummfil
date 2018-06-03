@@ -24,13 +24,14 @@ public class NotificationConstants {
 		 * Common
 		 */
 		public static final int WELCOME = 1;
-		public static final int ORDER_CONFIRMED = 2;
-		public static final int ORDER_OUT_FOR_DELIVERY = 3;
-		public static final int ORDER_DELIVERED = 4;
-		public static final int ORDER_DECLINED = 5;
-		public static final int ORDER_CANCELLED = 6;
-		public static final int PAYMENT_SUCCESS = 7;
-		public static final int PAYMENT_FAILED = 8;
+		public static final int ORDER_PLACED = 2;
+		public static final int ORDER_CONFIRMED = 3;
+		public static final int ORDER_OUT_FOR_DELIVERY = 4;
+		public static final int ORDER_DELIVERED = 5;
+		public static final int ORDER_DECLINED = 6;
+		public static final int ORDER_CANCELLED = 7;
+		public static final int PAYMENT_SUCCESS = 8;
+		public static final int PAYMENT_FAILED = 9;
 		/*
 		 * Users
 		 */

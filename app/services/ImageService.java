@@ -51,12 +51,6 @@ public class ImageService {
 			// To upload thumbnail size images to the S3
 			AmazonS3Utils.uploadResizedFile(imageFile, productImageConstantPath, ImageResizeType.THUMBNAIL_SIZE);
 
-			// To upload 800x800 size images to the S3
-			AmazonS3Utils.uploadResizedFile(imageFile, productImageConstantPath, ImageResizeType.ANDROID_SIZE);
-
-			// To upload 400x400 size images to the S3
-			AmazonS3Utils.uploadResizedFile(imageFile, productImageConstantPath, ImageResizeType.WEB_SIZE);
-
 			// update the DB that cover image is uploaded
 			product.updateImageUrlStatus(filename);
 		}
@@ -94,12 +88,6 @@ public class ImageService {
 
 			// To upload thumbnail size images to the S3
 			AmazonS3Utils.uploadResizedFile(imageFile, filePath, ImageResizeType.THUMBNAIL_SIZE);
-
-			// To upload 800x800 size images to the S3
-			AmazonS3Utils.uploadResizedFile(imageFile, filePath, ImageResizeType.ANDROID_SIZE);
-
-			// To upload 400x400 size images to the S3
-			AmazonS3Utils.uploadResizedFile(imageFile, filePath, ImageResizeType.WEB_SIZE);
 
 			// update the DB that cover image is uploaded
 			vendor.updateImageUrlStatus(filename);

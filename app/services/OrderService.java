@@ -157,6 +157,7 @@ public class OrderService {
 
 			switch (orderStatus) {
 			case OrderStatus.CONFIRMED:
+				tummfilNotificationMessages.confirmOrderMessage(order);
 				break;
 			case OrderStatus.OUT_FOR_DELIVERY:
 				tummfilNotificationMessages.outForDeliveryOrderMessage(order);

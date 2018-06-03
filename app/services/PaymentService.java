@@ -52,9 +52,9 @@ public class PaymentService {
 			}
 			newTransaction = transactionsDAO.create(order, PaymentType.COD, CurrencyType.INR);
 			if (newTransaction.getStatus() == TransactionStatus.SUCCESS) {
-				order.setStatus(OrderStatus.CONFIRMED);
+				order.setStatus(OrderStatus.PENDING);
 				order.updatePaymentTypeAndStatus(PaymentType.COD, PaymentStatus.PENDING);
-				tummfilNotificationMessages.confirmOrderMessage(order);
+				tummfilNotificationMessages.placeOrderMessage(order);
 			}
 			break;
 		case PaymentType.CARD:
